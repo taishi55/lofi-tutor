@@ -14,7 +14,7 @@
   use:clickOutside
   transition:fly={{ duration: 200, y: 30, easing: cubicInOut }}
   on:click_outside={closeWindow}
-  class="common-bg common-border w-80 px-3 py-2 text-sm"
+  class="common-bg common-border w-80 z-50 px-3 py-2 text-sm"
 >
   {#if $templatePage === templatePages.listing}
     <TemplateList {closeWindow} />
