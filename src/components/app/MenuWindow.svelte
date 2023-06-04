@@ -58,12 +58,12 @@
         {#each pages as page}
           <button
             on:click={() => {
-              $currentPage = page.id;
+              $currentPage = page?.id;
               toggleMenu();
             }}
             class="px-3 py-1 w-full block text-left hover:bg-slate-900/30 rounded-md"
           >
-            {page.name}
+            {page?.name}
           </button>
         {/each}
       </div>

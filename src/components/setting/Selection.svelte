@@ -57,7 +57,7 @@
             }}
             class="px-3 py-1 w-full block text-left hover:bg-slate-900/30 rounded-md"
           >
-            {item.name}
+            {item?.name}
           </button>
         {/each}
       </div>

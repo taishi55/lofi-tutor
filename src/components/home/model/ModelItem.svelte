@@ -35,7 +35,7 @@
         <img src={item?.avatar} class=" w-5 h-5" alt="" />
       </div>
       <div class="font-semibold truncate">
-        {item.name}
+        {item?.name}
       </div>
     </div>
   </button>
