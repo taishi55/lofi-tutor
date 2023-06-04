@@ -32,7 +32,7 @@
       class=" w-full flex items-center space-x-2 whitespace-nowrap truncate py-1"
     >
       <div>
-        <img src={item.avatar} class=" w-5 h-5" alt="" />
+        <img src={item?.avatar} class=" w-5 h-5" alt="" />
       </div>
       <div class="font-semibold truncate">
         {item.name}

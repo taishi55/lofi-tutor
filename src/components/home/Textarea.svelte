@@ -364,7 +364,7 @@
           showModel = !showModel;
         }}
       >
-        <img src={$botModel.avatar} class=" aspect-square h-3 w-3" alt="" />
+        <img src={$botModel?.avatar} class=" aspect-square h-3 w-3" alt="" />
         <div>{$botModel.name}</div>
         <ArrowUp />
       </button>

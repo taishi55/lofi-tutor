@@ -16,7 +16,7 @@
   const lofiProfile =
     "https://i.pinimg.com/280x280_RS/89/6b/b2/896bb20801b503fdc0c15dd69c6bbc0c.jpg";
   export let item: ChatMessageModel;
-  let currentModel: ModelType | undefined = undefined;
+  let currentModel: ModelType = CHATBOTS[0];
 
   onMount(() => {
     currentModel = CHATBOTS.find((model) => model.id === item.author);
@@ -55,7 +55,7 @@
     <img src={lofiProfile} alt="" class="img !rounded-full" />
     {#if currentModel}
       <div class=" absolute -bottom-1 -right-1 w-1/2 h-1/2">
-        <img src={currentModel.avatar} alt="" class="img" />
+        <img src={currentModel?.avatar} alt="" class="img" />
       </div>
     {/if}
   {:else}
