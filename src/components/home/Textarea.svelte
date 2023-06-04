@@ -232,7 +232,12 @@
   };
 
   let isPlayingAudio = false;
-  $: if ($incomingSpeechItems.length > 0 && !isPlayingAudio) {
+  let isIgnoreThisChange = false;
+  $: if (
+    $incomingSpeechItems.length > 0 &&
+    !isPlayingAudio &&
+    !isIgnoreThisChange
+  ) {
     isPlayingAudio = true;
     triggerSpeechWhenReady();
   }
@@ -240,11 +245,14 @@
   const triggerSpeechWhenReady = async () => {
     const voiceAudio: HTMLAudioElement | null =
       document.querySelector("#voice");
-
+    const audioUrls = $incomingSpeechItems.map((i) => i.audioUrl);
     if (
       voiceAudio &&
       $incomingSpeechItems.length > 0 &&
-      $incomingSpeechItems.at(0).audioUrl
+      $incomingSpeechItems.at(0).audioUrl &&
+      !$incomingSpeechItems.some((item, index) =>
+        audioUrls.includes(item.audioUrl, index + 1)
+      )
     ) {
       voiceAudio.src = $incomingSpeechItems[0].audioUrl;
       const isGirlVoiceItem = $incomingSpeechItems[0].item.author !== "user";
@@ -279,8 +287,10 @@
 
             await delayAsync(2500);
 
+            isIgnoreThisChange = true;
             $incomingSpeechItems.shift();
             $incomingSpeechItems = $incomingSpeechItems;
+            isIgnoreThisChange = false;
 
             if ($incomingSpeechItems.length > 0) {
               await triggerSpeechWhenReady();
@@ -291,6 +301,13 @@
           voiceAudio.addEventListener("ended", audioReadyToEnd);
         });
       }
+    } else {
+      // remove duplicates
+      isIgnoreThisChange = true;
+      $incomingSpeechItems = $incomingSpeechItems.filter(
+        (i, index) => !audioUrls.includes(i.audioUrl, index + 1)
+      );
+      isIgnoreThisChange = false;
     }
   };
 

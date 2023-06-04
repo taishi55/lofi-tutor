@@ -224,7 +224,7 @@ const getAudioUrl = async (
       .replace(/```[\s\S]*?```/g, "") // code
       .replace(/https?:\/\/[ \s]+/g, "") // url
       .replace(/#/g, "")
-      .slice(0, 4000);
+      .slice(0, 3000); // max chars
     const changeEvent = new Event("change", { bubbles: true });
     inputElement.dispatchEvent(changeEvent);
   }
