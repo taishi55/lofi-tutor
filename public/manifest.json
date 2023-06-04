@@ -1,0 +1,54 @@
+{
+  "manifest_version": 3,
+  "version": "4.0.1",
+  "name": "__MSG_APPNAME__",
+  "description": "__MSG_APPDESC__",
+  "default_locale": "en_US",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {},
+  "background": {
+    "service_worker": "build/background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*/*", "https://*/*"],
+      "js": ["build/content.js"],
+      "css": ["build/content.css"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://chat.openai.com/*"],
+      "js": ["build/chatgpt.js"]
+    }
+  ],
+  "permissions": [
+    "commands",
+    "storage",
+    "unlimitedStorage",
+    "tabs",
+    "activeTab",
+    "scripting",
+    "contextMenus",
+    "webNavigation"
+  ],
+  "host_permissions": ["https://*/*", "https://*/*"],
+  "web_accessible_resources": [
+    {
+      "resources": ["index.html"],
+      "matches": ["https://*/*", "https://*/*"]
+    }
+  ],
+  "commands": {
+    "toggle-sidebar": {
+      "suggested_key": {
+        "default": "Alt+X",
+        "mac": "Command+X"
+      },
+      "description": "Open or close the sidebar"
+    }
+  }
+}

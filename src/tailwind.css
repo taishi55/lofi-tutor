@@ -1,0 +1,131 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+.input-textarea {
+  @apply text-sm px-3 py-1 bg-white dark:bg-black/20 text-slate-800 dark:text-white border-0 font-normal rounded-md resize-none placeholder:text-slate-800/60 dark:placeholder:text-white/70 outline-none w-full block focus:placeholder-transparent dark:focus:placeholder-transparent shadow-inner shadow-slate-400/70 dark:shadow-slate-900/60;
+}
+
+.common-bg {
+  @apply transition-all duration-700 ease-in-out bg-gradient-to-br from-slate-300 via-slate-50 to-slate-300 dark:from-slate-800 dark:via-slate-700 dark:to-slate-800 text-slate-800 dark:text-white/90;
+}
+
+.common-text {
+  @apply text-slate-800 dark:text-white/90;
+}
+
+.common-border {
+  @apply border border-slate-700/30 dark:border-white/30 rounded-md;
+}
+
+.message-bg {
+  @apply bg-white dark:bg-black/20 text-slate-800 dark:text-white;
+}
+
+.code-bg {
+  @apply rounded-md text-sm pb-3 !max-w-sm sm:!max-w-[38rem] !overflow-x-scroll transition-all duration-700 ease-in-out bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-white/90;
+}
+
+.code-pre {
+  @apply block w-full m-0 overflow-x-scroll;
+}
+
+.common-text-hover {
+  @apply hover:text-blue-600 dark:hover:text-blue-200;
+}
+
+.markdown-custom-styles {
+  > p {
+    margin: 0px !important;
+  }
+  & pre {
+    padding: 0;
+    margin: 0px !important;
+  }
+  & pre code {
+    /* white-space: pre-wrap; */
+    padding: 10px;
+    margin: 0px !important;
+  }
+  & h1 {
+    @apply text-lg font-semibold;
+  }
+  & h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply text-base font-semibold;
+  }
+  & b,
+  strong {
+    @apply font-semibold;
+  }
+  & em {
+    @apply font-semibold italic;
+  }
+  & img {
+    @apply bg-cover object-contain aspect-video;
+  }
+  & a {
+    @apply text-blue-600 hover:text-blue-400 dark:text-blue-500 dark:hover:text-blue-700 underline;
+  }
+  & ol,
+  ul {
+    @apply list-disc pl-4;
+  }
+  & table {
+    @apply border-collapse border border-slate-300 dark:border-slate-500 bg-slate-200 dark:bg-slate-700;
+  }
+  & th,
+  td {
+    @apply border border-slate-300 dark:border-slate-500;
+  }
+}
+
+.hljs-meta .hljs-string,
+.hljs-regexp,
+.hljs-string {
+  @apply !text-sky-700 dark:!text-sky-500;
+}
+
+.hljs-title,
+.hljs-title.class_,
+.hljs-title.class_.inherited__,
+.hljs-title.function_ {
+  @apply !text-purple-700 dark:!text-purple-500;
+}
+
+.hljs-attr,
+.hljs-attribute,
+.hljs-literal,
+.hljs-meta,
+.hljs-number,
+.hljs-operator,
+.hljs-selector-attr,
+.hljs-selector-class,
+.hljs-selector-id,
+.hljs-variable {
+  @apply !text-blue-700 dark:!text-blue-500;
+}
+
+.hljs-name,
+.hljs-quote,
+.hljs-selector-pseudo,
+.hljs-selector-tag {
+  @apply !text-green-700 dark:!text-green-500;
+}
+
+.hljs-doctag,
+.hljs-keyword,
+.hljs-meta .hljs-keyword,
+.hljs-template-tag,
+.hljs-template-variable,
+.hljs-type,
+.hljs-variable.language_ {
+  @apply !text-red-700 dark:!text-red-500;
+}
+
+.highlight {
+  @apply bg-yellow-200 dark:bg-yellow-600 dark:text-slate-800 px-1;
+}
