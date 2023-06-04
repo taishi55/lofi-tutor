@@ -157,10 +157,6 @@
       $messages = result?.messages || [];
       scrollToBottom();
     }
-    const result2 = await Browser.storage.sync.get(["botModel"]);
-    if (result2?.botModel) {
-      $botModel = result?.botModel;
-    }
   });
 
   const startSpeech = async (item: ChatMessageModel) => {
