@@ -387,7 +387,7 @@
       </button>
 
       {#if showTemplate}
-        <div class=" absolute bottom-0 right-0 pb-8">
+        <div class=" absolute bottom-0 right-0 z-50 pb-8">
           <Template {closeWindow} />
         </div>
       {/if}

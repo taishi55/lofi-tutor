@@ -37,7 +37,7 @@
   <button
     on:click={copyText}
     class={isItemHighlighted
-      ? "highlight label hover:bg-slate-400/20"
+      ? "highlight label dark:text-white/90 hover:bg-slate-400/20"
       : "label hover:bg-slate-400/20"}
   >
     {item.label}
