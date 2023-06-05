@@ -15,7 +15,7 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://*/*", "https://*/*"],
+      "matches": ["https://*/*", "http://*/*"],
       "js": ["build/content.js"],
       "css": ["build/content.css"],
       "run_at": "document_idle"

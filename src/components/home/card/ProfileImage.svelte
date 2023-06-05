@@ -11,7 +11,7 @@
     currentSpeechPlayingItemId,
   } from "../../../store";
   import LoadingSvg from "./LoadingSvg.svelte";
-  import { getRandomMusic } from "../../../store/function";
+  import { getRandomMusic, muteNonActiveTabs } from "../../../store/function";
 
   const lofiProfile =
     "https://i.pinimg.com/280x280_RS/89/6b/b2/896bb20801b503fdc0c15dd69c6bbc0c.jpg";
@@ -23,6 +23,7 @@
   });
 
   async function handleSpeech() {
+    await muteNonActiveTabs();
     // start playing music if not
     if (!$isPlayingMusic) {
       $isPlayingMusic = true;

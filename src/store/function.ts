@@ -1,4 +1,5 @@
 import Browser from "webextension-polyfill";
+import { currentTabId } from ".";
 
 /** Dispatch event on click outside of node */
 export function clickOutside(node: HTMLElement | null): any {
@@ -66,6 +67,7 @@ export const muteNonActiveTabs = async () => {
     active: true,
     currentWindow: true,
   });
+  currentTabId.set(currentTab[0].id)
   const message = {
     musicTab: currentTab[0].id,
   };

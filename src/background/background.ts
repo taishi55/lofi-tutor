@@ -231,23 +231,23 @@ const muteNonActiveTabs = async (currentActiveTabId: number) => {
   }
 };
 
-const muteAllTabs = async () => {
-  const tabs = await Browser.tabs.query({});
-  for (let index = 0; index < tabs.length; index++) {
-    const tab = tabs[index];
-    await Browser.tabs.update(tab.id, { muted: true });
-  }
-};
+// const muteAllTabs = async () => {
+//   const tabs = await Browser.tabs.query({});
+//   for (let index = 0; index < tabs.length; index++) {
+//     const tab = tabs[index];
+//     await Browser.tabs.update(tab.id, { muted: true });
+//   }
+// };
 
-const justKeepWebsiteAlive = async (url: string) => {
-  const newWindow = await openNewWindow(url);
-  Browser.tabs.onUpdated.addListener(async function (tabId, changeInfo, tab) {
-    if (
-      changeInfo.status === "complete" &&
-      newWindow.windowId === tab.windowId &&
-      newWindow.tabId === tab.id
-    ) {
-      await Browser.windows.remove(newWindow.windowId);
-    }
-  });
-};
+// const justKeepWebsiteAlive = async (url: string) => {
+//   const newWindow = await openNewWindow(url);
+//   Browser.tabs.onUpdated.addListener(async function (tabId, changeInfo, tab) {
+//     if (
+//       changeInfo.status === "complete" &&
+//       newWindow.windowId === tab.windowId &&
+//       newWindow.tabId === tab.id
+//     ) {
+//       await Browser.windows.remove(newWindow.windowId);
+//     }
+//   });
+// };
