@@ -219,8 +219,9 @@ const getAudioUrl = async (
     document.querySelector(".form-control");
   if (inputElement) {
     inputElement.value = item.text
-      .replace(/[\p{Emoji}]/gu, "")
       .replace(/\[\d+\]:\s.+\n/g, "") // bing
+      .replace(/\[d\]:.*\n/g, "") // bing
+      .replace(/[\p{Emoji}]/gu, "") // emoji
       .replace(/```[\s\S]*?```/g, "") // code
       .replace(/https?:\/\/[ \s]+/g, "") // url
       .replace(/#/g, "")

@@ -27,6 +27,8 @@ export const messages = writable<ChatMessageModel[]>([]);
 export const selectionvalue = writable<any>("");
 export const currentLocale = writable<LangCode>("en-US");
 
+export const currentTabId = writable(0.001);
+
 // template prompt
 export interface templateItemType {
   id: string;

@@ -13,6 +13,7 @@
     incomingSpeechItems,
     currentSpeechLoadingItemId,
     currentSpeechPlayingItemId,
+    currentTabId,
   } from "../../store";
   import ArrowUp from "./share/ArrowUp.svelte";
   import Template from "./template/Template.svelte";
@@ -168,6 +169,7 @@
           active: true,
           currentWindow: true,
         });
+        currentTabId.set(currentTab[0].id);
         const message = {
           item: item,
           currentActiveTabId: currentTab[0].id,
@@ -243,6 +245,11 @@
   }
 
   const triggerSpeechWhenReady = async () => {
+    const currentTab = await Browser.tabs.query({
+      active: true,
+      currentWindow: true,
+    });
+    if (currentTab[0].id !== $currentTabId) return;
     const voiceAudio: HTMLAudioElement | null =
       document.querySelector("#voice");
     const audioUrls = $incomingSpeechItems.map((i) => i.audioUrl);
