@@ -150,7 +150,7 @@
     />
     <SwitchBtn
       handleAction={setEmotional}
-      lable={`${customLang[$currentLocale].system.counselingMode} (ChatGPT, Bard)`}
+      lable={`${customLang[$currentLocale].system.counselingMode} (ChatGPT)`}
       stitch={$isEmotional}
     />
     <SwitchBtn

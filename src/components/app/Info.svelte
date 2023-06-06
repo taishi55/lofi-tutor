@@ -5,7 +5,7 @@
   import MusicMode from "./MusicMode.svelte";
   import ScreenSize from "./ScreenSize.svelte";
   import Voice from "./Voice.svelte";
-  import { currentLocale } from "../../store";
+  import { currentLocale, isDarkMode, isEmotional } from "../../store";
   import Browser from "webextension-polyfill";
   import { langs, customLang } from "../../store/lang";
   import type { LangCode } from "../../store/langTypes";
@@ -42,12 +42,33 @@
   };
 
   onMount(async () => {
-    const result = await Browser.storage.sync.get("langOption");
+    const result = await Browser.storage.sync.get([
+      "langOption",
+      "isEmotional",
+      "darkMode",
+    ]);
     if (result?.langOption) {
       currentLocale.set(result.langOption);
     } else {
       currentLocale.set(checkLocale());
       await Browser.storage.sync.set({ langOption: $currentLocale });
+    }
+    if (result?.isEmotional) {
+      $isEmotional = true;
+    } else {
+      $isEmotional = false;
+      currentLocale.set(checkLocale());
+      await Browser.storage.sync.set({ isEmotional: $isEmotional });
+    }
+
+    if (result?.darkMode) {
+      document.body.setAttribute("data-theme", "dark");
+      document.documentElement.classList.remove("dark");
+      document.documentElement.classList.add("dark");
+      $isDarkMode = true;
+      Browser.storage.sync.set({ darkMode: $isDarkMode });
+    } else {
+      document.body.setAttribute("data-theme", "light");
     }
   });
 </script>

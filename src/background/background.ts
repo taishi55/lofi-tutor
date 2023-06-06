@@ -8,6 +8,7 @@ import type { BardBot } from "../chat/bots/bard";
 import { CHATBOTS, type ModelType } from "../chat/consts";
 import { ConnectWith } from "../store";
 import { customLang } from "../store/lang";
+import he from "he";
 
 try {
   /************ Events to open sidebar *************/
@@ -18,7 +19,7 @@ try {
         command: "toggle-sidebar",
       };
       await sendMessageToActiveTab(message);
-    } catch (error) { }
+    } catch (error) {}
   });
 
   /********** install event **********/
@@ -26,7 +27,9 @@ try {
     try {
       await Browser.storage.sync.set({ voiceSwitch: true, scrollSwitch: true });
       if (details.reason === "install") {
-        await Browser.tabs.create({ url: "https://chatgpt-phantom.vercel.app/#downloaded" });
+        await Browser.tabs.create({
+          url: "https://chatgpt-phantom.vercel.app/#downloaded",
+        });
       }
     } catch (error) {
       console.log(error);
@@ -69,7 +72,9 @@ try {
       if (request?.musicTab) {
         await muteNonActiveTabs(request.musicTab);
       }
-    } catch (error) { }
+    } catch (error) {
+      console.log(error);
+    }
   });
 
   Browser.runtime.onConnect.addListener(function (port: Browser.Runtime.Port) {
@@ -91,6 +96,21 @@ try {
           if (message.type === ConnectWith.stopGenerating) {
             stopGenerating(port);
           }
+          if (message.type === ConnectWith.getYoutubeTranscription) {
+            const transscriptArray = await getYoutubetranscription(
+              message.videoId
+            );
+            if (transscriptArray) {
+              await getResponse(
+                port,
+                message.generatingMessageId,
+                message.queryText,
+                message.botModel,
+                message.messages,
+                transscriptArray
+              );
+            }
+          }
         });
       }
     } catch (error) {
@@ -98,7 +118,9 @@ try {
     }
   });
 
-  var currentBot: ChatGPTBot | BingWebBot | BardBot = createBotInstance(CHATBOTS[2].id);
+  var currentBot: ChatGPTBot | BingWebBot | BardBot = createBotInstance(
+    CHATBOTS[2].id
+  );
   var generatingMessageIdStore: string = "";
   var abortControllerStore: AbortController = new AbortController();
   var messagesStore: ChatMessageModel[] = [];
@@ -111,7 +133,8 @@ const getResponse = async (
   generatingMessageId: string | null | undefined,
   tempQueryText: string,
   botModel: ModelType,
-  messages: ChatMessageModel[]
+  messages: ChatMessageModel[],
+  transscriptArray = []
 ) => {
   messagesStore = messages;
   currentBot = createBotInstance(botModel.id);
@@ -228,6 +251,36 @@ const muteNonActiveTabs = async (currentActiveTabId: number) => {
     if (currentActiveTabId !== tab.id) {
       await Browser.tabs.update(tab.id, { muted: true });
     }
+  }
+};
+
+const getYoutubetranscription = async (videoId: string) => {
+  try {
+    const res = await fetch(
+      "https://youtubetranscript.com/?server_vid=" + videoId
+    );
+    const transcript = await res.text();
+    return transcript
+      .split("<text")
+      .map((item) => {
+        const startPattern = /start="(.*?)" dur/;
+        const start = item.match(startPattern);
+        const durationPattern = /dur="(.*?)">/;
+        const duration = item.match(durationPattern);
+        const textPattern = /">(.*?)<\/text>/;
+        const text = item.match(textPattern);
+        if (start && duration && text) {
+          return {
+            start: parseFloat(start[1]),
+            duration: parseFloat(duration[1]),
+            text: he.decode(text[1]),
+          };
+        }
+        return undefined;
+      })
+      .filter((item) => item);
+  } catch (error) {
+    return undefined;
   }
 };
 

@@ -57,6 +57,12 @@
       name: ConnectWith.getResponse,
     });
 
+    if (false) {
+      getResponsePort = Browser.runtime.connect({
+        name: ConnectWith.getYoutubeTranscription,
+      });
+    }
+
     const errSavedText = $queryText;
 
     try {

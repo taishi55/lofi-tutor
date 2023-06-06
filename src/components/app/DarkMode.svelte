@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { onMount } from "svelte";
   import Toggle from "./Toggle.svelte";
   import Browser from "webextension-polyfill";
   import { currentLocale, isDarkMode } from "../../store";
@@ -10,19 +9,6 @@
     $isDarkMode = !$isDarkMode;
     await Browser.storage.sync.set({ darkMode: $isDarkMode });
   }
-
-  onMount(async () => {
-    const result = await Browser.storage.sync.get(["darkMode"]);
-    if (result?.darkMode) {
-      document.body.setAttribute("data-theme", "dark");
-      document.documentElement.classList.remove("dark");
-      document.documentElement.classList.add("dark");
-      $isDarkMode = true;
-      Browser.storage.sync.set({ darkMode: $isDarkMode });
-    } else {
-      document.body.setAttribute("data-theme", "light");
-    }
-  });
 </script>
 
 <Toggle

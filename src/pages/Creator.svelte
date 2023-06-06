@@ -104,7 +104,8 @@
       opacity: 40%;
     }
     50% {
-      opacity: 20%;
+      opacity: 10%;
+      transform: rotate(30deg);
     }
     60% {
       transform: rotateY(200deg) translateX(-80px);

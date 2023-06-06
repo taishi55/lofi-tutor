@@ -1,6 +1,6 @@
 import { ofetch } from "ofetch";
 import Browser from "webextension-polyfill";
-import { getCustomPrompt } from "../../consts";
+// import { getCustomPrompt } from "../../consts";
 import { AbstractBot, type SendMessageParams } from "../abstract-bot";
 import { fetchRequestParams, parseBartResponse } from "./api";
 
@@ -27,14 +27,14 @@ export class BardBot extends AbstractBot {
       });
     }
 
-    const settingResult = await Browser.storage.sync.get([
-      "isEmotional",
-      "langOption",
-    ]);
+    // const settingResult = await Browser.storage.sync.get([
+    //   "isEmotional",
+    //   "langOption",
+    // ]);
     let userPrompt = params.prompt;
-    if (settingResult?.isEmotional && settingResult?.langOption) {
-      userPrompt = getCustomPrompt(params.prompt, settingResult.langOption);
-    }
+    // if (settingResult?.isEmotional && settingResult?.langOption) {
+    //   userPrompt = getCustomPrompt(params.prompt, settingResult.langOption);
+    // }
 
     const { requestParams, contextIds } = this.conversationContext;
     const resp = await ofetch(
