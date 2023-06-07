@@ -53,9 +53,9 @@
         class={$isSpeeching &&
         $currentSpeechPlayingItemId === item.id &&
         $isGirlTalking
-          ? "message message-bg !bg-blue-200 dark:!bg-blue-600 relative border border-pink-300 dark:border-pink-700"
+          ? "message message-bg !bg-pink-200 dark:!bg-pink-700/30 relative border border-pink-300 dark:border-pink-600/80"
           : $isSpeeching && $currentSpeechPlayingItemId === item.id
-          ? "message message-bg !bg-blue-200 dark:!bg-blue-600 relative border border-blue-400 dark:border-blue-700"
+          ? "message message-bg !bg-blue-200 dark:!bg-blue-700/30 relative border border-blue-400 dark:border-blue-600/80"
           : "message message-bg relative border border-transparent"}
         on:mouseenter={() => {
           copyIcon = true;

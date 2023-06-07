@@ -12,7 +12,7 @@ export const isEmotional = writable(false);
 export const isSpeeching = writable(false);
 export const isSpeechRequestPending = writable(false);
 export const incomingSpeechItems = writable<
-  { item: ChatMessageModel; audioUrl: string }[]
+  { item: ChatMessageModel; audioUrl: string; currentActiveTabId: number }[]
 >([]);
 export const currentSpeechLoadingItemId = writable("");
 export const currentSpeechPlayingItemId = writable("");
@@ -70,3 +70,5 @@ export const pageRoutes = {
 };
 
 export const currentPage = writable(pageRoutes.home);
+
+export const isYoutubeVideoId = writable("");

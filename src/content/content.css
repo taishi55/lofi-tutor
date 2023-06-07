@@ -6,7 +6,8 @@
   right: -100%;
   width: 35%;
   min-width: 450px;
-  height: 100vh;
+  min-height: 100vh;
+  max-height: 100vh;
   z-index: 2147483647 !important;
   border: none;
   transition: all 0.5s ease-in-out;
@@ -19,18 +20,18 @@
 .sidebar-trigger-button {
   position: fixed !important;
   right: -52px !important;
-  top: 40% !important;
-  display: flex;
-  transform: translate(0, 0) rotate(-90deg) skewX(0) skewY(0) scaleX(1)
-    scaleY(1) !important;
-  align-items: center;
+  top: 45% !important;
+  transform: translateY(-45%) !important;
+}
+
+.vertical-text {
   font-family: "Open Sans", sans-serif;
   font-size: 14px;
   line-height: 20px;
   font-weight: 300;
   z-index: 2147483646 !important;
-  margin-right: 0;
-  margin-left: 8px;
+  transform: rotate(270deg);
+  margin: 0;
   font-size: 16px; /* 1rem * 16px */
   line-height: 24px; /* 1.5rem * 16px */
   width: fit-content;

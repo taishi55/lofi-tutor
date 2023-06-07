@@ -61,11 +61,13 @@ try {
         );
       }
       // get speech url from vendor
-      if (request?.backendFeedback) {
+      if (request?.backendFeedback && request?.audioUrl) {
         await Browser.windows.remove(request.createdTabId);
-        await Browser.runtime.sendMessage(request.currentActiveTabId, {
+        await Browser.runtime.sendMessage({
           audioUrl: request.audioUrl,
           item: request.item,
+          currentActiveTabId: request.currentActiveTabId,
+          isTransmittedBackend: true
         });
       }
       // mute non active tabs
@@ -248,7 +250,9 @@ const muteNonActiveTabs = async (currentActiveTabId: number) => {
   const tabs = await Browser.tabs.query({});
   for (let index = 0; index < tabs.length; index++) {
     const tab = tabs[index];
-    if (currentActiveTabId !== tab.id) {
+    if (currentActiveTabId === tab.id) {
+      await Browser.tabs.update(tab.id, { muted: false });
+    } else {
       await Browser.tabs.update(tab.id, { muted: true });
     }
   }

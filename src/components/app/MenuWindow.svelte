@@ -52,21 +52,19 @@
     </button>
     <div
       transition:fly={{ x: 3, duration: 400 }}
-      class=" absolute top-full -translate-y-2 right-1 bg-white rounded-md text-sm w-48"
+      class=" absolute top-full -translate-y-2 right-1 common-bg common-border rounded-md text-sm w-48 common-shadow"
     >
-      <div class="common-bg common-border">
-        {#each pages as page}
-          <button
-            on:click={() => {
-              $currentPage = page?.id;
-              toggleMenu();
-            }}
-            class="px-3 py-1 w-full block text-left hover:bg-slate-900/30 rounded-md"
-          >
-            {page?.name}
-          </button>
-        {/each}
-      </div>
+      {#each pages as page}
+        <button
+          on:click={() => {
+            $currentPage = page?.id;
+            toggleMenu();
+          }}
+          class="px-3 py-1 w-full block text-left hover:bg-slate-900/30 rounded-md"
+        >
+          {page?.name}
+        </button>
+      {/each}
     </div>
   </div>
 {:else}

@@ -81,9 +81,7 @@ function createSidebar() {
   document.documentElement.classList.add("default-body");
 
   const sidebarContainer = document.createElement("div");
-  sidebarContainer.classList.add(
-    "sidebar-container"
-  );
+  sidebarContainer.classList.add("sidebar-container");
 
   const sidebar = document.createElement("iframe");
   sidebar.id = "beyond_gafa";
@@ -94,12 +92,10 @@ function createSidebar() {
   document.body.appendChild(sidebarContainer);
 
   const sidebarTriggerButtonContainer = document.createElement("div");
-  sidebarTriggerButtonContainer.classList.add(
-    "sidebar-container"
-  );
+  sidebarTriggerButtonContainer.classList.add("sidebar-container");
 
   const sidebarTriggerButton = document.createElement("div");
-  sidebarTriggerButton.textContent = "Phantom";
+  sidebarTriggerButton.innerHTML = "<div class='vertical-text'>Phantom</div>";
   sidebarTriggerButton.id = "beyond_gafa_trigger";
   sidebarTriggerButton.classList.add("sidebar-trigger-button");
   sidebarTriggerButton.addEventListener("click", toggleSidebar);
@@ -202,14 +198,16 @@ const getAudioUrl = async (
     audio.volume = 0;
     const handleCanPlayThrough = async () => {
       try {
-        await Browser.runtime.sendMessage({
-          audioUrl: audio.src,
-          item,
-          currentActiveTabId,
-          createdTabId,
-          backendFeedback: true,
-        });
-      } catch (error) { }
+        if (audio.src) {
+          await Browser.runtime.sendMessage({
+            audioUrl: audio.src,
+            item,
+            currentActiveTabId,
+            createdTabId,
+            backendFeedback: true,
+          });
+        }
+      } catch (error) {}
       audio.removeEventListener("canplaythrough", handleCanPlayThrough);
     };
     audio.addEventListener("canplaythrough", handleCanPlayThrough);

@@ -18,6 +18,10 @@
   @apply border border-slate-700/30 dark:border-white/30 rounded-md;
 }
 
+.common-shadow {
+  @apply shadow shadow-slate-400 dark:shadow-slate-900;
+}
+
 .message-bg {
   @apply bg-white dark:bg-black/20 text-slate-800 dark:text-white;
 }

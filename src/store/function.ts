@@ -1,5 +1,5 @@
 import Browser from "webextension-polyfill";
-import { currentTabId } from ".";
+import { currentTabId, isYoutubeVideoId } from ".";
 
 /** Dispatch event on click outside of node */
 export function clickOutside(node: HTMLElement | null): any {
@@ -67,9 +67,28 @@ export const muteNonActiveTabs = async () => {
     active: true,
     currentWindow: true,
   });
-  currentTabId.set(currentTab[0].id)
+  currentTabId.set(currentTab[0].id);
   const message = {
     musicTab: currentTab[0].id,
   };
   await Browser.runtime.sendMessage(message);
 };
+
+const checkYoutube = async () => {
+  const currentTab = await Browser.tabs.query({
+    active: true,
+    currentWindow: true,
+  });
+  var currentUrl = currentTab[0].url;
+  const videoId = getYouTubeVideoId(currentUrl);
+  isYoutubeVideoId.set(videoId);
+};
+
+function getYouTubeVideoId(url: string) {
+  var videoId = "";
+  var match = url.match(/(?:[?&]|\b)v=([ &]+)/i);
+  if (match) {
+    videoId = match[1];
+  }
+  return videoId;
+}

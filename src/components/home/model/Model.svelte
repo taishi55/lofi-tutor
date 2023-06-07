@@ -11,7 +11,7 @@
   use:clickOutside
   transition:fly={{ duration: 200, y: 30, easing: cubicInOut }}
   on:click_outside={closeWindow}
-  class="common-bg common-border w-80 px-3 py-2 text-sm space-y-1"
+  class="common-bg common-border w-80 px-3 py-2 text-sm space-y-1 common-shadow"
 >
   {#each CHATBOTS as item, index}
     <ModelItem {closeWindow} {item} />

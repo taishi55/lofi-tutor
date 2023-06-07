@@ -57,12 +57,6 @@
       name: ConnectWith.getResponse,
     });
 
-    if (false) {
-      getResponsePort = Browser.runtime.connect({
-        name: ConnectWith.getYoutubeTranscription,
-      });
-    }
-
     const errSavedText = $queryText;
 
     try {
@@ -101,13 +95,23 @@
       scrollToBottom();
 
       // Send a message to background.js
-      getResponsePort.postMessage({
-        type: ConnectWith.getResponse,
-        queryText: tempQueryText,
-        generatingMessageId: $generatingMessageId,
-        botModel: $botModel,
-        messages: $messages,
-      });
+      if (false) {
+        getResponsePort.postMessage({
+          type: ConnectWith.getYoutubeTranscription,
+          queryText: tempQueryText,
+          generatingMessageId: $generatingMessageId,
+          botModel: $botModel,
+          messages: $messages,
+        });
+      } else {
+        getResponsePort.postMessage({
+          type: ConnectWith.getResponse,
+          queryText: tempQueryText,
+          generatingMessageId: $generatingMessageId,
+          botModel: $botModel,
+          messages: $messages,
+        });
+      }
 
       // Listen for messages from background.js
       getResponsePort.onMessage.addListener(async function (response) {
@@ -213,7 +217,8 @@
         $messages = $messages.filter((m) => m.text.trim());
       }
       if (
-        request?.audioUrl &&
+        request?.isTransmittedBackend &&
+        request?.currentActiveTabId &&
         !$incomingSpeechItems.some(
           (item) =>
             item.audioUrl === request.audioUrl ||
@@ -224,6 +229,7 @@
         $incomingSpeechItems.push({
           audioUrl: request.audioUrl,
           item: request.item,
+          currentActiveTabId: request.currentActiveTabId,
         });
         $incomingSpeechItems = $incomingSpeechItems;
       }
@@ -251,11 +257,10 @@
   }
 
   const triggerSpeechWhenReady = async () => {
-    const currentTab = await Browser.tabs.query({
-      active: true,
-      currentWindow: true,
-    });
-    if (currentTab[0].id !== $currentTabId) return;
+    if (
+      !$incomingSpeechItems.some((i) => i.currentActiveTabId === $currentTabId)
+    )
+      return;
     const voiceAudio: HTMLAudioElement | null =
       document.querySelector("#voice");
     const audioUrls = $incomingSpeechItems.map((i) => i.audioUrl);
