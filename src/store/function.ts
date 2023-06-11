@@ -74,16 +74,6 @@ export const muteNonActiveTabs = async () => {
   await Browser.runtime.sendMessage(message);
 };
 
-const checkYoutube = async () => {
-  const currentTab = await Browser.tabs.query({
-    active: true,
-    currentWindow: true,
-  });
-  var currentUrl = currentTab[0].url;
-  const videoId = getYouTubeVideoId(currentUrl);
-  isYoutubeVideoId.set(videoId);
-};
-
 function getYouTubeVideoId(url: string) {
   var videoId = "";
   var match = url.match(/(?:[?&]|\b)v=([ &]+)/i);

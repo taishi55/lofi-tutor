@@ -37,7 +37,7 @@
     toggle();
     muteNonActiveTabs();
   }}
-  class=" bg-black/50 text-white/90 rounded-md px-3 py-1 block"
+  class="lofigpt-menu-icon"
 >
   {#if $isPlayingMusic && !isLoading}
     <i class="fa-solid fa-volume-high" />

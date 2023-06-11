@@ -6,6 +6,7 @@
   import Emotion from "./Emotion.svelte";
   import { isGirlTalking } from "../../../store";
   import LiveIcon from "./LiveIcon.svelte";
+  // import YoutubePlayButton from "./YoutubePlayButton.svelte";
 
   let isHovered = false;
   let isExpanded = false;
@@ -60,6 +61,7 @@
         <div class="absolute bottom-0 left-0 w-full p-2 z-30">
           <div class="flex justify-between items-center">
             <SoundVolume />
+            <!-- <YoutubePlayButton /> -->
             <Emotion />
           </div>
         </div>

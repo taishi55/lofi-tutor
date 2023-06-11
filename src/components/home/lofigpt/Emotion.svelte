@@ -18,10 +18,7 @@
   });
 </script>
 
-<button
-  on:click={toggle}
-  class=" bg-black/50 text-white/90 rounded-md px-3 py-1 block"
->
+<button on:click={toggle} class="lofigpt-menu-icon">
   {#if $isEmotional}
     <i class="fa-regular fa-face-laugh" />
   {:else}

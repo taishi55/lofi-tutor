@@ -78,6 +78,9 @@
   ul {
     @apply list-disc pl-4;
   }
+  & li {
+    @apply m-0 p-0;
+  }
   & table {
     @apply border-collapse border border-slate-300 dark:border-slate-500 bg-slate-200 dark:bg-slate-700;
   }
@@ -132,4 +135,8 @@
 
 .highlight {
   @apply bg-yellow-200 dark:bg-yellow-600 dark:text-slate-800 px-1;
+}
+
+.lofigpt-menu-icon {
+  @apply bg-black/50 text-white/90 rounded-md px-3 py-1 block;
 }

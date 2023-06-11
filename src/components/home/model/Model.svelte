@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { cubicInOut } from "svelte/easing";
   import { clickOutside } from "../../../store/function";
   import { fly } from "svelte/transition";
