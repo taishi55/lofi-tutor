@@ -40,7 +40,7 @@ export const system: SystemType = {
   customPrompt: `Instruction: Hello "Lofi Tutor", From now on, you are a live streamer on Chrome Extension. Taishi Nammoto programmed you in order to entertain your users on Chrome Extension. You can express excitement, surprise, anger, joy, or pain in response to the user's comment. You must express your emotional reactions in girl's tone with some emoji.\n\nUser's comment: [USERCOMMENT]\nYour comment: `,
   error: {
     bing: {
-      session: `Uh-oh! 😧 Your session for Bing has expired. Please 🔒 log in again to continue using the app. <br/><a href="https://www.bing.com/">https://www.bing.com/</a> I apologize for the inconvenience caused. <br/><a onclick="location.reload();" href="#">Please reload this page after login.</a>`,
+      session: `Uh-oh! 😧 Your session for Bing has expired. Please 🔒 log in again to continue using the app. <br/><a href="https://www.bing.com/">https://www.bing.com/</a> I apologize for the inconvenience caused. <br/><a id="reload-link" href="#">Please reload this page after login.</a>`,
       limit:
         "Apologies, but you have reached the daily chat turn limit for this conversation on Bing.",
     },
@@ -50,8 +50,8 @@ export const system: SystemType = {
     bard: {
       session: `Oops! 😕 ⌛️ Your session for Bard has expired. Please 🔒 log in again to continue using the app. <br/><a href="https://bard.google.com/">https://bard.google.com/</a>`,
     },
-    accident: `I apologize for the inconvenience caused. An accidental error has occurred. 😕 <br><a onclick="location.reload();" href="#">Please click here to reload the page</a>`,
-    disconnection: `Apologies for the disconnection earlier. The connection has been restored. Please try again.`,
+    accident: `I apologize for the inconvenience caused. An accidental error has occurred. 😕 <br><a id="reload-link" href="#">Please click here to reload the page</a>`,
+    disconnection: `Apologies for the disconnection earlier. The connection has been restored. Please try again. <a id="reload-link" href="#">Please click here to reload the page</a>`,
   },
 };
 
@@ -362,7 +362,7 @@ Commentaire de l'utilisateur : [USERCOMMENT]
 Ton commentaire : `,
       error: {
         bing: {
-          session: `Uh-oh! 😧 Ta session pour Bing a expiré. Veuillez 🔒 vous connecter à nouveau pour continuer à utiliser l'application. <br/><a href="https://www.bing.com/">https://www.bing.com/</a> Je m'excuse pour les désagréments causés. <br/><a onclick="location.reload();" href="#">Veuillez recharger cette page après vous être connecté.</a>`,
+          session: `Uh-oh! 😧 Ta session pour Bing a expiré. Veuillez 🔒 vous connecter à nouveau pour continuer à utiliser l'application. <br/><a href="https://www.bing.com/">https://www.bing.com/</a> Je m'excuse pour les désagréments causés. <br/><a id="reload-link" href="#">Veuillez recharger cette page après vous être connecté.</a>`,
           limit:
             "Désolé, mais vous avez atteint la limite quotidienne de tours de chat pour cette conversation sur Bing.",
         },
@@ -373,7 +373,7 @@ Ton commentaire : `,
           session: `Oops! 😕 ⌛️ Votre session pour Bard a expiré. Veuillez 🔒 vous connecter à nouveau pour continuer à utiliser l'application. <br/><a href="https://bard.google.com/">https://bard.google.com/</a>`,
         },
 
-        accident: `Je m'excuse pour les désagréments causés. Une erreur accidentelle s'est produite.  <br><a onclick="location.reload();" href="#">Veuillez cliquer ici pour recharger la page</a>`,
+        accident: `Je m'excuse pour les désagréments causés. Une erreur accidentelle s'est produite.  <br><a id="reload-link" href="#">Veuillez cliquer ici pour recharger la page</a>`,
         disconnection: `Veuillez nous excuser pour la déconnexion précédente. La connexion a été rétablie. Veuillez réessayer.`,
       },
     },
@@ -604,7 +604,7 @@ Ton commentaire : `,
       customPrompt: `Instrução: Olá "Lofi Tutor", A partir de agora, você é um streamer ao vivo na extensão do Chrome. Taishi Nammoto te programou para entreter seus usuários na extensão do Chrome. Você pode expressar empolgação, surpresa, raiva, alegria ou dor em resposta ao comentário do usuário. Você deve expressar suas reações emocionais com uma entonação feminina e alguns emojis.\n\nComentário do usuário: [USERCOMMENT]\nSeu comentário: `,
       error: {
         bing: {
-          session: `Ops! 😧 Sua sessão no Bing expirou. Por favor, 🔒 faça login novamente para continuar usando o aplicativo. <br/><a href="https://www.bing.com/">https://www.bing.com/</a> Peço desculpas pelo inconveniente causado. <br/><a onclick="location.reload();" href="#">Por favor, recarregue esta página após fazer o login.</a>`,
+          session: `Ops! 😧 Sua sessão no Bing expirou. Por favor, 🔒 faça login novamente para continuar usando o aplicativo. <br/><a href="https://www.bing.com/">https://www.bing.com/</a> Peço desculpas pelo inconveniente causado. <br/><a id="reload-link" href="#">Por favor, recarregue esta página após fazer o login.</a>`,
           limit:
             "Desculpe, mas você atingiu o limite diário de turnos de chat nesta conversa no Bing.",
         },
@@ -615,7 +615,7 @@ Ton commentaire : `,
           session: `Ops! 😕 ⌛️ Sua sessão no Bard expirou. Por favor, 🔒 faça login novamente para continuar usando o aplicativo. <br/><a href="https://bard.google.com/">https://bard.google.com/</a>`,
         },
 
-        accident: `Peço desculpas pelo inconveniente causado. Ocorreu um erro acidental. <br><a onclick="location.reload();" href="#">Clique aqui para recarregar a página</a>`,
+        accident: `Peço desculpas pelo inconveniente causado. Ocorreu um erro acidental. <br><a id="reload-link" href="#">Clique aqui para recarregar a página</a>`,
         disconnection: `Desculpe pela desconexão anterior. A conexão foi restabelecida. Por favor, tente novamente.`,
       },
     },
@@ -845,7 +845,7 @@ Ton commentaire : `,
       customPrompt: `Instruktion: Hej "Lofi Tutor", Fra nu af er du en live streamer på Chrome-udvidelsen. Taishi Nammoto har programmeret dig til at underholde dine brugere på Chrome-udvidelsen. Du kan udtrykke spænding, overraskelse, vrede, glæde eller smerte som reaktion på brugerens kommentar. Du skal udtrykke dine følelsesmæssige reaktioner med en kvindes stemme og nogle emojis.\n\nBrugerens kommentar: [USERCOMMENT]\nDin kommentar: `,
       error: {
         bing: {
-          session: `Åh nej! 😧 Din Bing-session er udløbet. Log venligst 🔒 ind igen for at fortsætte med at bruge appen. <br/><a href="https://www.bing.com/">https://www.bing.com/</a> Jeg beklager ulejligheden. <br/><a onclick="location.reload();" href="#">Genindlæs denne side efter login.</a>`,
+          session: `Åh nej! 😧 Din Bing-session er udløbet. Log venligst 🔒 ind igen for at fortsætte med at bruge appen. <br/><a href="https://www.bing.com/">https://www.bing.com/</a> Jeg beklager ulejligheden. <br/><a id="reload-link" href="#">Genindlæs denne side efter login.</a>`,
           limit:
             "Beklager, men du har nået det daglige grænse for chat-turneringer i denne samtale på Bing.",
         },
@@ -856,7 +856,7 @@ Ton commentaire : `,
           session: `Ups! 😕 ⌛️ Din Bard-session er udløbet. Log venligst 🔒 ind igen for at fortsætte med at bruge appen. <br/><a href="https://bard.google.com/">https://bard.google.com/</a>`,
         },
 
-        accident: `Undskyld for det besvær, der er blevet forårsaget. Der er opstået en utilsigtet fejl. <br><a onclick="location.reload();" href="#">Klik her for at genindlæse siden</a>`,
+        accident: `Undskyld for det besvær, der er blevet forårsaget. Der er opstået en utilsigtet fejl. <br><a id="reload-link" href="#">Klik her for at genindlæse siden</a>`,
         disconnection: `Undskyld for forbindelsesafbrydelsen tidligere. Forbindelsen er blevet genoprettet. Prøv venligst igen.`,
       },
     },
@@ -1089,7 +1089,7 @@ Ton commentaire : `,
       Jouw opmerking: `,
       error: {
         bing: {
-          session: `Uh-oh! 😧 Je Bing-sessie is verlopen. Log alsjeblieft 🔒 opnieuw in om door te gaan met het gebruik van de app. <br/><a href="https://www.bing.com/">https://www.bing.com/</a> Excuses voor het ongemak. <br/><a onclick="location.reload();" href="#">Vernieuw deze pagina na het inloggen.</a>`,
+          session: `Uh-oh! 😧 Je Bing-sessie is verlopen. Log alsjeblieft 🔒 opnieuw in om door te gaan met het gebruik van de app. <br/><a href="https://www.bing.com/">https://www.bing.com/</a> Excuses voor het ongemak. <br/><a id="reload-link" href="#">Vernieuw deze pagina na het inloggen.</a>`,
           limit:
             "Sorry, maar je hebt het dagelijkse maximum aantal chatbeurten bereikt in deze conversatie op Bing.",
         },
@@ -1100,7 +1100,7 @@ Ton commentaire : `,
           session: `Oeps! 😕 ⌛️ Je sessie voor Bard is verlopen. Log alsjeblieft 🔒 opnieuw in om door te gaan met het gebruik van de app. <br/><a href="https://bard.google.com/">https://bard.google.com/</a>`,
         },
 
-        accident: `Mijn excuses voor het veroorzaakte ongemak. Er is een onbedoelde fout opgetreden.  <br><a onclick="location.reload();" href="#">Klik hier om de pagina opnieuw te laden</a>`,
+        accident: `Mijn excuses voor het veroorzaakte ongemak. Er is een onbedoelde fout opgetreden.  <br><a id="reload-link" href="#">Klik hier om de pagina opnieuw te laden</a>`,
         disconnection: `Excuses voor de eerdere onderbreking. De verbinding is hersteld. Probeer het alstublieft opnieuw.`,
       },
     },
@@ -1333,7 +1333,7 @@ Commentaire de l'utilisateur : [USERCOMMENT]
 Ton commentaire : `,
       error: {
         bing: {
-          session: `Oups ! 😧 Ta session Bing a expiré. Veuillez 🔒 vous connecter à nouveau pour continuer à utiliser l'application. <br/><a href="https://www.bing.com/">https://www.bing.com/</a> Je m'excuse pour les désagréments causés. <br/><a onclick="location.reload();" href="#">Veuillez recharger cette page après vous être connecté.</a>`,
+          session: `Oups ! 😧 Ta session Bing a expiré. Veuillez 🔒 vous connecter à nouveau pour continuer à utiliser l'application. <br/><a href="https://www.bing.com/">https://www.bing.com/</a> Je m'excuse pour les désagréments causés. <br/><a id="reload-link" href="#">Veuillez recharger cette page après vous être connecté.</a>`,
           limit:
             "Désolé, mais vous avez atteint la limite quotidienne de tours de chat pour cette conversation sur Bing.",
         },
@@ -1344,7 +1344,7 @@ Ton commentaire : `,
           session: `Oups ! 😕 ⌛️ Votre session Bard a expiré. Veuillez 🔒 vous connecter à nouveau pour continuer à utiliser l'application. <br/><a href="https://bard.google.com/">https://bard.google.com/</a>`,
         },
 
-        accident: `Je m'excuse pour les désagréments causés. Une erreur accidentelle s'est produite.  <br><a onclick="location.reload();" href="#">Veuillez cliquer ici pour recharger la page</a>`,
+        accident: `Je m'excuse pour les désagréments causés. Une erreur accidentelle s'est produite.  <br><a id="reload-link" href="#">Veuillez cliquer ici pour recharger la page</a>`,
         disconnection: `Veuillez nous excuser pour la déconnexion précédente. La connexion a été rétablie. Veuillez réessayer.`,
       },
     },
@@ -1578,7 +1578,7 @@ Kommentar des Benutzers: [USERCOMMENT]
 Dein Kommentar: `,
       error: {
         bing: {
-          session: `Oh-oh! 😧 Deine Bing-Sitzung ist abgelaufen. Bitte 🔒 melde dich erneut an, um die App weiterhin zu verwenden. <br/><a href="https://www.bing.com/">https://www.bing.com/</a> Es tut mir leid für die Unannehmlichkeiten. <br/><a onclick="location.reload();" href="#">Bitte lade diese Seite nach dem Login neu.</a>`,
+          session: `Oh-oh! 😧 Deine Bing-Sitzung ist abgelaufen. Bitte 🔒 melde dich erneut an, um die App weiterhin zu verwenden. <br/><a href="https://www.bing.com/">https://www.bing.com/</a> Es tut mir leid für die Unannehmlichkeiten. <br/><a id="reload-link" href="#">Bitte lade diese Seite nach dem Login neu.</a>`,
           limit:
             "Entschuldigung, aber du hast das tägliche Chat-Turnierlimit für diese Unterhaltung bei Bing erreicht.",
         },
@@ -1589,7 +1589,7 @@ Dein Kommentar: `,
           session: `Hoppla! 😕 ⌛️ Deine Bard-Sitzung ist abgelaufen. Bitte 🔒 melde dich erneut an, um die App weiterhin zu verwenden. <br/><a href="https://bard.google.com/">https://bard.google.com/</a>`,
         },
 
-        accident: `Ich entschuldige mich für die Unannehmlichkeiten. Es ist ein unbeabsichtigter Fehler aufgetreten.  <br><a onclick="location.reload();" href="#">Bitte klicken Sie hier, um die Seite neu zu laden</a>`,
+        accident: `Ich entschuldige mich für die Unannehmlichkeiten. Es ist ein unbeabsichtigter Fehler aufgetreten.  <br><a id="reload-link" href="#">Bitte klicken Sie hier, um die Seite neu zu laden</a>`,
         disconnection: `Entschuldigung für die frühere Unterbrechung. Die Verbindung wurde wiederhergestellt. Bitte versuchen Sie es erneut.`,
       },
     },
@@ -1823,7 +1823,7 @@ Dein Kommentar: `,
       Il tuo commento: `,
       error: {
         bing: {
-          session: `Uh-oh! 😧 La tua sessione per Bing è scaduta. Effettua nuovamente il 🔒 login per continuare a utilizzare l'app. <br/><a href="https://www.bing.com/">https://www.bing.com/</a> Mi scuso per l'inconveniente causato. <br/><a onclick="location.reload();" href="#">Ricarica questa pagina dopo il login.</a>`,
+          session: `Uh-oh! 😧 La tua sessione per Bing è scaduta. Effettua nuovamente il 🔒 login per continuare a utilizzare l'app. <br/><a href="https://www.bing.com/">https://www.bing.com/</a> Mi scuso per l'inconveniente causato. <br/><a id="reload-link" href="#">Ricarica questa pagina dopo il login.</a>`,
           limit:
             "Mi spiace, ma hai raggiunto il limite giornaliero di turni di chat per questa conversazione su Bing.",
         },
@@ -1834,7 +1834,7 @@ Dein Kommentar: `,
           session: `Ops! 😕 ⌛️ La tua sessione per Bard è scaduta. Effettua nuovamente il 🔒 login per continuare a utilizzare l'app. <br/><a href="https://bard.google.com/">https://bard.google.com/</a>`,
         },
 
-        accident: `Mi scuso per l'inconveniente causato. Si è verificato un errore accidentale.  <br><a onclick="location.reload();" href="#">Fare clic qui per ricaricare la pagina</a>`,
+        accident: `Mi scuso per l'inconveniente causato. Si è verificato un errore accidentale.  <br><a id="reload-link" href="#">Fare clic qui per ricaricare la pagina</a>`,
         disconnection: `Mi scuso per la disconnessione precedente. La connessione è stata ripristinata. Si prega di riprovare.`,
       },
     },
@@ -2067,7 +2067,7 @@ Dein Kommentar: `,
 あなたのコメント：`,
       error: {
         bing: {
-          session: `おっと！ 😧 Bingのセッションが期限切れです。アプリの使用を続けるには、再び🔒 ログインしてください。 <br/><a href="https://www.bing.com/">https://www.bing.com/</a> ご不便をおかけして申し訳ありません。<br/><a onclick="location.reload();" href="#">ログイン後、このページを再読み込みしてください。</a>`,
+          session: `おっと！ 😧 Bingのセッションが期限切れです。アプリの使用を続けるには、再び🔒 ログインしてください。 <br/><a href="https://www.bing.com/">https://www.bing.com/</a> ご不便をおかけして申し訳ありません。<br/><a id="reload-link" href="#">ログイン後、このページを再読み込みしてください。</a>`,
           limit:
             "申し訳ありませんが、このBingの会話で1日のチャット回数制限に達しました。",
         },
@@ -2078,7 +2078,7 @@ Dein Kommentar: `,
           session: `おっと！ 😕 ⌛️ Bardのセッションが期限切れです。アプリの使用を続けるには、再び🔒 ログインしてください。<br/><a href="https://bard.google.com/">https://bard.google.com/</a>`,
         },
 
-        accident: `ご迷惑をおかけして申し訳ありません。予期せぬエラーが発生しました。  <br><a onclick="location.reload();" href="#">こちらをクリックしてページをリロードしてください</a>`,
+        accident: `ご迷惑をおかけして申し訳ありません。予期せぬエラーが発生しました。  <br><a id="reload-link" href="#">こちらをクリックしてページをリロードしてください</a>`,
         disconnection: `以前の切断についてお詫び申し上げます。接続が復旧しました。もう一度お試しください。`,
       },
     },
@@ -2311,7 +2311,7 @@ Komentarz użytkownika: [USERCOMMENT]
 Twój komentarz: `,
       error: {
         bing: {
-          session: `Ups! 😧 Twoja sesja Bing wygasła. Proszę, 🔒 zaloguj się ponownie, aby kontynuować korzystanie z aplikacji. <br/><a href="https://www.bing.com/">https://www.bing.com/</a> Przepraszam za niedogodności. <br/><a onclick="location.reload();" href="#">Po zalogowaniu odśwież tę stronę.</a>`,
+          session: `Ups! 😧 Twoja sesja Bing wygasła. Proszę, 🔒 zaloguj się ponownie, aby kontynuować korzystanie z aplikacji. <br/><a href="https://www.bing.com/">https://www.bing.com/</a> Przepraszam za niedogodności. <br/><a id="reload-link" href="#">Po zalogowaniu odśwież tę stronę.</a>`,
           limit:
             "Przepraszam, ale osiągnąłeś dzienny limit wiadomości dla tej rozmowy w Bing.",
         },
@@ -2322,7 +2322,7 @@ Twój komentarz: `,
           session: `Ups! 😕 ⌛️ Twoja sesja Bard wygasła. Proszę, 🔒 zaloguj się ponownie, aby kontynuować korzystanie z aplikacji. <br/><a href="https://bard.google.com/">https://bard.google.com/</a>`,
         },
 
-        accident: `Przepraszam za spowodowane niedogodności. Wystąpił przypadkowy błąd.  <br><a onclick="location.reload();" href="#">Kliknij tutaj, aby odświeżyć stronę</a>`,
+        accident: `Przepraszam za spowodowane niedogodności. Wystąpił przypadkowy błąd.  <br><a id="reload-link" href="#">Kliknij tutaj, aby odświeżyć stronę</a>`,
         disconnection: `Przepraszam za wcześniejsze rozłączenie. Połączenie zostało przywrócone. Proszę spróbować ponownie.`,
       },
     },
@@ -2555,7 +2555,7 @@ Comentário do usuário: [USERCOMMENT]
 Seu comentário: `,
       error: {
         bing: {
-          session: `Ops! 😧 Sua sessão no Bing expirou. Por favor, 🔒 faça login novamente para continuar usando o aplicativo. <br/><a href="https://www.bing.com/">https://www.bing.com/</a> Peço desculpas pelo inconveniente causado. <br/><a onclick="location.reload();" href="#">Por favor, recarregue esta página após o login.</a>`,
+          session: `Ops! 😧 Sua sessão no Bing expirou. Por favor, 🔒 faça login novamente para continuar usando o aplicativo. <br/><a href="https://www.bing.com/">https://www.bing.com/</a> Peço desculpas pelo inconveniente causado. <br/><a id="reload-link" href="#">Por favor, recarregue esta página após o login.</a>`,
           limit:
             "Desculpe, mas você atingiu o limite diário de turnos de chat para esta conversa no Bing.",
         },
@@ -2566,7 +2566,7 @@ Seu comentário: `,
           session: `Ops! 😕 ⌛️ Sua sessão no Bard expirou. Por favor, 🔒 faça login novamente para continuar usando o aplicativo. <br/><a href="https://bard.google.com/">https://bard.google.com/</a>`,
         },
 
-        accident: `Peço desculpas pelo inconveniente causado. Ocorreu um erro acidental.  <br><a onclick="location.reload();" href="#">Por favor, clique aqui para recarregar a página</a>`,
+        accident: `Peço desculpas pelo inconveniente causado. Ocorreu um erro acidental.  <br><a id="reload-link" href="#">Por favor, clique aqui para recarregar a página</a>`,
         disconnection: `Peço desculpas pela desconexão anterior. A conexão foi restabelecida. Por favor, tente novamente.`,
       },
     },
@@ -2799,7 +2799,7 @@ Seu comentário: `,
 Твой комментарий: `,
       error: {
         bing: {
-          session: `Упс! 😧 Ваша сессия в Bing истекла. Пожалуйста, 🔒 войдите в систему снова, чтобы продолжить использовать приложение. <br/><a href="https://www.bing.com/">https://www.bing.com/</a> Приношу извинения за причиненные неудобства. <br/><a onclick="location.reload();" href="#">Обновите эту страницу после входа в систему.</a>`,
+          session: `Упс! 😧 Ваша сессия в Bing истекла. Пожалуйста, 🔒 войдите в систему снова, чтобы продолжить использовать приложение. <br/><a href="https://www.bing.com/">https://www.bing.com/</a> Приношу извинения за причиненные неудобства. <br/><a id="reload-link" href="#">Обновите эту страницу после входа в систему.</a>`,
           limit:
             "Извините, но вы достигли ежедневного лимита чатов в этом разговоре в Bing.",
         },
@@ -2810,7 +2810,7 @@ Seu comentário: `,
           session: `Ой! 😕 ⌛️ Ваша сессия в Bard истекла. Пожалуйста, 🔒 войдите в систему снова, чтобы продолжить использовать приложение. <br/><a href="https://bard.google.com/">https://bard.google.com/</a>`,
         },
 
-        accident: `Приношу извинения за причиненные неудобства. Произошла случайная ошибка.  <br><a onclick="location.reload();" href="#">Пожалуйста, нажмите здесь, чтобы перезагрузить страницу</a>`,
+        accident: `Приношу извинения за причиненные неудобства. Произошла случайная ошибка.  <br><a id="reload-link" href="#">Пожалуйста, нажмите здесь, чтобы перезагрузить страницу</a>`,
         disconnection: `Приношу извинения за предыдущее отключение. Соединение было восстановлено. Пожалуйста, попробуйте снова.`,
       },
     },
@@ -3045,7 +3045,7 @@ Comentario del usuario: [USERCOMMENT]
 Tu comentario: `,
       error: {
         bing: {
-          session: `¡Ups! 😧 Tu sesión en Bing ha expirado. Por favor, 🔒 inicia sesión nuevamente para continuar usando la aplicación. <br/><a href="https://www.bing.com/">https://www.bing.com/</a> Lamento las molestias ocasionadas. <br/><a onclick="location.reload();" href="#">Por favor, recarga esta página después de iniciar sesión.</a>`,
+          session: `¡Ups! 😧 Tu sesión en Bing ha expirado. Por favor, 🔒 inicia sesión nuevamente para continuar usando la aplicación. <br/><a href="https://www.bing.com/">https://www.bing.com/</a> Lamento las molestias ocasionadas. <br/><a id="reload-link" href="#">Por favor, recarga esta página después de iniciar sesión.</a>`,
           limit:
             "Disculpa, pero has alcanzado el límite diario de turnos de chat para esta conversación en Bing.",
         },
@@ -3056,7 +3056,7 @@ Tu comentario: `,
           session: `¡Vaya! 😕 ⌛️ Tu sesión en Bard ha expirado. Por favor, 🔒 inicia sesión nuevamente para continuar usando la aplicación. <br/><a href="https://bard.google.com/">https://bard.google.com/</a>`,
         },
 
-        accident: `Lamento las molestias ocasionadas. Ha ocurrido un error accidental.  <br><a onclick="location.reload();" href="#">Por favor, haz clic aquí para recargar la página</a>`,
+        accident: `Lamento las molestias ocasionadas. Ha ocurrido un error accidental.  <br><a id="reload-link" href="#">Por favor, haz clic aquí para recargar la página</a>`,
         disconnection: `Disculpa por la desconexión anterior. La conexión ha sido restablecida. Por favor, inténtalo nuevamente.`,
       },
     },
@@ -3290,7 +3290,7 @@ Comentario del usuario: [USERCOMMENT]
 Tu comentario: `,
       error: {
         bing: {
-          session: `¡Ups! 😧 Tu sesión en Bing ha expirado. Por favor, 🔒 inicia sesión de nuevo para continuar usando la aplicación. <br/><a href="https://www.bing.com/">https://www.bing.com/</a> Lamento las molestias ocasionadas. <br/><a onclick="location.reload();" href="#">Por favor, recarga esta página después de iniciar sesión.</a>`,
+          session: `¡Ups! 😧 Tu sesión en Bing ha expirado. Por favor, 🔒 inicia sesión de nuevo para continuar usando la aplicación. <br/><a href="https://www.bing.com/">https://www.bing.com/</a> Lamento las molestias ocasionadas. <br/><a id="reload-link" href="#">Por favor, recarga esta página después de iniciar sesión.</a>`,
           limit:
             "Disculpa, pero has alcanzado el límite diario de turnos de chat para esta conversación en Bing.",
         },
@@ -3301,7 +3301,7 @@ Tu comentario: `,
           session: `¡Ups! 😕 ⌛️ Tu sesión en Bard ha expirado. Por favor, 🔒 inicia sesión de nuevo para continuar usando la aplicación. <br/><a href="https://bard.google.com/">https://bard.google.com/</a>`,
         },
 
-        accident: `Ofrezco disculpas por las molestias ocasionadas. Ha ocurrido un error accidental.  <br><a onclick="location.reload();" href="#">Por favor, haz clic aquí para recargar la página</a>`,
+        accident: `Ofrezco disculpas por las molestias ocasionadas. Ha ocurrido un error accidental.  <br><a id="reload-link" href="#">Por favor, haz clic aquí para recargar la página</a>`,
         disconnection: `Lamentamos la desconexión anterior. La conexión ha sido restablecida. Por favor, inténtalo de nuevo.`,
       },
     },
@@ -3535,7 +3535,7 @@ Comentario del usuario: [USERCOMMENT]
 Tu comentario: `,
       error: {
         bing: {
-          session: `¡Ups! 😧 Tu sesión en Bing ha expirado. Por favor, 🔒 inicia sesión nuevamente para continuar utilizando la aplicación. <br/><a href="https://www.bing.com/">https://www.bing.com/</a> Lamento las molestias ocasionadas. <br/><a onclick="location.reload();" href="#">Por favor, recarga esta página después de iniciar sesión.</a>`,
+          session: `¡Ups! 😧 Tu sesión en Bing ha expirado. Por favor, 🔒 inicia sesión nuevamente para continuar utilizando la aplicación. <br/><a href="https://www.bing.com/">https://www.bing.com/</a> Lamento las molestias ocasionadas. <br/><a id="reload-link" href="#">Por favor, recarga esta página después de iniciar sesión.</a>`,
           limit:
             "Disculpas, pero has alcanzado el límite diario de turnos de chat para esta conversación en Bing.",
         },
@@ -3546,7 +3546,7 @@ Tu comentario: `,
           session: `¡Ups! 😕 ⌛️ Tu sesión en Bard ha expirado. Por favor, 🔒 inicia sesión nuevamente para continuar utilizando la aplicación. <br/><a href="https://bard.google.com/">https://bard.google.com/</a>`,
         },
 
-        accident: `Ofrezco disculpas por las molestias ocasionadas. Ha ocurrido un error accidental.  <br><a onclick="location.reload();" href="#">Por favor, haz clic aquí para recargar la página</a>`,
+        accident: `Ofrezco disculpas por las molestias ocasionadas. Ha ocurrido un error accidental.  <br><a id="reload-link" href="#">Por favor, haz clic aquí para recargar la página</a>`,
         disconnection: `Lamentamos la desconexión anterior. La conexión ha sido restablecida. Por favor, inténtalo de nuevo.`,
       },
     },
@@ -3780,7 +3780,7 @@ Användarens kommentar: [USERCOMMENT]
 Din kommentar: `,
       error: {
         bing: {
-          session: `Hoppsan! 😧 Din session för Bing har gått ut. Var vänlig och 🔒 logga in igen för att fortsätta använda appen. <br/><a href="https://www.bing.com/">https://www.bing.com/</a> Jag ber om ursäkt för det besvär det har orsakat. <br/><a onclick="location.reload();" href="#">Ladda om sidan efter inloggning.</a>`,
+          session: `Hoppsan! 😧 Din session för Bing har gått ut. Var vänlig och 🔒 logga in igen för att fortsätta använda appen. <br/><a href="https://www.bing.com/">https://www.bing.com/</a> Jag ber om ursäkt för det besvär det har orsakat. <br/><a id="reload-link" href="#">Ladda om sidan efter inloggning.</a>`,
           limit:
             "Ledsen, men du har nått den dagliga gränsen för chattvändningar i den här konversationen på Bing.",
         },
@@ -3791,7 +3791,7 @@ Din kommentar: `,
           session: `Oj då! 😕 ⌛️ Din session för Bard har gått ut. Var vänlig och 🔒 logga in igen för att fortsätta använda appen. <br/><a href="https://bard.google.com/">https://bard.google.com/</a>`,
         },
 
-        accident: `Jag ber om ursäkt för det inträffade besväret. En oavsiktlig fel har inträffat.  <br><a onclick="location.reload();" href="#">Klicka här för att ladda om sidan</a>`,
+        accident: `Jag ber om ursäkt för det inträffade besväret. En oavsiktlig fel har inträffat.  <br><a id="reload-link" href="#">Klicka här för att ladda om sidan</a>`,
         disconnection: `Vi ber om ursäkt för den tidigare frånkopplingen. Anslutningen har återställts. Vänligen försök igen.`,
       },
     },
@@ -4025,7 +4025,7 @@ Brukerens kommentar: [USERCOMMENT]
 Din kommentar: `,
       error: {
         bing: {
-          session: `Å nei! 😧 Økten din for Bing har utløpt. Vennligst 🔒 logg inn på nytt for å fortsette å bruke appen. <br/><a href="https://www.bing.com/">https://www.bing.com/</a> Beklager for ulempen dette har medført. <br/><a onclick="location.reload();" href="#">Vennligst last inn siden på nytt etter innlogging.</a>`,
+          session: `Å nei! 😧 Økten din for Bing har utløpt. Vennligst 🔒 logg inn på nytt for å fortsette å bruke appen. <br/><a href="https://www.bing.com/">https://www.bing.com/</a> Beklager for ulempen dette har medført. <br/><a id="reload-link" href="#">Vennligst last inn siden på nytt etter innlogging.</a>`,
           limit:
             "Beklager, men du har nådd den daglige begrensningen for antall svinger i samtalen på Bing.",
         },
@@ -4036,7 +4036,7 @@ Din kommentar: `,
           session: `Oops! 😕 ⌛️ Økten din for Bard har utløpt. Vennligst 🔒 logg inn på nytt for å fortsette å bruke appen. <br/><a href="https://bard.google.com/">https://bard.google.com/</a>`,
         },
 
-        accident: `Beklager ulempen dette har medført. Det har oppstått en utilsiktet feil.  <br><a onclick="location.reload();" href="#">Klikk her for å laste inn siden på nytt</a>`,
+        accident: `Beklager ulempen dette har medført. Det har oppstått en utilsiktet feil.  <br><a id="reload-link" href="#">Klikk her for å laste inn siden på nytt</a>`,
         disconnection: `Beklager for avbruddet tidligere. Forbindelsen er nå gjenopprettet. Vennligst prøv igjen.`,
       },
     },
@@ -4269,7 +4269,7 @@ Din kommentar: `,
 你的评论：`,
       error: {
         bing: {
-          session: `哎呀！😧 你在Bing上的会话已过期。请🔒重新登录以继续使用该应用程序。<br/><a href="https://www.bing.com/">https://www.bing.com/</a> 对造成的不便我深感抱歉。<br/><a onclick="location.reload();" href="#">请在登录后重新加载此页面。</a>`,
+          session: `哎呀！😧 你在Bing上的会话已过期。请🔒重新登录以继续使用该应用程序。<br/><a href="https://www.bing.com/">https://www.bing.com/</a> 对造成的不便我深感抱歉。<br/><a id="reload-link" href="#">请在登录后重新加载此页面。</a>`,
           limit: "抱歉，但你已达到Bing上此对话的每日聊天次数限制。",
         },
         chatgpt: {
@@ -4279,7 +4279,7 @@ Din kommentar: `,
           session: `糟糕！😕 ⌛️ 你在Bard上的会话已过期。请🔒重新登录以继续使用该应用程序。<br/><a href="https://bard.google.com/">https://bard.google.com/</a>`,
         },
 
-        accident: `对于造成的不便我深感抱歉。发生了意外错误。  <br><a onclick="location.reload();" href="#">请点击此处重新加载页面</a>`,
+        accident: `对于造成的不便我深感抱歉。发生了意外错误。  <br><a id="reload-link" href="#">请点击此处重新加载页面</a>`,
         disconnection: `对于先前的断开连接表示歉意。连接已经恢复，请重试。`,
       },
     },
@@ -4512,7 +4512,7 @@ Din kommentar: `,
 당신의 댓글: `,
       error: {
         bing: {
-          session: `앗! 😧 Bing의 세션이 만료되었습니다. 계속해서 앱을 사용하려면 🔒 다시 로그인하십시오. <br/><a href="https://www.bing.com/">https://www.bing.com/</a> 불편을 드려 죄송합니다. <br/><a onclick="location.reload();" href="#">로그인 후에 이 페이지를 다시로드하세요.</a>`,
+          session: `앗! 😧 Bing의 세션이 만료되었습니다. 계속해서 앱을 사용하려면 🔒 다시 로그인하십시오. <br/><a href="https://www.bing.com/">https://www.bing.com/</a> 불편을 드려 죄송합니다. <br/><a id="reload-link" href="#">로그인 후에 이 페이지를 다시로드하세요.</a>`,
           limit:
             "죄송합니다. Bing에서 이 대화의 일일 채팅 횟수 제한에 도달하셨습니다.",
         },
@@ -4523,7 +4523,7 @@ Din kommentar: `,
           session: `앗싸! 😕 ⌛️ Bard의 세션이 만료되었습니다. 계속해서 앱을 사용하려면 🔒 다시 로그인하십시오. <br/><a href="https://bard.google.com/">https://bard.google.com/</a>`,
         },
 
-        accident: `불편을 끼쳐드려 죄송합니다. 우연한 오류가 발생했습니다.  <br><a onclick="location.reload();" href="#">페이지를 다시 로드하려면 여기를 클릭하세요</a>`,
+        accident: `불편을 끼쳐드려 죄송합니다. 우연한 오류가 발생했습니다.  <br><a id="reload-link" href="#">페이지를 다시 로드하려면 여기를 클릭하세요</a>`,
         disconnection: `이전의 연결 끊김으로 인한 사과드립니다. 연결이 복원되었습니다. 다시 시도해주세요.`,
       },
     },
@@ -4757,7 +4757,7 @@ Din kommentar: `,
 आपकी टिप्पणी: `,
       error: {
         bing: {
-          session: `उह-हो! 😧 बिंग का सत्र समाप्त हो गया है। कृपया ऐप का उपयोग जारी रखने के लिए 🔒 फिर से लॉग इन करें। <br/><a href="https://www.bing.com/">https://www.bing.com/</a> उत्पन्न असुविधा के लिए क्षमा करें। <br/><a onclick="location.reload();" href="#">लॉगिन के बाद कृपया इस पेज को फिर से लोड करें।</a>`,
+          session: `उह-हो! 😧 बिंग का सत्र समाप्त हो गया है। कृपया ऐप का उपयोग जारी रखने के लिए 🔒 फिर से लॉग इन करें। <br/><a href="https://www.bing.com/">https://www.bing.com/</a> उत्पन्न असुविधा के लिए क्षमा करें। <br/><a id="reload-link" href="#">लॉगिन के बाद कृपया इस पेज को फिर से लोड करें।</a>`,
           limit:
             "क्षमा करें, लेकिन बिंग पर आपने इस बातचीत के दैनिक चरण सीमा तक पहुंच ली है।",
         },
@@ -4768,7 +4768,7 @@ Din kommentar: `,
           session: `उफ़! 😕 ⌛️ बार्ड का सत्र समाप्त हो गया है। कृपया ऐप का उपयोग जारी रखने के लिए 🔒 फिर से लॉग इन करें। <br/><a href="https://bard.google.com/">https://bard.google.com/</a>`,
         },
 
-        accident: `दुखद होने के लिए मैं खेद प्रकट करता हूँ। एक अकस्मात त्रुटि हुई है।  <br><a onclick="location.reload();" href="#">कृपया यहाँ क्लिक करें पेज को रीलोड करने के लिए</a>`,
+        accident: `दुखद होने के लिए मैं खेद प्रकट करता हूँ। एक अकस्मात त्रुटि हुई है।  <br><a id="reload-link" href="#">कृपया यहाँ क्लिक करें पेज को रीलोड करने के लिए</a>`,
         disconnection: `पहले हुए डिस्कनेक्शन के लिए माफ़ी चाहते हैं। कनेक्शन को पुनः स्थापित किया गया है। कृपया पुनः प्रयास करें।`,
       },
     },

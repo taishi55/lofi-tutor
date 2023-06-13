@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "version": "4.0.7",
+  "version": "4.0.8",
   "name": "__MSG_APPNAME__",
   "description": "__MSG_APPDESC__",
   "default_locale": "en_US",
@@ -26,14 +26,11 @@
     }
   ],
   "permissions": [
-    "commands",
     "storage",
     "unlimitedStorage",
     "tabs",
     "activeTab",
-    "scripting",
-    "contextMenus",
-    "webNavigation"
+    "scripting"
   ],
   "host_permissions": ["https://*/*", "https://*/*"],
   "web_accessible_resources": [

@@ -157,6 +157,7 @@
           author: $botModel.id,
           new: true,
         });
+        $messages = $messages;
       }
       await cleanUpMessages();
     }
