@@ -5,10 +5,17 @@
   import MusicMode from "./MusicMode.svelte";
   import ScreenSize from "./ScreenSize.svelte";
   import Voice from "./Voice.svelte";
-  import { currentLocale, isDarkMode, isEmotional } from "../../store";
+  import {
+    currentLocale,
+    isDarkMode,
+    isEmotional,
+    isPlayingMusic,
+    messages,
+  } from "../../store";
   import Browser from "webextension-polyfill";
   import { langs, customLang } from "../../store/lang";
   import type { LangCode } from "../../store/langTypes";
+  import type { ChatMessageModel } from "../../chat/types";
 
   const getCommands = () => {
     return [
@@ -42,35 +49,60 @@
   };
 
   onMount(async () => {
-    const result = await Browser.storage.sync.get([
-      "langOption",
-      "isEmotional",
-      "darkMode",
-    ]);
-    if (result?.langOption) {
-      currentLocale.set(result.langOption);
-    } else {
-      currentLocale.set(checkLocale());
-      await Browser.storage.sync.set({ langOption: $currentLocale });
-    }
-    if (result?.isEmotional) {
-      $isEmotional = true;
-    } else {
-      $isEmotional = false;
-      currentLocale.set(checkLocale());
-      await Browser.storage.sync.set({ isEmotional: $isEmotional });
-    }
-
-    if (result?.darkMode) {
-      document.body.setAttribute("data-theme", "dark");
-      document.documentElement.classList.remove("dark");
-      document.documentElement.classList.add("dark");
-      $isDarkMode = true;
-      Browser.storage.sync.set({ darkMode: $isDarkMode });
-    } else {
-      document.body.setAttribute("data-theme", "light");
-    }
+    // Add event listener for visibility change
+    document.addEventListener("visibilitychange", handleVisibilityChange);
   });
+
+  async function handleVisibilityChange() {
+    try {
+      if (document.hidden || document.visibilityState === "hidden") {
+        // console.log("Current tab is not selected.");
+      } else {
+        // console.log("Current tab is selected.");
+
+        const resultLocal = await Browser.storage.local.get(["messages"]);
+        if ((resultLocal as { messages?: ChatMessageModel[] }).messages) {
+          $messages = resultLocal.messages;
+        }
+        const tab = await Browser.tabs.query({
+          active: true,
+          currentWindow: true,
+        });
+        if (tab[0].mutedInfo && tab[0].mutedInfo.muted) {
+          isPlayingMusic.set(false);
+        }
+
+        const result = await Browser.storage.sync.get([
+          "langOption",
+          "isEmotional",
+          "darkMode",
+        ]);
+        if (result?.langOption) {
+          currentLocale.set(result.langOption);
+        } else {
+          currentLocale.set(checkLocale());
+          await Browser.storage.sync.set({ langOption: $currentLocale });
+        }
+        if (result?.isEmotional) {
+          $isEmotional = true;
+        } else {
+          $isEmotional = false;
+          currentLocale.set(checkLocale());
+          await Browser.storage.sync.set({ isEmotional: $isEmotional });
+        }
+
+        if (result?.darkMode) {
+          document.body.setAttribute("data-theme", "dark");
+          document.documentElement.classList.remove("dark");
+          document.documentElement.classList.add("dark");
+          $isDarkMode = true;
+          Browser.storage.sync.set({ darkMode: $isDarkMode });
+        } else {
+          document.body.setAttribute("data-theme", "light");
+        }
+      }
+    } catch (error) {}
+  }
 </script>
 
 <div class=" font-extralight flex justify-between items-center px-4 pb-3">

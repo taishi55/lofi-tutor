@@ -66,13 +66,9 @@
       $generatingMessageId = uuid();
 
       const result = await Browser.storage.sync.get([
-        "messages",
         "voiceSwitch",
         "scrollSwitch",
       ]);
-      if (result?.messages) {
-        $messages = result.messages;
-      }
 
       if (result?.voiceSwitch) {
         voiceSwitch = true;
@@ -164,11 +160,13 @@
   };
 
   onMount(async () => {
-    const result = await Browser.storage.local.get(["messages"]);
-    if (result?.messages) {
-      $messages = result?.messages || [];
-      scrollToBottom();
-    }
+    try {
+      const result = await Browser.storage.local.get(["messages"]);
+      if ((result as { messages?: ChatMessageModel[] }).messages) {
+        $messages = result?.messages || [];
+        scrollToBottom();
+      }
+    } catch (error) {}
   });
 
   const startSpeech = async (item: ChatMessageModel) => {
@@ -220,12 +218,17 @@
       if (
         request?.isTransmittedBackend &&
         request?.currentActiveTabId &&
+        request?.item &&
         !$incomingSpeechItems.some(
           (item) =>
             item.audioUrl === request.audioUrl ||
-            item.item.id === request.item.id
+            item.item.id === request.item.id ||
+            item.currentActiveTabId !== $currentTabId
         )
       ) {
+        if ($incomingSpeechItems.length === 0) {
+          isPlayingAudio = false;
+        }
         $currentSpeechLoadingItemId = "";
         $incomingSpeechItems.push({
           audioUrl: request.audioUrl,
@@ -254,7 +257,12 @@
     !isIgnoreThisChange
   ) {
     isPlayingAudio = true;
-    triggerSpeechWhenReady();
+    try {
+      triggerSpeechWhenReady();
+    } catch (error) {
+      console.log(error);
+      isPlayingAudio = false;
+    }
   }
 
   const triggerSpeechWhenReady = async () => {

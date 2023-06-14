@@ -9,6 +9,8 @@
     isSpeeching,
     currentSpeechLoadingItemId,
     currentSpeechPlayingItemId,
+    currentTabId,
+    incomingSpeechItems,
   } from "../../../store";
   import LoadingSvg from "./LoadingSvg.svelte";
   import { getRandomMusic, muteNonActiveTabs } from "../../../store/function";
@@ -23,31 +25,37 @@
   });
 
   async function handleSpeech() {
-    await muteNonActiveTabs();
-    // start playing music if not
-    if (!$isPlayingMusic) {
-      $isPlayingMusic = true;
-      const audio: HTMLAudioElement | null =
-        document.querySelector("#bg-music");
-      if (audio) {
-        audio.src = getRandomMusic();
-        audio.play();
+    try {
+      // start playing music if not
+      if (!$isPlayingMusic) {
+        $isPlayingMusic = true;
+        const audio: HTMLAudioElement | null =
+          document.querySelector("#bg-music");
+        if (audio) {
+          audio.src = getRandomMusic();
+          audio.play();
+        }
       }
-    }
-    // send a request to background
-    isSpeechRequestPending.set(true);
-    currentSpeechLoadingItemId.set(item.id);
+      // send a request to background
+      isSpeechRequestPending.set(true);
+      currentSpeechLoadingItemId.set(item.id);
 
-    const currentTab = await Browser.tabs.query({
-      active: true,
-      currentWindow: true,
-    });
-    const message = {
-      item: item,
-      currentActiveTabId: currentTab[0].id,
-      clientRequest: true,
-    };
-    await Browser.runtime.sendMessage(message);
+      const currentTab = await Browser.tabs.query({
+        active: true,
+        currentWindow: true,
+      });
+      currentTabId.set(currentTab[0].id);
+      incomingSpeechItems.set([]);
+      const message = {
+        item: item,
+        currentActiveTabId: currentTab[0].id,
+        clientRequest: true,
+      };
+      await Browser.runtime.sendMessage(message);
+      await muteNonActiveTabs();
+    } catch (error) {
+      console.log(error);
+    }
   }
 </script>
 

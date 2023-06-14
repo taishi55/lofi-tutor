@@ -1,5 +1,9 @@
 <script lang="ts">
-  import { currentLocale, isPlayingMusic } from "../../store";
+  import {
+    currentLocale,
+    incomingSpeechItems,
+    isPlayingMusic,
+  } from "../../store";
   import { getRandomMusic, muteNonActiveTabs } from "../../store/function";
   import { customLang } from "../../store/lang";
   import Toggle from "./Toggle.svelte";
@@ -13,6 +17,7 @@
     $isPlayingMusic = !$isPlayingMusic;
     const audio: HTMLAudioElement | null = document.querySelector("#bg-music");
     if (!audio) return;
+    incomingSpeechItems.set([]);
 
     if ($isPlayingMusic) {
       audio.src = getRandomMusic();

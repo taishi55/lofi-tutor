@@ -53,7 +53,7 @@ try {
   ) {
     try {
       // get speech text from client
-      if (request?.clientRequest) {
+      if (request?.clientRequest && request?.item) {
         await sendMessageToHiddenTab(
           request.item,
           request.currentActiveTabId,
@@ -61,13 +61,13 @@ try {
         );
       }
       // get speech url from vendor
-      if (request?.backendFeedback && request?.audioUrl) {
+      if (request?.backendFeedback && request?.item) {
         await Browser.windows.remove(request.createdTabId);
         await Browser.runtime.sendMessage({
           audioUrl: request.audioUrl,
           item: request.item,
           currentActiveTabId: request.currentActiveTabId,
-          isTransmittedBackend: true
+          isTransmittedBackend: true,
         });
       }
       // mute non active tabs
@@ -287,24 +287,3 @@ const getYoutubetranscription = async (videoId: string) => {
     return undefined;
   }
 };
-
-// const muteAllTabs = async () => {
-//   const tabs = await Browser.tabs.query({});
-//   for (let index = 0; index < tabs.length; index++) {
-//     const tab = tabs[index];
-//     await Browser.tabs.update(tab.id, { muted: true });
-//   }
-// };
-
-// const justKeepWebsiteAlive = async (url: string) => {
-//   const newWindow = await openNewWindow(url);
-//   Browser.tabs.onUpdated.addListener(async function (tabId, changeInfo, tab) {
-//     if (
-//       changeInfo.status === "complete" &&
-//       newWindow.windowId === tab.windowId &&
-//       newWindow.tabId === tab.id
-//     ) {
-//       await Browser.windows.remove(newWindow.windowId);
-//     }
-//   });
-// };
