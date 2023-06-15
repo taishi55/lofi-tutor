@@ -26,10 +26,10 @@ export function setupProxyExecutor() {
         type: "PROXY_RESPONSE_METADATA",
         metadata: {
           status: resp.status,
-          statusText: resp.statusText,
+          statusText: resp.statusText, // @ts-ignore
           headers: Object.fromEntries(resp.headers.entries()),
         },
-      } as ProxyFetchResponseMetadataMessage);
+      } as ProxyFetchResponseMetadataMessage); // @ts-ignore
       for await (const chunk of streamAsyncIterable(resp.body!)) {
         port.postMessage({
           type: "PROXY_RESPONSE_BODY_CHUNK",

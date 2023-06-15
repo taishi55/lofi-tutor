@@ -3,7 +3,6 @@
   "include": ["src/**/*"],
   "exclude": ["node_modules", "node_modules/*", "__sapper__/*", "public/*"],
   "compilerOptions": {
-    "moduleResolution": "node"
-    // ... other options ...
+    "moduleResolution": "node",
   }
 }
