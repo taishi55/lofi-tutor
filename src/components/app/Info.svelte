@@ -51,6 +51,7 @@
   onMount(async () => {
     // Add event listener for visibility change
     document.addEventListener("visibilitychange", handleVisibilityChange);
+    await handleVisibilityChange();
   });
 
   async function handleVisibilityChange() {
