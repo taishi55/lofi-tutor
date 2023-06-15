@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "version": "4.0.8",
+  "version": "4.1.0",
   "name": "__MSG_APPNAME__",
   "description": "__MSG_APPDESC__",
   "default_locale": "en_US",

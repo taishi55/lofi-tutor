@@ -18,6 +18,8 @@ export const currentSpeechLoadingItemId = writable("");
 export const currentSpeechPlayingItemId = writable("");
 export const isDarkMode = writable(false);
 export const copyCode = writable("");
+export const copyTable = writable("");
+export const copyHTML = writable("");
 
 export const queryText = writable("");
 export const botModel = writable<ModelType>(CHATBOTS[0]);

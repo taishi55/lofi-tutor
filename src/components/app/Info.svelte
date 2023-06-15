@@ -100,6 +100,13 @@
         } else {
           document.body.setAttribute("data-theme", "light");
         }
+
+        const container = document.querySelector("#chat-results");
+
+        if (container) {
+          // Scroll to the bottom of the container
+          container.scrollTop = container.scrollHeight;
+        }
       }
     } catch (error) {}
   }

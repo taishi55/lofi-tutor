@@ -9,6 +9,8 @@
     isSpeeching,
     currentSpeechPlayingItemId,
     isGirlTalking,
+    copyTable,
+    copyHTML,
   } from "../../../store";
 
   export let item: ChatMessageModel;
@@ -17,6 +19,8 @@
   let cursorY = 0;
   let isHighlighted = false;
   let isHoveringCode = false;
+  let isHoveringTable = false;
+  let isHoveringArticle = false;
 
   function handleMouseMove(event: MouseEvent) {
     cursorX = event.pageX + 5;
@@ -26,11 +30,35 @@
       (event.target as Element)?.closest("code") || null;
     const isButton: HTMLElement | null =
       (event.target as Element)?.closest("button") || null;
+    const tableElement: HTMLElement | null =
+      (event.target as Element)?.closest("table") || null;
+    const articleElement: HTMLElement | null =
+      (event.target as Element)?.closest("div.message") || null;
     if (codeElement && codeElement?.textContent && !isButton) {
       $copyCode = codeElement.textContent;
       isHoveringCode = true;
+    } else if (tableElement && tableElement?.textContent && !isButton) {
+      $copyTable = tableElement.outerHTML;
+      isHoveringTable = true;
     } else if (!isButton) {
       isHoveringCode = false;
+      isHoveringTable = false;
+    }
+
+    if (
+      (item.text.includes("# ") || item.text.includes("## ")) &&
+      articleElement
+    ) {
+      const copyingButton = articleElement.querySelector("#copying");
+      $copyHTML = articleElement.innerHTML;
+      if (copyingButton) {
+        const regex = new RegExp(copyingButton.outerHTML, "g");
+        $copyHTML = $copyHTML.replace(regex, "");
+      }
+      isHoveringArticle = true;
+    } else {
+      $copyHTML = "";
+      isHoveringArticle = false;
     }
   }
 
@@ -76,6 +104,8 @@
           <CopyButton
             {isHighlighted}
             {isHoveringCode}
+            {isHoveringTable}
+            {isHoveringArticle}
             {item}
             {cursorX}
             {cursorY}

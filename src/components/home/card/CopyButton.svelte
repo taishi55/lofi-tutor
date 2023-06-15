@@ -2,7 +2,7 @@
   import { fade } from "svelte/transition";
   import type { ChatMessageModel } from "../../../chat/types";
   import { sendMessageToActiveTab } from "../../../store/function";
-  import { copyCode, currentLocale } from "../../../store";
+  import { copyCode, copyHTML, copyTable, currentLocale } from "../../../store";
   import { customLang } from "../../../store/lang";
 
   export let cursorX: number;
@@ -10,6 +10,8 @@
   export let item: ChatMessageModel;
   export let isHighlighted = false;
   export let isHoveringCode = false;
+  export let isHoveringTable = false;
+  export let isHoveringArticle = false;
   let isCopied = false;
 
   const copyText = async () => {
@@ -18,6 +20,12 @@
       await sendMessageToActiveTab({ copyText: highlightedText });
     } else if (isHoveringCode && $copyCode) {
       await sendMessageToActiveTab({ copyText: $copyCode });
+    } else if (isHoveringTable && $copyTable) {
+      await sendMessageToActiveTab({ copyText: $copyTable });
+    } else if (isHoveringArticle && $copyHTML) {
+      await sendMessageToActiveTab({
+        copyText: $copyHTML,
+      });
     } else {
       // remove links
       await sendMessageToActiveTab({
@@ -32,6 +40,7 @@
 </script>
 
 <button
+  id="copying"
   on:click={copyText}
   in:fade={{ duration: 500 }}
   style="position: fixed; top: {cursorY}px; left: {cursorX}px;"
@@ -60,6 +69,16 @@
     <div class="text-xs select-none">
       {customLang[$currentLocale].system.code}
     </div>
+  {:else if isHoveringTable}
+    <div class="select-none">
+      <i class="fa-solid fa-table" />
+    </div>
+    <div class="text-xs select-none">table</div>
+  {:else if isHoveringArticle}
+    <div class="select-none">
+      <i class="fa-solid fa-newspaper" />
+    </div>
+    <div class="text-xs select-none">HTML</div>
   {:else}
     <div class="select-none">
       <i class="fa-solid fa-copy" />
