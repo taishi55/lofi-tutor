@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "version": "4.1.0",
+  "version": "4.1.1",
   "name": "__MSG_APPNAME__",
   "description": "__MSG_APPDESC__",
   "default_locale": "en_US",
@@ -25,13 +25,7 @@
       "js": ["build/chatgpt.js"]
     }
   ],
-  "permissions": [
-    "storage",
-    "unlimitedStorage",
-    "tabs",
-    "activeTab",
-    "scripting"
-  ],
+  "permissions": ["storage", "tabs", "activeTab"],
   "host_permissions": ["https://*/*", "https://*/*"],
   "web_accessible_resources": [
     {

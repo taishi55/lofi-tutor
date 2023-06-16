@@ -127,20 +127,32 @@ export class BingWebBot extends AbstractBot {
 
   async doSendMessage(params: SendMessageParams) {
     if (!this.conversationContext) {
-      const [conversation, { bingConversationStyle }] = await Promise.all([
-        createConversation(params),
-        getUserConfig(),
-      ]);
-      this.conversationContext = {
-        conversationId: conversation.conversationId,
-        conversationSignature: conversation.conversationSignature,
-        clientId: conversation.clientId,
-        invocationId: 0,
-        conversationStyle: bingConversationStyle,
-      };
-      await Browser.storage.sync.set({
-        conversationContextBing: this.conversationContext,
-      });
+      try {
+        const [conversation, { bingConversationStyle }] = await Promise.all([
+          createConversation(params),
+          getUserConfig(),
+        ]);
+        this.conversationContext = {
+          conversationId: conversation.conversationId,
+          conversationSignature: conversation.conversationSignature,
+          clientId: conversation.clientId,
+          invocationId: 0,
+          conversationStyle: bingConversationStyle,
+        };
+        await Browser.storage.sync.set({
+          conversationContextBing: this.conversationContext,
+        });
+      } catch (error) {
+        const resultLang = await Browser.storage.sync.get("langOption");
+          let defaultLang = "en-US";
+          if (resultLang?.langOption) {
+            defaultLang = resultLang.langOption;
+        }
+        params.onEvent({
+          type: "ERROR",
+          data: { text: customLang[defaultLang].system.error.bing.limit },
+        });
+      }
     }
 
     const conversation = this.conversationContext!;

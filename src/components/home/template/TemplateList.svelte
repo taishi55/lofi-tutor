@@ -20,17 +20,21 @@
   export let closeWindow = () => {};
 
   onMount(async () => {
-    const result = await Browser.storage.local.get(["myInstructions"]);
-    if (!result?.myInstructions) {
-      $templateItems = defaultTemplateItems;
-      await Browser.storage.local.set({ myInstructions: $templateItems });
-    } else {
-      $templateItems = result.myInstructions || [];
-    }
+    try {
+      const result = await Browser.storage.local.get(["myInstructions"]);
+      if (result?.myInstructions && result.myInstructions.length > 0) {
+        $templateItems = result.myInstructions || [];
+      } else {
+        $templateItems = defaultTemplateItems;
+        await Browser.storage.local.set({
+          myInstructions: defaultTemplateItems,
+        });
+      }
 
-    if ($templateItem?.id) {
-      document.getElementById($templateItem.id)?.scrollIntoView();
-    }
+      if ($templateItem?.id) {
+        document.getElementById($templateItem.id)?.scrollIntoView();
+      }
+    } catch (error) {}
   });
 
   const createItem = () => {

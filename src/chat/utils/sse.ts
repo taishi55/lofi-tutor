@@ -12,6 +12,7 @@ export async function parseSSEResponse(resp: Response, onMessage: (message: stri
       onMessage(event.data)
     }
   })
+  // @ts-ignore
   for await (const chunk of streamAsyncIterable(resp.body!)) {
     const str = new TextDecoder().decode(chunk)
     parser.feed(str)

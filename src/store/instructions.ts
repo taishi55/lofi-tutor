@@ -1,3 +1,3 @@
 import { customLang } from "./lang";
 
-export const defaultTemplateItems = customLang["en-US"].instructions;
+export const defaultTemplateItems = customLang[navigator?.language || "en-US"].instructions;
