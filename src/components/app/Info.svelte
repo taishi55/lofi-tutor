@@ -13,9 +13,10 @@
     messages,
   } from "../../store";
   import Browser from "webextension-polyfill";
-  import { langs, customLang } from "../../store/lang";
-  import type { LangCode } from "../../store/langTypes";
+  import { customLang } from "../../store/lang";
+
   import type { ChatMessageModel } from "../../chat/types";
+  import { checkLocale } from "../../store/instructions";
 
   const getCommands = () => {
     return [
@@ -32,21 +33,6 @@
   $: if ($currentLocale) {
     commands = getCommands();
   }
-
-  const checkLocale = (): LangCode => {
-    const defaultVal: LangCode = "en-US";
-    const lang = (navigator?.language as LangCode) || defaultVal;
-    if (langs.some((l) => l.code === lang)) {
-      return lang;
-    }
-    for (let index = 0; index < langs.length; index++) {
-      const l = langs[index];
-      if (lang.includes(l.code.split("-")[0])) {
-        return l.code;
-      }
-    }
-    return defaultVal;
-  };
 
   onMount(async () => {
     // Add event listener for visibility change
