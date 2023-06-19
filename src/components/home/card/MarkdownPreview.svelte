@@ -42,8 +42,12 @@
   });
 </script>
 
-<div
-  class="w-full whitespace-pre-line grid grid-cols-1 gap-3 markdown-custom-styles overflow-x-scroll"
->
+<div class="md-style markdown-custom-styles">
   {@html parseMarkdown(markdown)}
 </div>
+
+<style lang="postcss" scoped>
+  .md-style {
+    @apply w-full whitespace-pre-line grid grid-cols-1 gap-3 overflow-x-scroll;
+  }
+</style>

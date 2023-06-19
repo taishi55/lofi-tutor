@@ -90,6 +90,7 @@ export type SystemType = {
   writeTitle: string;
   writePrompt: string;
   askAbout: string;
+  table:  string;
   menu: {
     home: string;
     readmap: string;

@@ -14,6 +14,10 @@
   export let isHoveringArticle = false;
   let isCopied = false;
 
+  function removeClassFromString(inputString: string) {
+    return inputString.replace(/class=".*?"/g, "");
+  }
+
   const copyText = async () => {
     const highlightedText: string = window?.getSelection()?.toString() || "";
     if (isHighlighted && highlightedText) {
@@ -24,7 +28,7 @@
       await sendMessageToActiveTab({ copyText: $copyTable });
     } else if (isHoveringArticle && $copyHTML) {
       await sendMessageToActiveTab({
-        copyText: $copyHTML,
+        copyText: removeClassFromString($copyHTML),
       });
     } else {
       // remove links
@@ -73,7 +77,9 @@
     <div class="select-none">
       <i class="fa-solid fa-table" />
     </div>
-    <div class="text-xs select-none">table</div>
+    <div class="text-xs select-none">
+      {customLang[$currentLocale].system.table}
+    </div>
   {:else if isHoveringArticle}
     <div class="select-none">
       <i class="fa-solid fa-newspaper" />

@@ -23,6 +23,7 @@ export const system: SystemType = {
   copy: "copy",
   code: "code",
   highlight: "highlight",
+  table: "table",
   menu: {
     home: "🏠 Home",
     readmap: "🌙 Road Map",
@@ -346,7 +347,7 @@ export const customLang: Translation = {
       copy: "copier",
       code: "code",
       highlight: "surligner",
-
+      table: "tableau",
       menu: {
         home: "🏠 Accueil",
         readmap: "🌙 Carte routière",
@@ -596,7 +597,7 @@ Ton commentaire : `,
       copy: "copiar",
       code: "código",
       highlight: "destacar",
-
+      table: "tabela",
       menu: {
         home: "🏠 Início",
         readmap: "🌙 Mapa de Roteiro",
@@ -842,7 +843,7 @@ Ton commentaire : `,
       copy: "kopier",
       code: "kode",
       highlight: "fremhæv",
-
+      table: "tabel",
       menu: {
         home: "🏠 Hjem",
         readmap: "🌙 Vejkort",
@@ -1089,7 +1090,7 @@ Ton commentaire : `,
       copy: "kopiëren",
       code: "code",
       highlight: "markeren",
-
+      table: "tabel",
       menu: {
         home: "🏠 Startpagina",
         readmap: "🌙 Routekaart",
@@ -1338,7 +1339,7 @@ Ton commentaire : `,
       copy: "copier",
       code: "code",
       highlight: "surligner",
-
+      table: "tableau",
       menu: {
         home: "🏠 Accueil",
         readmap: "🌙 Feuille de route",
@@ -1588,7 +1589,7 @@ Ton commentaire : `,
       copy: "Kopieren",
       code: "Code",
       highlight: "Hervorheben",
-
+      table: "tabelle",
       menu: {
         home: "🏠 Startseite",
         readmap: "🌙 Roadmap",
@@ -1839,7 +1840,7 @@ Dein Kommentar: `,
       copy: "Copia",
       code: "Codice",
       highlight: "Evidenzia",
-
+      table: "tabella",
       menu: {
         home: "🏠 Home",
         readmap: "🌙 Road Map",
@@ -2088,7 +2089,7 @@ Dein Kommentar: `,
       copy: "コピー",
       code: "コード",
       highlight: "ハイライト",
-
+      table: "表",
       menu: {
         home: "🏠 ホーム",
         readmap: "🌙 ロードマップ",
@@ -2337,7 +2338,7 @@ Dein Kommentar: `,
       copy: "Kopiuj",
       code: "Kod",
       highlight: "Podświetl",
-
+      table: "tabela",
       menu: {
         home: "🏠 Strona główna",
         readmap: "🌙 Mapa drogowa",
@@ -2586,7 +2587,7 @@ Twój komentarz: `,
       copy: "Copiar",
       code: "Código",
       highlight: "Destacar",
-
+      table: "tabela",
       menu: {
         home: "🏠 Início",
         readmap: "🌙 Mapa de Rota",
@@ -2835,7 +2836,7 @@ Seu comentário: `,
       copy: "Копировать",
       code: "Код",
       highlight: "Выделить",
-
+      table: "таблица",
       menu: {
         home: "🏠 Главная",
         readmap: "🌙 Дорожная карта",
@@ -3087,7 +3088,7 @@ Seu comentário: `,
       copy: "Copiar",
       code: "Código",
       highlight: "Resaltar",
-
+      table: "tabla",
       menu: {
         home: "🏠 Inicio",
         readmap: "🌙 Mapa de Ruta",
@@ -3337,7 +3338,7 @@ Tu comentario: `,
       copy: "Copiar",
       code: "Código",
       highlight: "Resaltar",
-
+      table: "tabla",
       menu: {
         home: "🏠 Inicio",
         readmap: "🌙 Mapa de Ruta",
@@ -3587,7 +3588,7 @@ Tu comentario: `,
       copy: "Copiar",
       code: "Código",
       highlight: "Resaltar",
-
+      table: "tabla",
       menu: {
         home: "🏠 Inicio",
         readmap: "🌙 Mapa de Ruta",
@@ -3837,7 +3838,7 @@ Tu comentario: `,
       copy: "kopiera",
       code: "kod",
       highlight: "markera",
-
+      table: "tabell",
       menu: {
         home: "🏠 Hem",
         readmap: "🌙 Vägkarta",
@@ -4087,7 +4088,7 @@ Din kommentar: `,
       copy: "kopier",
       code: "kode",
       highlight: "fremhev",
-
+      table: "tabell",
       menu: {
         home: "🏠 Hjem",
         readmap: "🌙 Veikart",
@@ -4337,7 +4338,7 @@ Din kommentar: `,
       copy: "复制",
       code: "代码",
       highlight: "高亮",
-
+      table: "表格",
       menu: {
         home: "🏠 首页",
         readmap: "🌙 路线图",
@@ -4585,7 +4586,7 @@ Din kommentar: `,
       copy: "복사",
       code: "코드",
       highlight: "강조",
-
+      table: "표",
       menu: {
         home: "🏠 홈",
         readmap: "🌙 로드맵",
@@ -4835,7 +4836,7 @@ Din kommentar: `,
       copy: "कॉपी करें",
       code: "कोड",
       highlight: "हाइलाइट करें",
-
+      table: "तालिका",
       menu: {
         home: "🏠 होम",
         readmap: "🌙 रोड मैप",
