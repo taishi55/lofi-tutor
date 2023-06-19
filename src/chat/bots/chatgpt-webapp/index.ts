@@ -58,120 +58,168 @@ export class ChatGPTWebBot extends AbstractBot {
   }
 
   async doSendMessage(params: SendMessageParams) {
-    const result = await Browser.storage.sync.get([
-      "accessTokenChatGPT",
-      "conversationContextChatGPT",
-      "cachedModelNamesChatGPT",
-    ]);
-    if (!this.accessToken) {
-      this.accessToken = await chatGPTClient.getAccessToken();
+    try {
+      const result = await Browser.storage.sync.get([
+        "accessTokenChatGPT",
+        "conversationContextChatGPT",
+        "cachedModelNamesChatGPT",
+      ]);
       if (!this.accessToken) {
+        this.accessToken = await chatGPTClient.getAccessToken();
+        if (!this.accessToken) {
+          const resultLang = await Browser.storage.sync.get("langOption");
+          let defaultLang = "en-US";
+          if (resultLang?.langOption) {
+            defaultLang = resultLang.langOption;
+          }
+          params.onEvent({
+            type: "ERROR",
+            data: {
+              text: customLang[defaultLang].system.error.chatgpt.session,
+            },
+          });
+          return;
+        }
+      }
+
+      if (result?.conversationContextChatGPT) {
+        this.conversationContext =
+          result?.conversationContextChatGPT as ConversationContext;
+      }
+
+      if (result?.cachedModelNamesChatGPT) {
+        this.cachedModelNames = result?.cachedModelNamesChatGPT as string[];
+      }
+
+      const modelName = await this.getModelName(params);
+      console.debug("Using model:", modelName);
+
+      // check if custom prompt selected
+      const settingResult = await Browser.storage.sync.get([
+        "isEmotional",
+        "langOption",
+      ]);
+      let userPrompt = params.prompt;
+      if (settingResult?.isEmotional && settingResult?.langOption) {
+        userPrompt = getCustomPrompt(params.prompt, settingResult.langOption);
+      }
+
+      const resp = await chatGPTClient.fetch(
+        "https://chat.openai.com/backend-api/conversation",
+        {
+          method: "POST",
+          signal: params.signal,
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${this.accessToken}`,
+          },
+          body: JSON.stringify({
+            action: "next",
+            messages: [
+              {
+                id: uuidv4(),
+                author: { role: "user" },
+                content: {
+                  content_type: "text",
+                  parts: [userPrompt],
+                },
+              },
+            ],
+            model: modelName,
+            conversation_id:
+              this.conversationContext?.conversationId || undefined,
+            parent_message_id:
+              this.conversationContext?.lastMessageId || uuidv4(),
+          }),
+        }
+      );
+
+      await parseSSEResponse(resp, (message) => {
+        console.debug("chatgpt sse message", message);
+        if (message === "[DONE]") {
+          params.onEvent({ type: "DONE" });
+          return;
+        }
+        let data;
+        try {
+          data = JSON.parse(message);
+        } catch (err) {
+          params.onEvent({
+            type: "ERROR",
+            data: { text: "" },
+          });
+          return;
+        }
+        const content = data.message?.content as ResponseContent | undefined;
+        if (!content) {
+          return;
+        }
+        let text: string;
+        if (content.content_type === "text") {
+          text = content.parts[0];
+          text = removeCitations(text);
+        } else if (content.content_type === "code") {
+          text = "_" + content.text + "_";
+        } else {
+          return;
+        }
+        if (text) {
+          this.conversationContext = {
+            conversationId: data.conversation_id,
+            lastMessageId: data.message.id,
+          };
+          params.onEvent({
+            type: "UPDATE_ANSWER",
+            data: { text },
+          });
+        }
+      });
+
+      await Browser.storage.sync.set({
+        conversationContextChatGPT: this.conversationContext,
+      });
+    } catch (error) {
+      const textWithJSON = "error" + String(error);
+      // Find the starting and ending indices of the JSON object
+      const startIndex = textWithJSON?.indexOf("{") || 2;
+      const endIndex = textWithJSON?.lastIndexOf("}") || 0 + 1;
+
+      if (startIndex < endIndex) {
+        // Extract the JSON substring
+        const jsonSubstring = textWithJSON.substring(startIndex, endIndex);
+
+        // Parse the JSON substring
+        error = JSON.parse(jsonSubstring);
+
         const resultLang = await Browser.storage.sync.get("langOption");
         let defaultLang = "en-US";
         if (resultLang?.langOption) {
           defaultLang = resultLang.langOption;
         }
-        params.onEvent({
-          type: "ERROR",
-          data: { text: customLang[defaultLang].system.error.chatgpt.session },
-        });
-        return;
-      }
-    }
-
-    if (result?.conversationContextChatGPT) {
-      this.conversationContext =
-        result?.conversationContextChatGPT as ConversationContext;
-    }
-
-    if (result?.cachedModelNamesChatGPT) {
-      this.cachedModelNames = result?.cachedModelNamesChatGPT as string[];
-    }
-
-    const modelName = await this.getModelName(params);
-    console.debug("Using model:", modelName);
-
-    // check if custom prompt selected
-    const settingResult = await Browser.storage.sync.get(["isEmotional", "langOption"]);
-    let userPrompt = params.prompt;
-    if (settingResult?.isEmotional && settingResult?.langOption) {
-      userPrompt = getCustomPrompt(params.prompt, settingResult.langOption);
-    }
-
-    const resp = await chatGPTClient.fetch(
-      "https://chat.openai.com/backend-api/conversation",
-      {
-        method: "POST",
-        signal: params.signal,
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${this.accessToken}`,
-        },
-        body: JSON.stringify({
-          action: "next",
-          messages: [
-            {
-              id: uuidv4(),
-              author: { role: "user" },
-              content: {
-                content_type: "text",
-                parts: [userPrompt],
-              },
+        if (
+          error &&
+          error.detail &&
+          error.detail.code &&
+          error.detail.code === "token_expired"
+        ) {
+          params.onEvent({
+            type: "ERROR",
+            data: {
+              text: customLang[defaultLang].system.error.chatgpt.session,
             },
-          ],
-          model: modelName,
-          conversation_id:
-            this.conversationContext?.conversationId || undefined,
-          parent_message_id:
-            this.conversationContext?.lastMessageId || uuidv4(),
-        }),
-      }
-    );
-
-    await parseSSEResponse(resp, (message) => {
-      console.debug("chatgpt sse message", message);
-      if (message === "[DONE]") {
-        params.onEvent({ type: "DONE" });
-        return;
-      }
-      let data;
-      try {
-        data = JSON.parse(message);
-      } catch (err) {
+          });
+        }
+      } else {
         params.onEvent({
           type: "ERROR",
-          data: { text: "" },
-        });
-        return;
-      }
-      const content = data.message?.content as ResponseContent | undefined;
-      if (!content) {
-        return;
-      }
-      let text: string;
-      if (content.content_type === "text") {
-        text = content.parts[0];
-        text = removeCitations(text);
-      } else if (content.content_type === "code") {
-        text = "_" + content.text + "_";
-      } else {
-        return;
-      }
-      if (text) {
-        this.conversationContext = {
-          conversationId: data.conversation_id,
-          lastMessageId: data.message.id,
-        };
-        params.onEvent({
-          type: "UPDATE_ANSWER",
-          data: { text },
+          data: {
+            text: "",
+          },
         });
       }
-    });
 
-    await Browser.storage.sync.set({
-      conversationContextChatGPT: this.conversationContext,
-    });
+      console.log("chatgpt", error);
+    }
   }
 
   async resetConversation() {

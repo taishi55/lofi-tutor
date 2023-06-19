@@ -143,10 +143,11 @@ export class BingWebBot extends AbstractBot {
           conversationContextBing: this.conversationContext,
         });
       } catch (error) {
+        console.log("doSendMessage Bing", error);
         const resultLang = await Browser.storage.sync.get("langOption");
-          let defaultLang = "en-US";
-          if (resultLang?.langOption) {
-            defaultLang = resultLang.langOption;
+        let defaultLang = "en-US";
+        if (resultLang?.langOption) {
+          defaultLang = resultLang.langOption;
         }
         params.onEvent({
           type: "ERROR",
@@ -191,6 +192,20 @@ export class BingWebBot extends AbstractBot {
           const messages = event.item.messages as
             | ChatResponseMessage[]
             | undefined;
+
+          if (messages === undefined) {
+            const resultLang = await Browser.storage.sync.get("langOption");
+            let defaultLang = "en-US";
+            if (resultLang?.langOption) {
+              defaultLang = resultLang.langOption;
+            }
+            params.onEvent({
+              type: "ERROR",
+              data: { text: customLang[defaultLang].system.error.bing.limit },
+            });
+            return;
+          }
+
           if (!messages) {
             const resultLang = await Browser.storage.sync.get("langOption");
             let defaultLang = "en-US";
@@ -203,21 +218,7 @@ export class BingWebBot extends AbstractBot {
             });
             return;
           }
-          const limited = messages.some(
-            (message) => message.contentOrigin === "TurnLimiter"
-          );
-          if (limited) {
-            const resultLang = await Browser.storage.sync.get("langOption");
-            let defaultLang = "en-US";
-            if (resultLang?.langOption) {
-              defaultLang = resultLang.langOption;
-            }
-            params.onEvent({
-              type: "ERROR",
-              data: { text: customLang[defaultLang].system.error.bing.limit },
-            });
-            return;
-          }
+
           if (!receivedAnswer) {
             const message = event.item.messages[
               event.item.firstNewMessageIndex
