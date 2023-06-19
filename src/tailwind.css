@@ -27,7 +27,7 @@
 }
 
 .code-bg {
-  @apply rounded-md text-sm pb-3 !max-w-sm sm:!max-w-[38rem] !overflow-x-scroll transition-all duration-700 ease-in-out bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-white/90;
+  @apply rounded-md text-sm pb-3 !max-w-sm sm:!max-w-[38rem] !overflow-x-auto transition-all duration-700 ease-in-out bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-white/90;
 }
 
 .code-pre {

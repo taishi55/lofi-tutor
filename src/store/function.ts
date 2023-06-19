@@ -44,7 +44,11 @@ export async function sendMessageToActiveTab(messages: Object) {
 
 export const getRandomMusic = () => {
   const musicList = [
-    "https://stream.mubert.com/b2b/v2?playlist=6.4.3&intensity=medium&pat=bXViZXJ0Zm9yYnVzaW5lc3MuMTkxNjA2ODEuMGJmNTQ4NmZlYjU0MmVlY2FiNjZiYTFlZWM1MDNhYWExZDA1MmYzMi4xLjM.802748dcd7ba181d437963b37b2448a0c125ba720b7a45b3fa364268b7aac3ac",
+    "https://stream.mubert.com/b2b/v2?playlist=6.4.3&intensity=medium&pat=bXViZXJ0Zm9yc3RyZWFtZXJzLjE4NjgxNzM5LjAzZTgxNTg5NzJmMWMzM2IxM2Y2ZDVlOWQ2ZWI3MTdkYTNkOTM3NTcuMS4z.08deb4725ee7f6ef03af2e32710389590d00a48e6d3380897b448242675b72d9",
+    "https://stream.mubert.com/b2b/v2?playlist=6.4.0&intensity=medium&pat=bXViZXJ0Zm9yc3RyZWFtZXJzLjE4NjgxNzM5LjAzZTgxNTg5NzJmMWMzM2IxM2Y2ZDVlOWQ2ZWI3MTdkYTNkOTM3NTcuMS4z.08deb4725ee7f6ef03af2e32710389590d00a48e6d3380897b448242675b72d9",
+    "https://stream.mubert.com/b2b/v2?playlist=6.3&intensity=medium&pat=bXViZXJ0Zm9yc3RyZWFtZXJzLjE4NjgxNzM5LjAzZTgxNTg5NzJmMWMzM2IxM2Y2ZDVlOWQ2ZWI3MTdkYTNkOTM3NTcuMS4z.08deb4725ee7f6ef03af2e32710389590d00a48e6d3380897b448242675b72d9",
+    "https://stream.mubert.com/b2b/v2?playlist=6.4.3&intensity=medium&pat=bXViZXJ0Zm9yc3RyZWFtZXJzLjE4NjgxNzM5LjAzZTgxNTg5NzJmMWMzM2IxM2Y2ZDVlOWQ2ZWI3MTdkYTNkOTM3NTcuMS4z.08deb4725ee7f6ef03af2e32710389590d00a48e6d3380897b448242675b72d9",
+    "https://stream.mubert.com/b2b/v2?playlist=6.4.0&intensity=medium&pat=bXViZXJ0Zm9yc3RyZWFtZXJzLjE4NjgxNzM5LjAzZTgxNTg5NzJmMWMzM2IxM2Y2ZDVlOWQ2ZWI3MTdkYTNkOTM3NTcuMS4z.08deb4725ee7f6ef03af2e32710389590d00a48e6d3380897b448242675b72d9",
     "https://stream.mubert.com/b2b/v2?playlist=6.4.3&intensity=medium&pat=bXViZXJ0Zm9yYnVzaW5lc3MuMTkxNjA2ODEuMGJmNTQ4NmZlYjU0MmVlY2FiNjZiYTFlZWM1MDNhYWExZDA1MmYzMi4xLjM.802748dcd7ba181d437963b37b2448a0c125ba720b7a45b3fa364268b7aac3ac"
   ];
 

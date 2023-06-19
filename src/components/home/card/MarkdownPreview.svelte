@@ -48,6 +48,6 @@
 
 <style lang="postcss" scoped>
   .md-style {
-    @apply w-full whitespace-pre-line grid grid-cols-1 gap-3 overflow-x-scroll;
+    @apply w-full whitespace-pre-line grid grid-cols-1 gap-3 overflow-x-hidden;
   }
 </style>

@@ -95,7 +95,7 @@ function createSidebar() {
   sidebarTriggerButtonContainer.classList.add("sidebar-container");
 
   const sidebarTriggerButton = document.createElement("div");
-  sidebarTriggerButton.innerHTML = "<div class='vertical-text'>Phantom</div>";
+  sidebarTriggerButton.innerHTML = "Phantom";
   sidebarTriggerButton.id = "beyond_gafa_trigger";
   sidebarTriggerButton.classList.add("sidebar-trigger-button");
   sidebarTriggerButton.addEventListener("click", toggleSidebar);
