@@ -10,38 +10,39 @@
   let isLoading = false;
 
   const toggleAudio = () => {
-    if (isLoading) {
-      $isPlayingMusic = true;
-      return;
-    }
-    $isPlayingMusic = !$isPlayingMusic;
-    const audio: HTMLAudioElement | null = document.querySelector("#bg-music");
-    if (!audio) return;
-    incomingSpeechItems.set([]);
-
-    if ($isPlayingMusic) {
-      audio.src = getRandomMusic();
-      audio.play();
-      setTimeout(() => {
-        if (isLoading) {
-          isLoading = false;
-          $isPlayingMusic = !$isPlayingMusic;
-        }
-      }, 8000);
-
-      isLoading = true;
-      audio.addEventListener("canplay", () => {
-        isLoading = false;
-      });
-    } else {
-      audio.pause();
-      audio.src = "";
-    }
-
     try {
-      const audio: HTMLAudioElement | null = document.querySelector("#voice");
-      if (audio) {
-        audio.load();
+      if (isLoading) {
+        $isPlayingMusic = true;
+        return;
+      }
+      $isPlayingMusic = !$isPlayingMusic;
+      const audio: HTMLAudioElement | null =
+        document.querySelector("#bg-music");
+      if (!audio) return;
+      incomingSpeechItems.set([]);
+
+      if ($isPlayingMusic) {
+        audio.src = getRandomMusic();
+        audio.play();
+        setTimeout(() => {
+          if (isLoading) {
+            isLoading = false;
+            $isPlayingMusic = !$isPlayingMusic;
+          }
+        }, 8000);
+
+        isLoading = true;
+        audio.addEventListener("canplay", () => {
+          isLoading = false;
+        });
+      } else {
+        audio.pause();
+        audio.src = "";
+      }
+
+      const voice: HTMLAudioElement | null = document.querySelector("#voice");
+      if (voice) {
+        voice.load();
       }
     } catch (error) {}
   };
