@@ -26,11 +26,11 @@
     }
   ],
   "permissions": ["storage", "tabs", "activeTab"],
-  "host_permissions": ["https://*/*", "https://*/*"],
+  "host_permissions": ["https://*/*", "http://*/*"],
   "web_accessible_resources": [
     {
       "resources": ["index.html"],
-      "matches": ["https://*/*", "https://*/*"]
+      "matches": ["https://*/*", "http://*/*"]
     }
   ],
   "commands": {
