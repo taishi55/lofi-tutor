@@ -140,7 +140,7 @@ export class ChatGPTWebBot extends AbstractBot {
           params.onEvent({ type: "DONE" });
           return;
         }
-        let data;
+        let data: any;
         try {
           data = JSON.parse(message);
         } catch (err) {
