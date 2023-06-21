@@ -99,7 +99,7 @@
   }
 </script>
 
-<div class=" font-extralight flex justify-between items-center px-4 pb-3">
+<div class=" flex justify-between items-center px-4 pb-3">
   <div>
     {#each commands as command, index}
       <Command title={command.title} key1={command.key1} key2={command.key2} />

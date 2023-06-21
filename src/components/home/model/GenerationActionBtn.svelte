@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { currentLocale, messages } from "../../../store";
   import { customLang } from "../../../store/lang";
 

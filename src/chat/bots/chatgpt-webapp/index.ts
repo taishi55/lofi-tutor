@@ -144,6 +144,7 @@ export class ChatGPTWebBot extends AbstractBot {
         try {
           data = JSON.parse(message);
         } catch (err) {
+          console.log(err);
           params.onEvent({
             type: "ERROR",
             data: { text: "" },
@@ -179,46 +180,23 @@ export class ChatGPTWebBot extends AbstractBot {
         conversationContextChatGPT: this.conversationContext,
       });
     } catch (error) {
-      const textWithJSON = "error" + String(error);
-      // Find the starting and ending indices of the JSON object
-      const startIndex = textWithJSON?.indexOf("{") || 2;
-      const endIndex = textWithJSON?.lastIndexOf("}") || 0 + 1;
-
-      if (startIndex < endIndex) {
-        // Extract the JSON substring
-        const jsonSubstring = textWithJSON.substring(startIndex, endIndex);
-
-        // Parse the JSON substring
-        error = JSON.parse(jsonSubstring);
-
+      const errString = String(error);
+ 
         const resultLang = await Browser.storage.sync.get("langOption");
         let defaultLang = "en-US";
         if (resultLang?.langOption) {
           defaultLang = resultLang.langOption;
         }
-        if (
-          error &&
-          error.detail &&
-          error.detail.code &&
-          error.detail.code === "token_expired"
-        ) {
+        if (errString.includes("token_expired")) {
           params.onEvent({
             type: "ERROR",
             data: {
               text: customLang[defaultLang].system.error.chatgpt.session,
             },
           });
+        } else {
+          console.log("chatgpt", error);
         }
-      } else {
-        params.onEvent({
-          type: "ERROR",
-          data: {
-            text: "",
-          },
-        });
-      }
-
-      console.log("chatgpt", error);
     }
   }
 

@@ -51,7 +51,7 @@
     </div>
 
     {#each myProfile as item, index}
-      <div class=" grid grid-cols-2 text-base font-light italic">
+      <div class=" grid grid-cols-2 text-base italic">
         <div
           in:fly={{ duration: 2000, x: 100, delay: 200 * (index + 1) }}
           class="text-right border-r border-slate-300 dark:border-slate-500 pr-2 pb-2"
@@ -69,7 +69,7 @@
 
     <div
       in:fly={{ duration: 2000, y: -100, delay: myProfile.length * 200 + 500 }}
-      class="text-base font-light mt-6 mx-auto max-w-sm text-center space-y-2"
+      class="text-base mt-6 mx-auto max-w-sm text-center space-y-2"
     >
       <div>
         I'm the developer behind the development of this entire extension. I

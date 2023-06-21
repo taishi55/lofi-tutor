@@ -22,6 +22,13 @@
     if ($isPlayingMusic) {
       audio.src = getRandomMusic();
       audio.play();
+      setTimeout(() => {
+        if (isLoading) {
+          isLoading = false;
+          $isPlayingMusic = !$isPlayingMusic;
+        }
+      }, 8000);
+
       isLoading = true;
       audio.addEventListener("canplay", () => {
         isLoading = false;

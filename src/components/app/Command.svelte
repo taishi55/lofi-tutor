@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { isMac } from "../../store/function";
 
   export let title = "";

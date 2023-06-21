@@ -372,7 +372,7 @@
 </script>
 
 <div class="px-4">
-  <div class=" flex justify-between items-center font-light relative">
+  <div class=" flex justify-between items-center relative">
     <div class=" absolute top-0 left-1/2 -translate-x-1/2">
       {#if isGeneratingText}
         <GenerationActionBtn

@@ -3,15 +3,15 @@
 @import "tailwindcss/utilities";
 
 .input-textarea {
-  @apply text-sm px-3 py-1 bg-white dark:bg-black/20 text-slate-800 dark:text-white border-0 font-normal rounded-md resize-none placeholder:text-slate-800/60 dark:placeholder:text-white/70 outline-none w-full block focus:placeholder-transparent dark:focus:placeholder-transparent shadow-inner shadow-slate-400/70 dark:shadow-slate-900/60;
+  @apply text-sm px-3 py-1 font-medium bg-white dark:bg-black/20 text-slate-800 dark:text-white border-0 rounded-md resize-none placeholder:text-slate-800/60 dark:placeholder:text-white/70 outline-none w-full block focus:placeholder-transparent dark:focus:placeholder-transparent shadow-inner shadow-slate-400/70 dark:shadow-slate-900/60;
 }
 
 .common-bg {
-  @apply transition-all duration-700 ease-in-out bg-gradient-to-br from-slate-300 via-slate-50 to-slate-300 dark:from-slate-800 dark:via-slate-700 dark:to-slate-800 text-slate-800 dark:text-white/90;
+  @apply transition-all font-medium duration-700 ease-in-out bg-gradient-to-br from-slate-300 via-slate-50 to-slate-300 dark:from-slate-800 dark:via-slate-700 dark:to-slate-800 text-slate-800 dark:text-white/90;
 }
 
 .common-text {
-  @apply text-slate-800 dark:text-white/90;
+  @apply text-slate-800 dark:text-white/90 font-medium;
 }
 
 .common-border {

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { sendMessageToActiveTab } from "../../store/function";
 
   const closeSlider = async () => {

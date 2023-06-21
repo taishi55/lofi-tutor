@@ -21,7 +21,7 @@
     >
       {customLang[$currentLocale].roadmap.article1.title}
     </div>
-    <div in:fly={{ duration: 2000, y: -30 }} class="text-base font-light mb-6">
+    <div in:fly={{ duration: 2000, y: -30 }} class="text-base mb-6">
       {customLang[$currentLocale].roadmap.article1.p1}
       <span class="highlight">
         {customLang[$currentLocale].roadmap.article1.p2}</span
@@ -42,7 +42,7 @@
     >
       {customLang[$currentLocale].roadmap.article2.title}
     </div>
-    <div in:fly={{ duration: 2000, y: -30 }} class="text-base font-light mb-6">
+    <div in:fly={{ duration: 2000, y: -30 }} class="text-base mb-6">
       {customLang[$currentLocale].roadmap.article2.desc}
     </div>
 
@@ -71,6 +71,6 @@
     @apply text-xl font-semibold pb-1 border-b border-slate-200 mb-2;
   }
   .card {
-    @apply mb-8 font-light border-2 border-slate-300 text-base p-3 rounded-md block w-[24rem] whitespace-pre-line;
+    @apply mb-8 border-2 border-slate-300 text-base p-3 rounded-md block w-[24rem] whitespace-pre-line;
   }
 </style>

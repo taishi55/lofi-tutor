@@ -30,7 +30,7 @@
       </div>
     </div>
   </div>
-  <p class=" truncate font-extralight text-sm pt-2">
+  <p class=" truncate text-sm pt-2">
     {customLang[$currentLocale].system.desc}
   </p>
 </div>

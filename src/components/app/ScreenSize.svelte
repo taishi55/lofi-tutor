@@ -32,7 +32,7 @@
   });
 </script>
 
-<div class=" font-extralight flex items-center space-x-1">
+<div class=" flex items-center space-x-1">
   <div>{customLang[$currentLocale].system.view}:</div>
   <div class=" w-7">
     <b class="opacity-70"> {$percent.toFixed(0)}%</b>
@@ -50,6 +50,6 @@
 
 <style lang="postcss" scoped>
   i {
-    @apply font-extralight opacity-70;
+    @apply opacity-70;
   }
 </style>
