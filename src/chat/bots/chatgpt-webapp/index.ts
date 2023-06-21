@@ -144,10 +144,9 @@ export class ChatGPTWebBot extends AbstractBot {
         try {
           data = JSON.parse(message);
         } catch (err) {
-          console.log(err);
+          console.log(message);
           params.onEvent({
-            type: "ERROR",
-            data: { text: "" },
+            type: "DONE",
           });
           return;
         }
@@ -181,22 +180,22 @@ export class ChatGPTWebBot extends AbstractBot {
       });
     } catch (error) {
       const errString = String(error);
- 
-        const resultLang = await Browser.storage.sync.get("langOption");
-        let defaultLang = "en-US";
-        if (resultLang?.langOption) {
-          defaultLang = resultLang.langOption;
-        }
-        if (errString.includes("token_expired")) {
-          params.onEvent({
-            type: "ERROR",
-            data: {
-              text: customLang[defaultLang].system.error.chatgpt.session,
-            },
-          });
-        } else {
-          console.log("chatgpt", error);
-        }
+
+      const resultLang = await Browser.storage.sync.get("langOption");
+      let defaultLang = "en-US";
+      if (resultLang?.langOption) {
+        defaultLang = resultLang.langOption;
+      }
+      if (errString.includes("token_expired")) {
+        params.onEvent({
+          type: "ERROR",
+          data: {
+            text: customLang[defaultLang].system.error.chatgpt.session,
+          },
+        });
+      } else {
+        console.log("chatgpt", error);
+      }
     }
   }
 

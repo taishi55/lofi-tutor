@@ -149,7 +149,7 @@ const getResponse = async (
     prompt: tempQueryText,
     signal: abortControllerStore.signal,
     async onEvent(event) {
-      if (event.type === "UPDATE_ANSWER") {
+      if (event.type === "UPDATE_ANSWER" && event.data.text) {
         updateMessage(port, event.data.text);
       } else if (event.type === "ERROR") {
         if (!event.data.text) {
