@@ -76,20 +76,7 @@ async function toggleSidebar() {
 }
 
 function createSidebar() {
-  console.log("sidebar is installed");
-
-  document.documentElement.classList.add("default-body");
-
-  const sidebarContainer = document.createElement("div");
-  sidebarContainer.classList.add("sidebar-container");
-
-  const sidebar = document.createElement("iframe");
-  sidebar.id = "beyond_gafa";
-  sidebar.src = Browser.runtime.getURL("./index.html");
-  sidebar.classList.add("sidebar-iframe");
-  sidebarContainer.appendChild(sidebar);
-
-  document.body.appendChild(sidebarContainer);
+  // console.log("sidebar btn is installed");
 
   const sidebarTriggerButtonContainer = document.createElement("div");
   sidebarTriggerButtonContainer.classList.add("sidebar-container");
@@ -102,6 +89,18 @@ function createSidebar() {
 
   sidebarTriggerButtonContainer.appendChild(sidebarTriggerButton);
   document.body.appendChild(sidebarTriggerButtonContainer);
+
+  // console.log("sidebar is installed");
+  const sidebarContainer = document.createElement("div");
+  sidebarContainer.classList.add("sidebar-container");
+
+  const sidebar = document.createElement("iframe");
+  sidebar.id = "beyond_gafa";
+  sidebar.src = Browser.runtime.getURL("./index.html");
+  sidebar.classList.add("sidebar-iframe");
+  sidebarContainer.appendChild(sidebar);
+
+  document.body.appendChild(sidebarContainer);
 }
 
 const changeVoice = async (isGirlVoice: boolean) => {

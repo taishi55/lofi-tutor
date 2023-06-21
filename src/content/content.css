@@ -15,6 +15,7 @@
 
 .sidebar-container {
   all: unset;
+  z-index: 2147483647 !important;
 }
 
 .sidebar-trigger-button {
