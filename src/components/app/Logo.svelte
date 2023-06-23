@@ -3,11 +3,11 @@
   import { customLang } from "../../store/lang";
 </script>
 
-<div class="text-center px-4 pt-4">
+<div class="text-center px-4 pt-3">
   <div class=" flex items-center justify-center">
     <div class=" relative w-fit">
       <div
-        class=" bg-gradient-to-br from-slate-900/80 via-slate-900/50 to-slate-900/80 dark:from-white/20 dark:via-slate-700/20 dark:to-white/40 absolute top-1/2 -translate-y-1/2 -left-11 rounded-md flex justify-center items-center w-9 h-9 text-white dark:text-white/70"
+        class=" bg-gradient-to-br from-slate-900/80 via-slate-900/50 to-slate-900/80 dark:from-white/20 dark:via-slate-700/20 dark:to-white/40 absolute top-1/2 -translate-y-1/2 -left-10 rounded-md flex justify-center items-center w-8 h-8 text-white dark:text-white/70"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -15,7 +15,7 @@
           viewBox="0 0 24 24"
           stroke-width="1.5"
           stroke="currentColor"
-          class="w-8 h-8"
+          class="w-7 h-7"
         >
           <path
             stroke-linecap="round"

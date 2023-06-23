@@ -16,7 +16,10 @@
     />
     <LofiGpt />
   </div>
-  <div class="scroll-container" id="chat-results">
+  <div
+    class="scroll-container !shadow-inner shadow-slate-400 dark:shadow-slate-900"
+    id="chat-results"
+  >
     {#each $messages
       .filter((message) => message.text
           .toLowerCase()
@@ -31,10 +34,10 @@
 
 <style lang="postcss" scoped>
   .wrapper {
-    @apply flex flex-col space-y-3 h-full overflow-y-auto text-sm;
+    @apply flex flex-col space-y-2 h-full overflow-y-auto text-sm;
   }
   .scroll-container {
-    @apply flex flex-col-reverse scroll-smooth h-full overflow-y-auto rounded-md pb-6;
+    @apply flex flex-col-reverse scroll-smooth h-full overflow-y-auto pb-6;
   }
   ::-webkit-scrollbar {
     display: none;
