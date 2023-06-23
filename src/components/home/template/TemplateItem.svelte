@@ -72,6 +72,6 @@
   }
 
   .label {
-    @apply block flex-1 text-left font-normal truncate py-1 rounded px-2;
+    @apply block flex-1 text-left truncate py-1 rounded px-2;
   }
 </style>

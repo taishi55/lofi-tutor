@@ -35,6 +35,10 @@
         audio.addEventListener("canplay", () => {
           isLoading = false;
         });
+
+        audio.addEventListener("error", () => {
+          console.error("Error loading audio:", audio.src);
+        });
       } else {
         audio.pause();
         audio.src = "";
