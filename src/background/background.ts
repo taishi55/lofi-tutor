@@ -99,10 +99,6 @@ try {
             stopGenerating(port);
           }
         });
-
-        port.onDisconnect.addListener(async function () {
-          stopGenerating(port);
-        });
       }
     } catch (error) {
       console.log("backend", error);
