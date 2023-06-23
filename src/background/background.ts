@@ -8,7 +8,6 @@ import type { BardBot } from "../chat/bots/bard";
 import { CHATBOTS, type ModelType } from "../chat/consts";
 import { ConnectWith } from "../store";
 import { customLang } from "../store/lang";
-import he from "he";
 
 try {
   /************ Events to open sidebar *************/
