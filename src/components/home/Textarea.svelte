@@ -91,23 +91,13 @@
       scrollToBottom();
 
       // Send a message to background.js
-      if (false) {
-        getResponsePort.postMessage({
-          type: ConnectWith.getYoutubeTranscription,
-          queryText: tempQueryText,
-          generatingMessageId: $generatingMessageId,
-          botModel: $botModel,
-          messages: $messages,
-        });
-      } else {
-        getResponsePort.postMessage({
-          type: ConnectWith.getResponse,
-          queryText: tempQueryText,
-          generatingMessageId: $generatingMessageId,
-          botModel: $botModel,
-          messages: $messages,
-        });
-      }
+      getResponsePort.postMessage({
+        type: ConnectWith.getResponse,
+        queryText: tempQueryText,
+        generatingMessageId: $generatingMessageId,
+        botModel: $botModel,
+        messages: $messages,
+      });
 
       // Listen for messages from background.js
       getResponsePort.onMessage.addListener(async function (response) {

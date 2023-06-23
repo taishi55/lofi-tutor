@@ -98,21 +98,10 @@ try {
           if (message.type === ConnectWith.stopGenerating) {
             stopGenerating(port);
           }
-          if (message.type === ConnectWith.getYoutubeTranscription) {
-            const transscriptArray = await getYoutubetranscription(
-              message.videoId
-            );
-            if (transscriptArray) {
-              await getResponse(
-                port,
-                message.generatingMessageId,
-                message.queryText,
-                message.botModel,
-                message.messages,
-                transscriptArray
-              );
-            }
-          }
+        });
+
+        port.onDisconnect.addListener(async function () {
+          stopGenerating(port);
         });
       }
     } catch (error) {
@@ -255,35 +244,5 @@ const muteNonActiveTabs = async (currentActiveTabId: number) => {
     } else {
       await Browser.tabs.update(tab.id, { muted: true });
     }
-  }
-};
-
-const getYoutubetranscription = async (videoId: string) => {
-  try {
-    const res = await fetch(
-      "https://youtubetranscript.com/?server_vid=" + videoId
-    );
-    const transcript = await res.text();
-    return transcript
-      .split("<text")
-      .map((item) => {
-        const startPattern = /start="(.*?)" dur/;
-        const start = item.match(startPattern);
-        const durationPattern = /dur="(.*?)">/;
-        const duration = item.match(durationPattern);
-        const textPattern = /">(.*?)<\/text>/;
-        const text = item.match(textPattern);
-        if (start && duration && text) {
-          return {
-            start: parseFloat(start[1]),
-            duration: parseFloat(duration[1]),
-            text: he.decode(text[1]),
-          };
-        }
-        return undefined;
-      })
-      .filter((item) => item);
-  } catch (error) {
-    return undefined;
   }
 };

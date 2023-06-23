@@ -56,7 +56,6 @@ export const isItemHighlighted = writable(false);
 
 export const ConnectWith = {
   getResponse: "getResponse",
-  getYoutubeTranscription: "getYoutubeTranscription",
   resetConversation: "resetConversation",
   stopGenerating: "stopGenerating",
   getSpeechUrlFromRequest: "getSpeechUrlFromRequest",

@@ -144,10 +144,7 @@ export class ChatGPTWebBot extends AbstractBot {
         try {
           data = JSON.parse(message);
         } catch (err) {
-          console.log(message);
-          params.onEvent({
-            type: "DONE",
-          });
+          console.log('json parse failed', message);
           return;
         }
         const content = data.message?.content as ResponseContent | undefined;
