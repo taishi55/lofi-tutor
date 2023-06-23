@@ -8,6 +8,7 @@ import type { BardBot } from "../chat/bots/bard";
 import { CHATBOTS, type ModelType } from "../chat/consts";
 import { ConnectWith } from "../store";
 import { customLang } from "../store/lang";
+import he from "he";
 
 try {
   /************ Events to open sidebar *************/
@@ -80,7 +81,7 @@ try {
 
   Browser.runtime.onConnect.addListener(function (port: Browser.Runtime.Port) {
     try {
-      if (port.name && port.name === ConnectWith.getResponse) {
+      if (port?.name && port.name === ConnectWith.getResponse) {
         port.onMessage.addListener(async function (message) {
           if (message.type === ConnectWith.getResponse) {
             await getResponse(
@@ -97,6 +98,10 @@ try {
           if (message.type === ConnectWith.stopGenerating) {
             stopGenerating(port);
           }
+        });
+
+        port.onDisconnect.addListener(async function () {
+          stopGenerating(port);
         });
       }
     } catch (error) {
