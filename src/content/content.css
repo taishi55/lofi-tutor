@@ -32,7 +32,7 @@
   width: fit-content;
   border: 1px solid white;
   border-radius: 5px;
-  background: linear-gradient(to bottom, rgb(30 41 59), rgb(71 85 105));
+  background: linear-gradient(to bottom, rgb(160 160 160), rgb(160 160 160));
   padding: 17px 5px;
   --text-opacity: 1;
   color: rgb(255 255 255 / var(--text-opacity));
@@ -44,6 +44,8 @@
   outline: 2px solid transparent;
   outline-offset: 2px;
   user-select: none;
+  display: flex;
+  justify-content: center;
 }
 
 ::-webkit-scrollbar {
