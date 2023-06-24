@@ -34,7 +34,9 @@
     {:else}
       <Home />
     {/if}
-    <Info />
+    <div>
+      <Info />
+    </div>
   </div>
 </div>
 

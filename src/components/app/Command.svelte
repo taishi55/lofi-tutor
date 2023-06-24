@@ -31,6 +31,6 @@
   }
 
   .block {
-    @apply inline-block pr-3 pb-1;
+    @apply inline-block pr-3;
   }
 </style>

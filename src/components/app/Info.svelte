@@ -99,15 +99,18 @@
   }
 </script>
 
-<div class=" flex justify-between items-center px-4 pb-3">
+<div
+  class=" flex justify-between items-center px-4 pb-3 w-full overflow-x-auto"
+>
   <div>
     {#each commands as command, index}
       <Command title={command.title} key1={command.key1} key2={command.key2} />
     {/each}
+  </div>
+  <div>
     <audio id="bg-music" class=" w-0 h-0" />
     <audio id="voice" class=" w-0 h-0" />
   </div>
-
   <div class="flex items-center space-x-3">
     <div>
       <ScreenSize />
