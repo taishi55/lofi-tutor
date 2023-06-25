@@ -25,8 +25,8 @@ try {
   /********** install event **********/
   Browser.runtime.onInstalled.addListener(async (details) => {
     try {
-      await Browser.storage.sync.set({ voiceSwitch: true, scrollSwitch: true });
       if (details.reason === "install") {
+        await Browser.storage.sync.set({ voiceSwitch: true, scrollSwitch: true });
         await Browser.tabs.create({
           url: "https://chatgpt-phantom.vercel.app/#downloaded",
         });

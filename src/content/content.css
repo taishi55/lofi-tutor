@@ -32,7 +32,7 @@
   width: fit-content;
   border: 1px solid white;
   border-radius: 5px;
-  background: linear-gradient(to bottom, rgb(160 160 160), rgb(160 160 160));
+  background: linear-gradient(to bottom, rgb(130 130 130), rgb(130 130 130));
   padding: 17px 5px;
   --text-opacity: 1;
   color: rgb(255 255 255 / var(--text-opacity));
