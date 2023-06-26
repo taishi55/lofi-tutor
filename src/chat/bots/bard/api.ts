@@ -35,7 +35,16 @@ export async function parseBartResponse(
     return;
   } else {
     console.debug("bard response payload", payload);
-    const text = payload[0][0];
+    let text = payload[4][0][1][0] as string;
+    // const images = payload[4][0][4] || [];
+    // for (const image of images) {
+    //   const [media, source, placeholder] = image;
+    //   text = text.replace(
+    //     placeholder,
+    //     `[![${media[4]}](${media[0][0]})](${source[0][0]})`
+    //   );
+    // }
+
     params.onEvent({
       type: "UPDATE_ANSWER",
       data: { text },

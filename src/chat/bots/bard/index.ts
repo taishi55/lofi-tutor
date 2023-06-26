@@ -27,14 +27,7 @@ export class BardBot extends AbstractBot {
       });
     }
 
-    // const settingResult = await Browser.storage.sync.get([
-    //   "isEmotional",
-    //   "langOption",
-    // ]);
     let userPrompt = params.prompt;
-    // if (settingResult?.isEmotional && settingResult?.langOption) {
-    //   userPrompt = getCustomPrompt(params.prompt, settingResult.langOption);
-    // }
 
     const { requestParams, contextIds } = this.conversationContext;
     const resp = await ofetch(
