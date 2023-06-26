@@ -4,7 +4,7 @@
   .wavy-background {
     background: linear-gradient(
       to bottom,
-      rgba(107, 107, 107, 0.511) 0%,
+      rgba(107, 107, 107, 0.7) 0%,
       rgb(32, 32, 32) 100%
     );
     background-size: 400% 400%;

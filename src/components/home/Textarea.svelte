@@ -9,11 +9,12 @@
     isSpeeching,
     isGirlTalking,
     isSpeechRequestPending,
-    isPlayingMusic,
     incomingSpeechItems,
     currentSpeechLoadingItemId,
     currentSpeechPlayingItemId,
     currentTabId,
+    isVoiceOn,
+    isScrollOn,
   } from "../../store";
   import ArrowUp from "./share/ArrowUp.svelte";
   import Template from "./template/Template.svelte";
@@ -32,8 +33,6 @@
 
   let showTemplate = false;
   let showModel = false;
-  var voiceSwitch = false;
-  var scrollSwitch = false;
 
   let closeWindow = () => {
     showTemplate = false;
@@ -65,26 +64,13 @@
 
       $generatingMessageId = uuid();
 
-      const result = await Browser.storage.sync.get([
-        "voiceSwitch",
-        "scrollSwitch",
-      ]);
-
-      if (result?.voiceSwitch) {
-        voiceSwitch = true;
-      }
-
-      if (result?.scrollSwitch) {
-        scrollSwitch = true;
-      }
-
       $messages.push(
         { id: uuid(), text: tempQueryText, author: "user", new: false },
         { id: $generatingMessageId, text: "", author: $botModel.id, new: false }
       );
       $messages = $messages;
 
-      if (voiceSwitch) {
+      if ($isVoiceOn) {
         const yourItem = $messages.at($messages.length - 2);
         await startSpeech(yourItem);
       }
@@ -112,13 +98,13 @@
 
         if (response.message && response.message === "done") {
           isGeneratingText = false;
-          if (scrollSwitch && !voiceSwitch) {
+          if ($isScrollOn && !$isVoiceOn) {
             scrollToBottom();
           }
 
           await cleanUpMessages();
 
-          if (voiceSwitch) {
+          if ($isVoiceOn) {
             const lastItem = $messages.at($messages.length - 1);
             await startSpeech(lastItem);
           }
@@ -161,7 +147,7 @@
 
   const startSpeech = async (item: ChatMessageModel) => {
     try {
-      if ($isPlayingMusic) {
+      if ($isVoiceOn) {
         isSpeechRequestPending.set(true);
 
         const currentTab = await Browser.tabs.query({
@@ -206,6 +192,7 @@
         $messages = $messages.filter((m) => m.text.trim());
       }
       if (
+        $isVoiceOn &&
         request?.isTransmittedBackend &&
         request?.currentActiveTabId &&
         request?.item &&
@@ -272,18 +259,29 @@
       )
     ) {
       voiceAudio.src = $incomingSpeechItems[0].audioUrl;
-      const isGirlVoiceItem = $incomingSpeechItems[0].item.author !== "user";
       const playPromise = voiceAudio.play();
       if (playPromise !== undefined) {
         playPromise.then((_) => {
           // start
           const audioReadyToPlay = async () => {
-            currentSpeechPlayingItemId.set($incomingSpeechItems[0].item.id);
-            if (scrollSwitch) {
+            if (
+              $incomingSpeechItems.length > 0 &&
+              $incomingSpeechItems[0].item &&
+              $incomingSpeechItems[0].item.id
+            ) {
+              currentSpeechPlayingItemId.set($incomingSpeechItems[0].item.id);
+            }
+
+            if ($isScrollOn) {
               scrollToItem($incomingSpeechItems[0].item.id);
             }
 
-            if (isGirlVoiceItem) {
+            if (
+              $incomingSpeechItems.length > 0 &&
+              $incomingSpeechItems[0].item &&
+              $incomingSpeechItems[0].item.author &&
+              $incomingSpeechItems[0].item.author !== "user"
+            ) {
               isGirlTalking.set(true);
             }
             isSpeeching.set(true);

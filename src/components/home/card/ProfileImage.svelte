@@ -11,6 +11,7 @@
     currentSpeechPlayingItemId,
     currentTabId,
     incomingSpeechItems,
+    isVoiceOn,
   } from "../../../store";
   import LoadingSvg from "./LoadingSvg.svelte";
   import { getRandomMusic, muteNonActiveTabs } from "../../../store/function";
@@ -35,6 +36,9 @@
           audio.src = getRandomMusic();
           audio.play();
         }
+      }
+      if (!$isVoiceOn) {
+        isVoiceOn.set(true);
       }
       // send a request to background
       isSpeechRequestPending.set(true);

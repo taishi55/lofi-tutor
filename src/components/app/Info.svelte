@@ -10,6 +10,8 @@
     isDarkMode,
     isEmotional,
     isPlayingMusic,
+    isScrollOn,
+    isVoiceOn,
     messages,
   } from "../../store";
   import Browser from "webextension-polyfill";
@@ -60,10 +62,24 @@
         }
 
         const result = await Browser.storage.sync.get([
+          "voiceSwitch",
+          "scrollSwitch",
           "langOption",
           "isEmotional",
           "darkMode",
         ]);
+        if (result?.voiceSwitch) {
+          isVoiceOn.set(result.voiceSwitch);
+        } else {
+          isVoiceOn.set(false);
+          await Browser.storage.sync.set({ voiceSwitch: false });
+        }
+        if (result?.scrollSwitch) {
+          isScrollOn.set(result.scrollSwitch);
+        } else {
+          isScrollOn.set(false);
+          await Browser.storage.sync.set({ scrollSwitch: false });
+        }
         if (result?.langOption) {
           currentLocale.set(result.langOption);
         } else {
