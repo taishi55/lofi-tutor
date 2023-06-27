@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "version": "4.1.7",
+  "version": "4.1.9",
   "name": "__MSG_APPNAME__",
   "description": "__MSG_APPDESC__",
   "default_locale": "en_US",
@@ -15,7 +15,7 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://*/*", "http://*/*"],
+      "matches": ["https://*/*"],
       "js": ["build/content.js"],
       "css": ["build/content.css"],
       "run_at": "document_idle"
@@ -26,11 +26,11 @@
     }
   ],
   "permissions": ["storage", "tabs", "activeTab"],
-  "host_permissions": ["https://*/*", "http://*/*"],
+  "host_permissions": ["https://*/*"],
   "web_accessible_resources": [
     {
       "resources": ["index.html"],
-      "matches": ["https://*/*", "http://*/*"]
+      "matches": ["https://*/*"]
     }
   ],
   "commands": {

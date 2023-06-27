@@ -5,8 +5,8 @@ import { customLang } from "../store/lang";
 
 var sidebarWidth = 35;
 
-if (!document.querySelector("#beyond_gafa")) {
-  createSidebar();
+if (!document.querySelector("#beyond_gafa_trigger")) {
+  createButton();
 }
 
 // Listen messages
@@ -58,26 +58,37 @@ function changeSidebarWidth() {
 }
 
 async function toggleSidebar() {
-  const sidebar: HTMLIFrameElement | null =
-    document.querySelector("#beyond_gafa");
+  try {
+    const sidebar: HTMLIFrameElement | null =
+      document.querySelector("#beyond_gafa");
+    if (!document.querySelector("#beyond_gafa_trigger")) {
+      createButton();
+    }
+    if (!sidebar) {
+      createSidebar();
+      await toggleSidebar();
+    }
 
-  if (!sidebar) {
-    createSidebar();
-    await toggleSidebar();
-  }
-  sidebar.style.width = `${sidebarWidth}vw`;
-  if (sidebar.style.right === "0px") {
-    // close sidebar
-    sidebar.style.right = `-100%`;
-  } else {
-    // open
-    sidebar.style.right = "0px";
+    sidebar.style.width = `${sidebarWidth}vw`;
+    if (sidebar.style.right === "0px" || sidebar.style.display === "block") {
+      // close sidebar
+      sidebar.style.right = `-100%`;
+      setTimeout(() => {
+        sidebar.style.display = "none";
+      }, 500);
+    } else {
+      // open
+      sidebar.style.display = "block";
+      setTimeout(() => {
+        sidebar.style.right = "0px";
+      }, 50);
+    }
+  } catch (error) {
+    console.log(error);
   }
 }
 
-function createSidebar() {
-  // console.log("sidebar btn is installed");
-
+function createButton() {
   const sidebarTriggerButtonContainer = document.createElement("div");
   sidebarTriggerButtonContainer.classList.add("sidebar-container");
 
@@ -89,7 +100,9 @@ function createSidebar() {
 
   sidebarTriggerButtonContainer.appendChild(sidebarTriggerButton);
   document.body.appendChild(sidebarTriggerButtonContainer);
+}
 
+function createSidebar() {
   // console.log("sidebar is installed");
   const sidebarContainer = document.createElement("div");
   sidebarContainer.classList.add("sidebar-container");
