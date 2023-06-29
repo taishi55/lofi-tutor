@@ -46,13 +46,17 @@
 </script>
 
 {#if $menuToggle}
-  <div use:clickOutside on:click_outside={toggleMenu} class=" icon-wrapper">
-    <button on:click={toggleMenu} class="common-text">
+  <div
+    use:clickOutside
+    on:click_outside={toggleMenu}
+    class="icon-wrapper common-text"
+  >
+    <button on:click={toggleMenu} class="common-menu-icon">
       <i class="fa-solid fa-bars" />
     </button>
     <div
       transition:fly={{ x: 3, duration: 400 }}
-      class=" absolute top-full -translate-y-2 right-1 common-bg common-border rounded-md text-sm w-48 common-shadow"
+      class=" absolute top-full -translate-y-2 right-1 common-bg common-border rounded-md text-sm w-48 px-2 py-1 common-shadow"
     >
       {#each pages as page}
         <button
@@ -60,7 +64,9 @@
             $currentPage = page?.id;
             toggleMenu();
           }}
-          class="px-3 py-1 w-full block text-left hover:bg-slate-900/30 rounded-md"
+          class={$currentPage === page?.id
+            ? "page-btn bg-blue-400/20"
+            : "page-btn hover:bg-slate-900/30"}
         >
           {page?.name}
         </button>
@@ -68,8 +74,8 @@
     </div>
   </div>
 {:else}
-  <div class=" icon-wrapper">
-    <button on:click={toggleMenu} class="common-text">
+  <div class=" icon-wrapper common-text">
+    <button on:click={toggleMenu} class="common-menu-icon">
       <i class="fa-solid fa-bars" />
     </button>
   </div>
@@ -77,6 +83,10 @@
 
 <style lang="postcss" scoped>
   .icon-wrapper {
-    @apply absolute top-1 right-3 text-base p-3 z-50;
+    @apply absolute top-4 right-4 text-base z-50;
+  }
+
+  .page-btn {
+    @apply px-3 py-1 w-full block text-left rounded-md;
   }
 </style>

@@ -22,6 +22,10 @@
   @apply shadow shadow-slate-400 dark:shadow-slate-900;
 }
 
+.common-menu-icon {
+  @apply bg-black/10 dark:bg-slate-500 hover:dark:bg-slate-400 hover:bg-black/20 rounded w-7 h-7 flex justify-center items-center;
+}
+
 .message-bg {
   @apply bg-white dark:bg-black/20 text-slate-800 dark:text-white;
 }

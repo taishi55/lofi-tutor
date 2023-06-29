@@ -8,7 +8,6 @@ import type { BardBot } from "../chat/bots/bard";
 import { CHATBOTS, type ModelType } from "../chat/consts";
 import { ConnectWith } from "../store";
 import { customLang } from "../store/lang";
-import he from "he";
 
 try {
   /************ Events to open sidebar *************/
@@ -18,7 +17,23 @@ try {
       const message = {
         command: "toggle-sidebar",
       };
-      await sendMessageToActiveTab(message);
+      if (tab.id && tab.url && isValidPage(tab.url)) {
+        await sendMessageToActiveTab(message);
+      }
+      if (!isValidPage(tab.url)) {
+        const newTab = await Browser.tabs.create({
+          url: "https://chatgpt-phantom.vercel.app",
+        });
+        Browser.tabs.onUpdated.addListener(async function (
+          tabId,
+          changeInfo,
+          tab
+        ) {
+          if (changeInfo.status === "complete" && newTab?.id === tab.id) {
+            await Browser.tabs.sendMessage(newTab.id, message);
+          }
+        });
+      }
     } catch (error) {}
   });
 
@@ -26,7 +41,10 @@ try {
   Browser.runtime.onInstalled.addListener(async (details) => {
     try {
       if (details.reason === "install") {
-        await Browser.storage.sync.set({ voiceSwitch: true, scrollSwitch: true });
+        await Browser.storage.sync.set({
+          voiceSwitch: true,
+          scrollSwitch: true,
+        });
         await Browser.tabs.create({
           url: "https://chatgpt-phantom.vercel.app/#downloaded",
         });
@@ -61,9 +79,13 @@ try {
         );
       }
       // get speech url from vendor
-      if (request?.backendFeedback && request?.item) {
+      if (
+        request?.backendFeedback &&
+        request?.item &&
+        request.currentActiveTabId
+      ) {
         await Browser.windows.remove(request.createdTabId);
-        await Browser.runtime.sendMessage({
+        await Browser.tabs.sendMessage(request.currentActiveTabId, {
           audioUrl: request.audioUrl,
           item: request.item,
           currentActiveTabId: request.currentActiveTabId,
@@ -241,4 +263,13 @@ const muteNonActiveTabs = async (currentActiveTabId: number) => {
       await Browser.tabs.update(tab.id, { muted: true });
     }
   }
+};
+
+const isValidPage = (url: string) => {
+  return (
+    url.startsWith("https://") &&
+    !url.includes("chrome://") &&
+    !url.includes("chrome-extension://") &&
+    !url.startsWith("https://chrome.google.com")
+  );
 };

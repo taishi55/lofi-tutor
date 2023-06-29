@@ -2,10 +2,10 @@
   position: fixed !important;
   top: 0px !important;
   right: -100%;
-  width: 35%;
-  min-width: 450px;
-  min-height: 100vh;
-  max-height: 100vh;
+  width: 35vw;
+  min-width: 450px !important;
+  min-height: 100vh !important;
+  max-height: 100vh !important;
   z-index: 2147483647 !important;
   border: none;
   transition: all 0.5s ease-in-out;
@@ -17,15 +17,16 @@
 }
 
 .sidebar-trigger-button {
-  position: fixed;
-  right: -4px;
-  top: 50%;
-  transform: translate(0px, -65px);
-  width: fit;
+  position: fixed !important;
+  right: -4px !important;
+  top: 50% !important;
+  transform: translate(0px, -65px) !important;
+  width: fit !important;
+  height: fit !important;
   z-index: 2147483646 !important;
-  font-size: 14px;
-  line-height: 20px;
-  font-weight: 300;
+  font-size: 14px !important;
+  line-height: 20px !important;
+  font-weight: 300 !important;
   margin: 0;
   font-size: 16px; /* 1rem * 16px */
   line-height: 20px; /* 1.5rem * 16px */
@@ -44,8 +45,8 @@
   outline: 2px solid transparent;
   outline-offset: 2px;
   user-select: none;
-  display: flex;
-  justify-content: center;
+  display: flex !important;
+  justify-content: center !important;
 }
 
 ::-webkit-scrollbar {

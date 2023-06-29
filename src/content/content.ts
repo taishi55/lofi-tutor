@@ -66,6 +66,7 @@ async function toggleSidebar() {
     }
 
     sidebar.style.width = `${sidebarWidth}vw`;
+    console.log(sidebar.style.right);
     if (sidebar.style.right === "0px" || sidebar.style.display === "block") {
       // close sidebar
       sidebar.style.right = `-100%`;
