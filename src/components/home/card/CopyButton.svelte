@@ -17,6 +17,14 @@
     return inputString.replace(/class=".*?"/g, "");
   }
 
+  function keepStyleHTML(innerHTML: string) {
+    return [
+      new ClipboardItem({
+        "text/html": new Blob([innerHTML], { type: "text/html" }),
+      }),
+    ];
+  }
+
   const copyText = async () => {
     const highlightedText: string = window?.getSelection()?.toString() || "";
     if (isHighlighted && highlightedText) {
@@ -24,9 +32,11 @@
     } else if (isHoveringCode && $copyCode) {
       navigator.clipboard.writeText($copyCode);
     } else if (isHoveringTable && $copyTable) {
-      navigator.clipboard.writeText($copyTable);
+      navigator.clipboard.write(keepStyleHTML($copyTable));
     } else if (isHoveringArticle && $copyHTML) {
-      navigator.clipboard.writeText(removeClassFromString($copyHTML));
+      navigator.clipboard.write(
+        keepStyleHTML(removeClassFromString($copyHTML))
+      );
     } else {
       navigator.clipboard.writeText(item.text);
     }
