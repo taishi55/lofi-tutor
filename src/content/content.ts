@@ -31,10 +31,6 @@ Browser.runtime.onMessage.addListener(async function (
       changeSidebarWidth();
     }
 
-    if (request?.copyText) {
-      navigator.clipboard.writeText(request?.copyText);
-    }
-
     if (request?.awsPolley) {
       await getAudioUrl(
         request.item,
@@ -109,6 +105,7 @@ function createSidebar() {
 
   const sidebar = document.createElement("iframe");
   sidebar.id = "beyond_gafa";
+  sidebar.allow = "clipboard-write";
   sidebar.src = Browser.runtime.getURL("./index.html");
   sidebar.classList.add("sidebar-iframe");
   sidebarContainer.appendChild(sidebar);

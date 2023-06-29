@@ -1,7 +1,6 @@
 <script lang="ts">
   import { fade } from "svelte/transition";
   import type { ChatMessageModel } from "../../../chat/types";
-  import { sendMessageToActiveTab } from "../../../store/function";
   import { copyCode, copyHTML, copyTable, currentLocale } from "../../../store";
   import { customLang } from "../../../store/lang";
 
@@ -21,20 +20,15 @@
   const copyText = async () => {
     const highlightedText: string = window?.getSelection()?.toString() || "";
     if (isHighlighted && highlightedText) {
-      await sendMessageToActiveTab({ copyText: highlightedText });
+      navigator.clipboard.writeText(highlightedText);
     } else if (isHoveringCode && $copyCode) {
-      await sendMessageToActiveTab({ copyText: $copyCode });
+      navigator.clipboard.writeText($copyCode);
     } else if (isHoveringTable && $copyTable) {
-      await sendMessageToActiveTab({ copyText: $copyTable });
+      navigator.clipboard.writeText($copyTable);
     } else if (isHoveringArticle && $copyHTML) {
-      await sendMessageToActiveTab({
-        copyText: removeClassFromString($copyHTML),
-      });
+      navigator.clipboard.writeText(removeClassFromString($copyHTML));
     } else {
-      // remove links
-      await sendMessageToActiveTab({
-        copyText: item.text,
-      });
+      navigator.clipboard.writeText(item.text);
     }
     isCopied = true;
     setTimeout(() => {

@@ -12,9 +12,7 @@
   const myProfile = [
     { key: "fav food", value: "tomato" },
     { key: "fav sports", value: "soccer" },
-    { key: "fav hobbie", value: "skydiving (certified)" },
     { key: "fav lang", value: "typescript" },
-    { key: "fav music", value: "dancing in the moonlight" },
     { key: "fav place", value: "big island, Hawaii" },
     { key: "origin", value: "Tokyo, Japan" },
     { key: "current", value: "Los Angels" },
