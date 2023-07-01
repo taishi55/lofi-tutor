@@ -106,7 +106,7 @@ function createSidebar() {
 
   const sidebar = document.createElement("iframe");
   sidebar.id = "beyond_gafa";
-  sidebar.allow = "clipboard-write";
+  sidebar.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;";
   sidebar.src = Browser.runtime.getURL("./index.html");
   sidebar.classList.add("sidebar-iframe");
   sidebarContainer.appendChild(sidebar);

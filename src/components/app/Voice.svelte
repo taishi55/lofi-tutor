@@ -21,6 +21,13 @@
     audio.load();
   };
 
+  const setMusicVolume = (volume: number) => {
+    const audio: HTMLAudioElement | null = document.querySelector("#bg-music");
+    if (audio?.volume) {
+      audio.volume = volume;
+    }
+  };
+
   const save = async () => {
     await Browser.storage.sync.set({ voiceSwitch: $isVoiceOn });
   };
@@ -28,6 +35,7 @@
   const requesting = () => {
     if ($isVoiceOn) {
       turnOffVoice();
+      setMusicVolume(1);
     }
     $isVoiceOn = !$isVoiceOn;
     save();
