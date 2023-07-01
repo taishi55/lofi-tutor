@@ -42,7 +42,7 @@ try {
     try {
       if (details.reason === "install") {
         await Browser.storage.sync.set({
-          voiceSwitch: true,
+          voiceSwitch: false,
           scrollSwitch: true,
         });
         await Browser.tabs.create({

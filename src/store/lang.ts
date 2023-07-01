@@ -89,7 +89,7 @@ const instructions: InstrucitonType[] = [
   {
     id: "0005",
     label: "Table explanation",
-    value: "Explain the give into in a table.\n\nInfo: ",
+    value: "Explain the give info in a table format.\n\nInfo: ",
   },
   {
     id: "0006",
