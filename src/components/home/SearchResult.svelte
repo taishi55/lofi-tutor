@@ -9,17 +9,16 @@
 <div class="wrapper">
   <!-- bookmark results -->
   <div class="px-4">
-    <SearchInput
-      on:input={(e) => {
-        searchQuery.set(e.detail);
-      }}
-    />
+    {#if $messages.length > 0}
+      <SearchInput
+        on:input={(e) => {
+          searchQuery.set(e.detail);
+        }}
+      />
+    {/if}
     <LofiGpt />
   </div>
-  <div
-    class="scroll-container !shadow-inner shadow-slate-400 dark:shadow-slate-900"
-    id="chat-results"
-  >
+  <div class="scroll-container" id="chat-results">
     {#each $messages
       .filter((message) => message.text
           .toLowerCase()

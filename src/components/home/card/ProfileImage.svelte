@@ -40,6 +40,7 @@
       if (!$isVoiceOn) {
         isVoiceOn.set(true);
       }
+
       // send a request to background
       isSpeechRequestPending.set(true);
       currentSpeechLoadingItemId.set(item.id);

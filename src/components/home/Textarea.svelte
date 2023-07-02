@@ -49,6 +49,10 @@
     if (event.shiftKey || event.key !== "Enter" || !$queryText.trim()) {
       return;
     }
+    await sendMessageOnClick();
+  };
+
+  const sendMessageOnClick = async () => {
     isGeneratingText = true;
     $searchQuery = "";
 
@@ -360,8 +364,8 @@
 </script>
 
 <div class="px-4">
-  <div class=" flex justify-between items-center relative">
-    <div class=" absolute top-0 left-1/2 -translate-x-1/2">
+  <div class=" flex justify-between items-center mb-2 relative">
+    <div class=" absolute -top-1 left-1/2 -translate-x-1/2">
       {#if isGeneratingText}
         <GenerationActionBtn
           isStop={isGeneratingText}
@@ -387,7 +391,7 @@
     </div>
     <div class="relative">
       <button
-        class="align-center common-text-hover"
+        class="align-center common-text-hover common-border"
         on:click={() => {
           showModel = !showModel;
         }}
@@ -405,7 +409,7 @@
     </div>
     <div class="relative">
       <button
-        class="align-center common-text-hover"
+        class="align-center common-text-hover common-border"
         on:click={() => {
           showTemplate = !showTemplate;
         }}
@@ -421,30 +425,49 @@
       {/if}
     </div>
   </div>
-  <div class=" relative transition-all duration-500 ease-in-out">
-    <textarea
-      placeholder={customLang[$currentLocale].system.askAbout}
-      use:autosize
-      class="input-textarea max-h-96 !py-2"
-      bind:value={$queryText}
-      on:keydown={sendMessage}
-      id="send-chat"
-      disabled={isGeneratingText}
-    />
-    {#if $queryText.length > 1}
-      <div
-        class=" absolute bottom-0 right-0 py-1 pl-1 pr-2 text-xs common-text-hover"
-      >
-        <button on:click={emptyTextarea}>
-          <i class="fa-solid fa-xmark" />
-        </button>
+  <div class="  transition-all duration-500 ease-in-out">
+    <div class=" flex items-end space-x-2 flex-nowrap">
+      <div class="flex-1 relative">
+        <textarea
+          placeholder={customLang[$currentLocale].system.askAbout}
+          use:autosize
+          class="input-textarea max-h-96 !py-2"
+          bind:value={$queryText}
+          on:keydown={sendMessage}
+          id="send-chat"
+          disabled={isGeneratingText}
+          rows="1"
+        />
+        {#if $queryText.length > 1}
+          <div
+            class=" absolute bottom-0 right-0 py-1 pl-1 pr-2 text-xs common-text-hover"
+          >
+            <button on:click={emptyTextarea}>
+              <i class="fa-solid fa-xmark" />
+            </button>
+          </div>
+        {/if}
       </div>
-    {/if}
+      {#if isGeneratingText}
+        <button
+          class="bg-blue-500 dark:bg-blue-600 animate-pulse outline-none text-sm border-0 rounded w-7 h-7 text-white flex justify-center items-center"
+        >
+          <i class="fa-solid fa-paper-plane" />
+        </button>
+      {:else}
+        <button
+          on:click={sendMessageOnClick}
+          class="bg-blue-500 dark:bg-blue-600 hover:bg-blue-600 hover:dark:bg-blue-500 outline-none text-sm border-0 rounded w-7 h-7 text-white flex justify-center items-center"
+        >
+          <i class="fa-solid fa-paper-plane" />
+        </button>
+      {/if}
+    </div>
   </div>
 </div>
 
 <style lang="postcss" scoped>
   .align-center {
-    @apply flex items-center space-x-1 py-2;
+    @apply flex items-center space-x-1 py-1 px-2;
   }
 </style>

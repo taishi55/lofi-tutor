@@ -21,15 +21,24 @@
   let isHoveringCode = false;
   let isHoveringTable = false;
   let isHoveringArticle = false;
+  let hideCopyBtn = false;
 
   function handleMouseMove(event: MouseEvent) {
-    cursorX = event.pageX + 5;
-    cursorY = event.pageY + 8;
+    const isButton: HTMLElement | null =
+      (event.target as Element)?.closest("button") || null;
+
+    if (!isButton) {
+      cursorX = event.pageX + 3;
+      cursorY = event.pageY;
+    }
+
+    if (!hideCopyBtn && !isHighlighted && window?.getSelection()?.toString()) {
+      hideCopyBtn = true;
+    }
+    if (window?.getSelection()?.toString()) return;
 
     const codeElement: HTMLElement | null =
       (event.target as Element)?.closest("code") || null;
-    const isButton: HTMLElement | null =
-      (event.target as Element)?.closest("button") || null;
     const tableElement: HTMLElement | null =
       (event.target as Element)?.closest("table") || null;
     const articleElement: HTMLElement | null =
@@ -65,6 +74,7 @@
   function isTextHighlighted() {
     const selection = window.getSelection();
     isHighlighted = selection && selection.toString().length > 0;
+    hideCopyBtn = false;
   }
 </script>
 
@@ -76,42 +86,41 @@
           <ProfileImage {item} />
         </div>
       </div>
-
-      <div
-        class={$isSpeeching &&
-        $currentSpeechPlayingItemId === item.id &&
-        $isGirlTalking
-          ? "message message-bg !bg-pink-200 dark:!bg-pink-700/30 relative border border-pink-300 dark:border-pink-600/80"
-          : $isSpeeching && $currentSpeechPlayingItemId === item.id
-          ? "message message-bg !bg-blue-200 dark:!bg-blue-700/30 relative border border-blue-400 dark:border-blue-600/80"
-          : "message message-bg relative border border-transparent"}
-        on:mouseenter={() => {
-          copyIcon = true;
-        }}
-        on:mousemove={handleMouseMove}
-        on:mouseleave={() => {
-          copyIcon = false;
-        }}
-        on:mouseup={isTextHighlighted}
-      >
-        {#if item.text}
+      {#if item.text}
+        <div
+          class={$isSpeeching &&
+          $currentSpeechPlayingItemId === item.id &&
+          $isGirlTalking
+            ? "message message-bg !bg-pink-200 dark:!bg-pink-700/30 relative border border-pink-300 dark:border-pink-600/80"
+            : $isSpeeching && $currentSpeechPlayingItemId === item.id
+            ? "message message-bg !bg-blue-200 dark:!bg-blue-700/30 relative border border-blue-400 dark:border-blue-600/80"
+            : "message message-bg relative border border-transparent"}
+          on:mouseenter={() => {
+            copyIcon = true;
+          }}
+          on:mousemove={handleMouseMove}
+          on:mouseleave={() => {
+            copyIcon = false;
+          }}
+          on:mouseup={isTextHighlighted}
+        >
           <MarkdownPreview markdown={item.text} />
-        {:else}
-          <LoadingIcon />
-        {/if}
 
-        {#if copyIcon && cursorY && cursorX}
-          <CopyButton
-            {isHighlighted}
-            {isHoveringCode}
-            {isHoveringTable}
-            {isHoveringArticle}
-            {item}
-            {cursorX}
-            {cursorY}
-          />
-        {/if}
-      </div>
+          {#if copyIcon && cursorY && cursorX && !hideCopyBtn}
+            <CopyButton
+              {isHighlighted}
+              {isHoveringCode}
+              {isHoveringTable}
+              {isHoveringArticle}
+              {item}
+              {cursorX}
+              {cursorY}
+            />
+          {/if}
+        </div>
+      {:else}
+        <LoadingIcon />
+      {/if}
     </div>
   </div>
 
