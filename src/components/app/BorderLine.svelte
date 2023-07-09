@@ -1,6 +1,6 @@
 <div class="w-2 h-full wavy-background flex-none" />
 
-<style>
+<style lang="postcss" scoped>
   .wavy-background {
     background: linear-gradient(
       to bottom,

@@ -66,7 +66,7 @@
   <div class=" h-full" />
 {/if}
 
-<style>
+<style lang="postcss" scoped>
   .title {
     @apply text-xl font-semibold pb-1 border-b border-slate-200 mb-2;
   }

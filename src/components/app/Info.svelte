@@ -94,13 +94,12 @@
         }
 
         if (result?.darkMode) {
-          document.body.setAttribute("data-theme", "dark");
           document.documentElement.classList.remove("dark");
           document.documentElement.classList.add("dark");
           $isDarkMode = true;
           Browser.storage.sync.set({ darkMode: $isDarkMode });
         } else {
-          document.body.setAttribute("data-theme", "light");
+          document.documentElement.classList.remove("dark");
         }
       }
     } catch (error) {}
