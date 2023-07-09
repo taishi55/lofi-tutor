@@ -139,7 +139,7 @@ export class BingWebBot extends AbstractBot {
           invocationId: 0,
           conversationStyle: bingConversationStyle,
         };
-        await Browser.storage.sync.set({
+        await Browser.storage.local.set({
           conversationContextBing: this.conversationContext,
         });
       } catch (error) {

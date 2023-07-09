@@ -90,7 +90,6 @@
           $isEmotional = true;
         } else {
           $isEmotional = false;
-          currentLocale.set(checkLocale());
           await Browser.storage.sync.set({ isEmotional: $isEmotional });
         }
 
@@ -102,13 +101,6 @@
           Browser.storage.sync.set({ darkMode: $isDarkMode });
         } else {
           document.body.setAttribute("data-theme", "light");
-        }
-
-        const container = document.querySelector("#chat-results");
-
-        if (container) {
-          // Scroll to the bottom of the container
-          container.scrollTop = container.scrollHeight;
         }
       }
     } catch (error) {}

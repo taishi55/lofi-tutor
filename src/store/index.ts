@@ -57,6 +57,7 @@ export const templatePage = writable(0);
 export const isItemHighlighted = writable(false);
 
 export const ConnectWith = {
+  getYoutubeData: "getYoutubeData",
   getResponse: "getResponse",
   resetConversation: "resetConversation",
   stopGenerating: "stopGenerating",
@@ -73,5 +74,3 @@ export const pageRoutes = {
 };
 
 export const currentPage = writable(pageRoutes.home);
-
-export const isYoutubeVideoId = writable("");

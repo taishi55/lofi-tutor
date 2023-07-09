@@ -12,18 +12,42 @@
   export let isHoveringTable = false;
   export let isHoveringArticle = false;
   let isCopied = false;
+  let plainText = "";
 
   function removeClassFromString(inputString: string) {
     return inputString.replace(/class=".*?"/g, "");
   }
 
-  function keepStyleHTML(innerHTML: string) {
-    return [
-      new ClipboardItem({
-        "text/html": new Blob([innerHTML], { type: "text/html" }),
-      }),
-    ];
-  }
+  const copyEvent = (event: ClipboardEvent) => {
+    event.preventDefault(); // Prevent the default copy behavior
+
+    const highlightedText: string = window?.getSelection()?.toString() || "";
+    if (isHighlighted && highlightedText) {
+      event.clipboardData.setData("text/html", highlightedText);
+      event.clipboardData.setData("text/plain", highlightedText);
+    }
+
+    if (isHoveringTable && $copyTable) {
+      event.clipboardData.setData("text/html", $copyTable);
+      event.clipboardData.setData("text/plain", plainText);
+    }
+
+    if (isHoveringArticle && $copyHTML) {
+      event.clipboardData.setData(
+        "text/html",
+        removeClassFromString($copyHTML)
+      );
+      event.clipboardData.setData("text/plain", plainText);
+    }
+  };
+
+  const copyRichText = () => {
+    document.addEventListener("copy", copyEvent);
+    document.execCommand("copy");
+    setTimeout(() => {
+      document.removeEventListener("copy", copyEvent);
+    }, 50);
+  };
 
   const copyText = async () => {
     const highlightedText: string = window?.getSelection()?.toString() || "";
@@ -32,11 +56,13 @@
     } else if (isHoveringCode && $copyCode) {
       navigator.clipboard.writeText($copyCode);
     } else if (isHoveringTable && $copyTable) {
-      navigator.clipboard.write(keepStyleHTML($copyTable));
+      // navigator.clipboard.write(keepStyleHTML($copyTable, item.text));
+      plainText = item.text;
+      copyRichText();
     } else if (isHoveringArticle && $copyHTML) {
-      navigator.clipboard.write(
-        keepStyleHTML(removeClassFromString($copyHTML))
-      );
+      plainText = item.text;
+      // keepStyleHTML(removeClassFromString($copyHTML), item.text);
+      copyRichText();
     } else {
       navigator.clipboard.writeText(item.text);
     }
@@ -91,7 +117,9 @@
       <div class="select-none">
         <i class="fa-solid fa-newspaper" />
       </div>
-      <div class="text-xs select-none">HTML</div>
+      <div class="text-xs select-none">
+        {customLang[$currentLocale].system.article}
+      </div>
     {:else}
       <div class="select-none">
         <i class="fa-solid fa-copy" />

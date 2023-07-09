@@ -16,9 +16,16 @@ Browser.runtime.onMessage.addListener(async function (
   sendResponse
 ) {
   try {
+    if (Browser.runtime.lastError) {
+      return;
+    }
     // Check if the message contains a command
     if (request?.command === "toggle-sidebar") {
       await toggleSidebar();
+    }
+
+    if (request?.reinitialize) {
+      reinitialize();
     }
 
     if (request?.isHalfScreen === true) {
@@ -38,10 +45,19 @@ Browser.runtime.onMessage.addListener(async function (
         request.createdTabId
       );
     }
+    // return true;
   } catch (error) {
     console.log(error);
   }
 });
+
+function reinitialize() {
+  const sidebar: HTMLIFrameElement | null =
+    document.querySelector("#beyond_gafa");
+  if (!sidebar) return;
+  sidebar.src = "";
+  sidebar.src = Browser.runtime.getURL("./index.html");
+}
 
 function changeSidebarWidth() {
   const sidebar: HTMLIFrameElement | null =
@@ -63,10 +79,10 @@ async function toggleSidebar() {
     if (!sidebar) {
       createSidebar();
       await toggleSidebar();
+      return;
     }
 
     sidebar.style.width = `${sidebarWidth}vw`;
-    console.log(sidebar.style.right);
     if (sidebar.style.right === "0px" || sidebar.style.display === "block") {
       // close sidebar
       sidebar.style.right = `-100%`;
@@ -76,6 +92,7 @@ async function toggleSidebar() {
     } else {
       // open
       sidebar.style.display = "block";
+      reinitialize();
       setTimeout(() => {
         sidebar.style.right = "0px";
       }, 50);

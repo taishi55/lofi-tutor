@@ -2,7 +2,7 @@
   <svg
     xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink"
-    style="background: rgb(241, 242, 243); display: block;"
+    style="display: block;"
     width="2rem"
     height="2rem"
     viewBox="0 0 100 100"

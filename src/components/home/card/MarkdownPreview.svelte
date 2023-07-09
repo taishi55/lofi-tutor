@@ -17,7 +17,7 @@
     if (text.includes("reload-link")) {
       setTimeout(addReloadLinks, 500);
     }
-    return marked(text.replaceAll("^", " "), {
+    return marked(text.replaceAll("^", " ").replaceAll("**", ""), {
       renderer,
       headerIds: false,
       mangle: false,

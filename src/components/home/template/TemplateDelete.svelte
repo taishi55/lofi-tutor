@@ -28,7 +28,7 @@
   />
 </div>
 
-<div class="h-80 py-2">
+<div class="h-72 py-2">
   <textarea
     name=""
     id=""

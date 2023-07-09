@@ -22,7 +22,7 @@ export class BardBot extends AbstractBot {
         requestParams: await fetchRequestParams(),
         contextIds: ["", "", ""],
       };
-      await Browser.storage.sync.set({
+      await Browser.storage.local.set({
         conversationContextBard: this.conversationContext,
       });
     }
@@ -60,7 +60,7 @@ export class BardBot extends AbstractBot {
 
   async resetConversation() {
     this.conversationContext = undefined;
-    await Browser.storage.sync.set({
+    await Browser.storage.local.set({
       conversationContextBard: this.conversationContext,
     });
   }

@@ -40,6 +40,9 @@ try {
   /********** install event **********/
   Browser.runtime.onInstalled.addListener(async (details) => {
     try {
+      if (Browser.runtime.lastError) {
+        return;
+      }
       if (details.reason === "install") {
         await Browser.storage.sync.set({
           voiceSwitch: false,
@@ -70,6 +73,9 @@ try {
     sendResponse
   ) {
     try {
+      if (Browser.runtime.lastError) {
+        return;
+      }
       // get speech text from client
       if (request?.clientRequest && request?.item) {
         await sendMessageToHiddenTab(
@@ -82,7 +88,7 @@ try {
       if (
         request?.backendFeedback &&
         request?.item &&
-        request.currentActiveTabId
+        request?.currentActiveTabId
       ) {
         await Browser.windows.remove(request.createdTabId);
         await Browser.tabs.sendMessage(request.currentActiveTabId, {
@@ -96,6 +102,7 @@ try {
       if (request?.musicTab) {
         await muteNonActiveTabs(request.musicTab);
       }
+      // return true;
     } catch (error) {
       console.log(error);
     }
@@ -103,8 +110,14 @@ try {
 
   Browser.runtime.onConnect.addListener(function (port: Browser.Runtime.Port) {
     try {
+      if (Browser.runtime.lastError) {
+        return;
+      }
       if (port?.name && port.name === ConnectWith.getResponse) {
         port.onMessage.addListener(async function (message) {
+          if (Browser.runtime.lastError) {
+            return;
+          }
           if (message.type === ConnectWith.getResponse) {
             await getResponse(
               port,
@@ -115,7 +128,7 @@ try {
             );
           }
           if (message.type === ConnectWith.resetConversation) {
-            resetConversation();
+            await resetConversation();
           }
           if (message.type === ConnectWith.stopGenerating) {
             stopGenerating(port);
@@ -142,8 +155,7 @@ const getResponse = async (
   generatingMessageId: string | null | undefined,
   tempQueryText: string,
   botModel: ModelType,
-  messages: ChatMessageModel[],
-  transscriptArray = []
+  messages: ChatMessageModel[]
 ) => {
   messagesStore = messages;
   currentBot = createBotInstance(botModel.id);
@@ -194,9 +206,9 @@ const updateMessage = (
   });
 };
 
-const resetConversation = () => {
+const resetConversation = async () => {
   if (currentBot) {
-    currentBot.resetConversation();
+    await currentBot.resetConversation();
   }
   abortControllerStore = undefined;
   generatingMessageIdStore = "";

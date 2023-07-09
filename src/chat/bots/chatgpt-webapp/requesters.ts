@@ -33,6 +33,9 @@ class ProxyFetchRequester implements Requester {
 
   waitForProxyTabReady(onReady: (tab: Browser.Tabs.Tab) => void) {
     Browser.runtime.onMessage.addListener(function listener(message, sender) {
+      if (Browser.runtime.lastError) {
+        return;
+      }
       if (message?.event === "PROXY_TAB_READY") {
         console.debug("new proxy tab ready");
         Browser.runtime.onMessage.removeListener(listener);

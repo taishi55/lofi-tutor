@@ -23,6 +23,11 @@ export const CHATBOTS: ModelType[] = [
     name: "Bard",
     avatar: "./images/bard-logo.svg",
   },
+  {
+    id: "youtube",
+    name: "YouTube",
+    avatar: "./images/youtube-logo.svg",
+  },
 ];
 
 export const CHATGPT_HOME_URL = "https://chat.openai.com";

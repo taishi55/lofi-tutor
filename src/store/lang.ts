@@ -11,7 +11,7 @@ export const system: SystemType = {
   desc: "Premium Copilot powered by Microsoft Bing & Google Bard",
   toggle: "toggle",
   view: "view",
-  voice: "voice",
+  voice: "speech",
   music: "music",
   dark: "dark",
   darkMode: "dark Mode",
@@ -23,6 +23,7 @@ export const system: SystemType = {
   copy: "copy",
   code: "code",
   highlight: "highlight",
+  article: "article",
   table: "table",
   menu: {
     home: "🏠 Home",
@@ -38,6 +39,10 @@ export const system: SystemType = {
   writeTitle: "Write title",
   writePrompt: "Write prompt",
   askAbout: "Ask about...",
+  youtubeExtract:
+    "Extract the search query from the following info. Make sure to write only the query words.\n\nInfo: ",
+  youtubePrompt:
+    "Instructions: According to the YouTube Videos, write the comprehensive answer for the following request.\n\nRequest: ",
   customPrompt: `Instruction: Hello "Lofi Tutor", From now on, you are a live streamer on Chrome Extension. Taishi Nammoto programmed you in order to entertain your users on Chrome Extension. You can express excitement, surprise, anger, joy, or pain in response to the user's comment. You must express your emotional reactions in girl's tone with some emoji.\n\nUser's comment: [USERCOMMENT]\nYour comment: `,
   error: {
     bing: {
@@ -47,6 +52,8 @@ export const system: SystemType = {
     },
     chatgpt: {
       session: `⌛️ Your session for ChatGPT has expired. Please 🔒 log in again to continue using the app.<br/> <a href="https://chat.openai.com/auth/login">https://chat.openai.com/auth/login</a>`,
+      length:
+        "Oops! 😅 The text you've entered is too long for ChatGPT to handle. 🤔 Please shorten your text.",
     },
     bard: {
       session: `Oops! 😕 ⌛️ Your session for Bard has expired. Please 🔒 log in again to continue using the app. <br/><a href="https://bard.google.com/">https://bard.google.com/</a>`,
@@ -335,7 +342,7 @@ export const customLang: Translation = {
       desc: "Copilote Premium alimenté par Microsoft Bing et Google Bard",
       toggle: "basculer",
       view: "vue",
-      voice: "voix",
+      voice: "discours",
       music: "musique",
       dark: "sombre",
       darkMode: "mode sombre",
@@ -347,7 +354,12 @@ export const customLang: Translation = {
       copy: "copier",
       code: "code",
       highlight: "surligner",
+      article: "article",
       table: "tableau",
+      youtubeExtract:
+        "Extraire la requête de recherche à partir des informations suivantes. Assurez-vous d'écrire uniquement les mots de la requête.\n\nInfo : ",
+      youtubePrompt:
+        "Instructions : Selon les vidéos YouTube, rédigez une réponse complète à la demande suivante.\n\nDemande : ",
       menu: {
         home: "🏠 Accueil",
         readmap: "🌙 Carte routière",
@@ -374,6 +386,9 @@ Ton commentaire : `,
         },
         chatgpt: {
           session: `⌛️ Votre session pour ChatGPT a expiré. Veuillez 🔒 vous connecter à nouveau pour continuer à utiliser l'application.<br/> <a href="https://chat.openai.com/auth/login">https://chat.openai.com/auth/login</a>`,
+
+          length:
+            "Oups! 😅 Le texte que vous avez entré est trop long pour que ChatGPT puisse le traiter. 🤔 Veuillez raccourcir votre texte.",
         },
         bard: {
           session: `Oops! 😕 ⌛️ Votre session pour Bard a expiré. Veuillez 🔒 vous connecter à nouveau pour continuer à utiliser l'application. <br/><a href="https://bard.google.com/">https://bard.google.com/</a>`,
@@ -585,7 +600,7 @@ Ton commentaire : `,
       desc: "Copiloto Premium alimentado por Microsoft Bing e Google Bard",
       toggle: "alternar",
       view: "visualizar",
-      voice: "voz",
+      voice: "discurso",
       music: "música",
       dark: "escuro",
       darkMode: "Modo escuro",
@@ -597,7 +612,12 @@ Ton commentaire : `,
       copy: "copiar",
       code: "código",
       highlight: "destacar",
+      article: "artigo",
       table: "tabela",
+      youtubeExtract:
+        "Extrair a consulta de pesquisa das seguintes informações. Certifique-se de escrever apenas as palavras da consulta.\n\nInformações: ",
+      youtubePrompt:
+        "Instruções: De acordo com os vídeos do YouTube, escreva uma resposta abrangente para a seguinte solicitação.\n\nSolicitação: ",
       menu: {
         home: "🏠 Início",
         readmap: "🌙 Mapa de Roteiro",
@@ -621,6 +641,9 @@ Ton commentaire : `,
         },
         chatgpt: {
           session: `⌛️ Sua sessão no ChatGPT expirou. Por favor, 🔒 faça login novamente para continuar usando o aplicativo.<br/> <a href="https://chat.openai.com/auth/login">https://chat.openai.com/auth/login</a>`,
+
+          length:
+            "Oops! 😅 O texto que você inseriu é muito longo para o ChatGPT lidar. 🤔 Por favor, encurte seu texto.",
         },
         bard: {
           session: `Ops! 😕 ⌛️ Sua sessão no Bard expirou. Por favor, 🔒 faça login novamente para continuar usando o aplicativo. <br/><a href="https://bard.google.com/">https://bard.google.com/</a>`,
@@ -831,7 +854,7 @@ Ton commentaire : `,
       desc: "Premium Copilot drevet af Microsoft Bing & Google Bard",
       toggle: "skift",
       view: "visning",
-      voice: "stemme",
+      voice: "tale",
       music: "musik",
       dark: "mørk",
       darkMode: "mørk tilstand",
@@ -843,7 +866,12 @@ Ton commentaire : `,
       copy: "kopier",
       code: "kode",
       highlight: "fremhæv",
+      article: "artikel",
       table: "tabel",
+      youtubeExtract:
+        "Udtræk søgeforespørgslen fra følgende info. Sørg for kun at skrive søgeordene.\n\nInfo: ",
+      youtubePrompt:
+        "Instruktioner: I henhold til YouTube-videoerne, skriv det omfattende svar på følgende anmodning.\n\nAnmodning: ",
       menu: {
         home: "🏠 Hjem",
         readmap: "🌙 Vejkort",
@@ -867,6 +895,9 @@ Ton commentaire : `,
         },
         chatgpt: {
           session: `⌛️ Din ChatGPT-session er udløbet. Log venligst 🔒 ind igen for at fortsætte med at bruge appen.<br/> <a href="https://chat.openai.com/auth/login">https://chat.openai.com/auth/login</a>`,
+
+          length:
+            "Ups! 😅 Den tekst, du har indtastet, er for lang til, at ChatGPT kan håndtere den. 🤔 Venligst forkort din tekst.",
         },
         bard: {
           session: `Ups! 😕 ⌛️ Din Bard-session er udløbet. Log venligst 🔒 ind igen for at fortsætte med at bruge appen. <br/><a href="https://bard.google.com/">https://bard.google.com/</a>`,
@@ -1078,7 +1109,7 @@ Ton commentaire : `,
       desc: "Premium Copilot aangedreven door Microsoft Bing & Google Bard",
       toggle: "schakelen",
       view: "weergave",
-      voice: "stem",
+      voice: "speech",
       music: "muziek",
       dark: "donker",
       darkMode: "donkere modus",
@@ -1090,7 +1121,12 @@ Ton commentaire : `,
       copy: "kopiëren",
       code: "code",
       highlight: "markeren",
+      article: "artikel",
       table: "tabel",
+      youtubeExtract:
+        "Haal de zoekopdracht uit de volgende informatie. Zorg ervoor dat je alleen de zoekwoorden opschrijft.\n\nInfo: ",
+      youtubePrompt:
+        "Instructies: Schrijf op basis van de YouTube-video's het uitgebreide antwoord op de volgende aanvraag.\n\nAanvraag: ",
       menu: {
         home: "🏠 Startpagina",
         readmap: "🌙 Routekaart",
@@ -1117,6 +1153,9 @@ Ton commentaire : `,
         },
         chatgpt: {
           session: `⌛️ Je sessie voor ChatGPT is verlopen. Log alsjeblieft 🔒 opnieuw in om door te gaan met het gebruik van de app.<br/> <a href="https://chat.openai.com/auth/login">https://chat.openai.com/auth/login</a>`,
+
+          length:
+            "Oeps! 😅 De tekst die je hebt ingevoerd is te lang voor ChatGPT om te verwerken. 🤔 Verkort alsjeblieft je tekst.",
         },
         bard: {
           session: `Oeps! 😕 ⌛️ Je sessie voor Bard is verlopen. Log alsjeblieft 🔒 opnieuw in om door te gaan met het gebruik van de app. <br/><a href="https://bard.google.com/">https://bard.google.com/</a>`,
@@ -1327,7 +1366,7 @@ Ton commentaire : `,
       desc: "Copilote Premium propulsé par Microsoft Bing & Google Bard",
       toggle: "basculer",
       view: "vue",
-      voice: "voix",
+      voice: "discours",
       music: "musique",
       dark: "sombre",
       darkMode: "mode sombre",
@@ -1339,7 +1378,12 @@ Ton commentaire : `,
       copy: "copier",
       code: "code",
       highlight: "surligner",
+      article: "article",
       table: "tableau",
+      youtubeExtract:
+        "Extraire la requête de recherche à partir des informations suivantes. Assurez-vous d'écrire uniquement les mots de la requête.\n\nInfo : ",
+      youtubePrompt:
+        "Instructions : Selon les vidéos YouTube, rédigez une réponse complète à la demande suivante.\n\nDemande : ",
       menu: {
         home: "🏠 Accueil",
         readmap: "🌙 Feuille de route",
@@ -1366,6 +1410,8 @@ Ton commentaire : `,
         },
         chatgpt: {
           session: `⌛️ Votre session ChatGPT a expiré. Veuillez 🔒 vous connecter à nouveau pour continuer à utiliser l'application.<br/> <a href="https://chat.openai.com/auth/login">https://chat.openai.com/auth/login</a>`,
+          length:
+            "Oups ! 😅 Le texte que vous avez saisi est trop long pour que ChatGPT puisse le gérer. 🤔 Veuillez raccourcir votre texte.",
         },
         bard: {
           session: `Oups ! 😕 ⌛️ Votre session Bard a expiré. Veuillez 🔒 vous connecter à nouveau pour continuer à utiliser l'application. <br/><a href="https://bard.google.com/">https://bard.google.com/</a>`,
@@ -1577,7 +1623,7 @@ Ton commentaire : `,
       desc: "Premium Copilot powered by Microsoft Bing & Google Bard",
       toggle: "umschalten",
       view: "Ansicht",
-      voice: "Stimme",
+      voice: "Rede",
       music: "Musik",
       dark: "dunkel",
       darkMode: "Dunkelmodus",
@@ -1589,7 +1635,12 @@ Ton commentaire : `,
       copy: "Kopieren",
       code: "Code",
       highlight: "Hervorheben",
+      article: "artikel",
       table: "tabelle",
+      youtubeExtract:
+        "Extrahiere die Suchanfrage aus den folgenden Informationen. Achte darauf, nur die Suchbegriffe aufzuschreiben.\n\nInfo: ",
+      youtubePrompt:
+        "Anweisungen: Basierend auf den YouTube-Videos schreibe die umfassende Antwort auf die folgende Anfrage.\n\nAnfrage: ",
       menu: {
         home: "🏠 Startseite",
         readmap: "🌙 Roadmap",
@@ -1616,6 +1667,8 @@ Dein Kommentar: `,
         },
         chatgpt: {
           session: `⌛️ Deine ChatGPT-Sitzung ist abgelaufen. Bitte 🔒 melde dich erneut an, um die App weiterhin zu verwenden.<br/> <a href="https://chat.openai.com/auth/login">https://chat.openai.com/auth/login</a>`,
+          length:
+            "Hoppla! 😅 Der eingegebene Text ist zu lang für ChatGPT. 🤔 Bitte kürze deinen Text.",
         },
         bard: {
           session: `Hoppla! 😕 ⌛️ Deine Bard-Sitzung ist abgelaufen. Bitte 🔒 melde dich erneut an, um die App weiterhin zu verwenden. <br/><a href="https://bard.google.com/">https://bard.google.com/</a>`,
@@ -1828,7 +1881,7 @@ Dein Kommentar: `,
       desc: "Premium Copilot con tecnologia Microsoft Bing & Google Bard",
       toggle: "Attiva/Disattiva",
       view: "Visualizza",
-      voice: "Voce",
+      voice: "discorso",
       music: "Musica",
       dark: "Scuro",
       darkMode: "Modalità scura",
@@ -1840,7 +1893,12 @@ Dein Kommentar: `,
       copy: "Copia",
       code: "Codice",
       highlight: "Evidenzia",
+      article: "articolo",
       table: "tabella",
+      youtubeExtract:
+        "Estrai la ricerca dalla seguente informazione. Assicurati di scrivere solo le parole chiave della ricerca.\n\nInfo: ",
+      youtubePrompt:
+        "Istruzioni: In base ai video di YouTube, scrivi una risposta completa alla seguente richiesta.\n\nRichiesta: ",
       menu: {
         home: "🏠 Home",
         readmap: "🌙 Road Map",
@@ -1867,6 +1925,8 @@ Dein Kommentar: `,
         },
         chatgpt: {
           session: `⌛️ La tua sessione per ChatGPT è scaduta. Effettua nuovamente il 🔒 login per continuare a utilizzare l'app.<br/> <a href="https://chat.openai.com/auth/login">https://chat.openai.com/auth/login</a>`,
+          length:
+            "Ops! 😅 Il testo che hai inserito è troppo lungo per essere gestito da ChatGPT. 🤔 Per favore, accorcia il tuo testo.",
         },
         bard: {
           session: `Ops! 😕 ⌛️ La tua sessione per Bard è scaduta. Effettua nuovamente il 🔒 login per continuare a utilizzare l'app. <br/><a href="https://bard.google.com/">https://bard.google.com/</a>`,
@@ -2077,7 +2137,7 @@ Dein Kommentar: `,
       desc: "Microsoft BingとGoogle Bardでパワーアップしたプレミアムコパイロット",
       toggle: "切り替え",
       view: "表示",
-      voice: "音声",
+      voice: "スピーチ",
       music: "音楽",
       dark: "ダーク",
       darkMode: "ダークモード",
@@ -2089,7 +2149,12 @@ Dein Kommentar: `,
       copy: "コピー",
       code: "コード",
       highlight: "ハイライト",
+      article: "記事",
       table: "表",
+      youtubeExtract:
+        "次の情報から検索クエリを抽出してください。クエリの単語のみを書いてください。\n\n情報：",
+      youtubePrompt:
+        "指示：YouTubeの動画に基づいて、以下のリクエストに対する包括的な回答を書いてください。\n\nリクエスト：",
       menu: {
         home: "🏠 ホーム",
         readmap: "🌙 ロードマップ",
@@ -2116,6 +2181,8 @@ Dein Kommentar: `,
         },
         chatgpt: {
           session: `⌛️ ChatGPTのセッションが期限切れです。アプリの使用を続けるには、再び🔒 ログインしてください。<br/> <a href="https://chat.openai.com/auth/login">https://chat.openai.com/auth/login</a>`,
+          length:
+            "おっと！ 😅 入力したテキストはChatGPTが処理できる長さを超えています。 🤔 テキストを短くしてください。",
         },
         bard: {
           session: `おっと！ 😕 ⌛️ Bardのセッションが期限切れです。アプリの使用を続けるには、再び🔒 ログインしてください。<br/><a href="https://bard.google.com/">https://bard.google.com/</a>`,
@@ -2326,7 +2393,7 @@ Dein Kommentar: `,
       desc: "Premium Copilot zasilany przez Microsoft Bing i Google Bard",
       toggle: "Przełącz",
       view: "Widok",
-      voice: "Głos",
+      voice: "mowa",
       music: "Muzyka",
       dark: "Ciemny",
       darkMode: "Tryb ciemny",
@@ -2338,7 +2405,12 @@ Dein Kommentar: `,
       copy: "Kopiuj",
       code: "Kod",
       highlight: "Podświetl",
+      article: "artykuł",
       table: "tabela",
+      youtubeExtract:
+        "Wyodrębnij zapytanie wyszukiwania z następujących informacji. Upewnij się, że zapisujesz tylko słowa kluczowe zapytania.\n\nInfo: ",
+      youtubePrompt:
+        "Instrukcje: Na podstawie filmów na YouTube napisz kompleksową odpowiedź na następujące zapytanie.\n\nZapytanie: ",
       menu: {
         home: "🏠 Strona główna",
         readmap: "🌙 Mapa drogowa",
@@ -2365,6 +2437,8 @@ Twój komentarz: `,
         },
         chatgpt: {
           session: `⌛️ Twoja sesja ChatGPT wygasła. Proszę, 🔒 zaloguj się ponownie, aby kontynuować korzystanie z aplikacji.<br/> <a href="https://chat.openai.com/auth/login">https://chat.openai.com/auth/login</a>`,
+          length:
+            "Ups! 😅 Wprowadzony tekst jest zbyt długi dla ChatGPT, aby go obsłużyć. 🤔 Proszę skrócić tekst.",
         },
         bard: {
           session: `Ups! 😕 ⌛️ Twoja sesja Bard wygasła. Proszę, 🔒 zaloguj się ponownie, aby kontynuować korzystanie z aplikacji. <br/><a href="https://bard.google.com/">https://bard.google.com/</a>`,
@@ -2575,7 +2649,7 @@ Twój komentarz: `,
       desc: "Copiloto Premium desenvolvido por Microsoft Bing e Google Bard",
       toggle: "Alternar",
       view: "Visualizar",
-      voice: "Voz",
+      voice: "discurso",
       music: "Música",
       dark: "Escuro",
       darkMode: "Modo escuro",
@@ -2587,7 +2661,12 @@ Twój komentarz: `,
       copy: "Copiar",
       code: "Código",
       highlight: "Destacar",
+      article: "artigo",
       table: "tabela",
+      youtubeExtract:
+        "Extrair a consulta de pesquisa das seguintes informações. Certifique-se de escrever apenas as palavras-chave da consulta.\n\nInfo: ",
+      youtubePrompt:
+        "Instruções: De acordo com os vídeos do YouTube, escreva a resposta abrangente para a seguinte solicitação.\n\nSolicitação: ",
       menu: {
         home: "🏠 Início",
         readmap: "🌙 Mapa de Rota",
@@ -2614,6 +2693,8 @@ Seu comentário: `,
         },
         chatgpt: {
           session: `⌛️ Sua sessão no ChatGPT expirou. Por favor, 🔒 faça login novamente para continuar usando o aplicativo.<br/> <a href="https://chat.openai.com/auth/login">https://chat.openai.com/auth/login</a>`,
+          length:
+            "Ops! 😅 O texto que inseriste é demasiado longo para o ChatGPT processar. 🤔 Por favor, encurta o teu texto.",
         },
         bard: {
           session: `Ops! 😕 ⌛️ Sua sessão no Bard expirou. Por favor, 🔒 faça login novamente para continuar usando o aplicativo. <br/><a href="https://bard.google.com/">https://bard.google.com/</a>`,
@@ -2824,7 +2905,7 @@ Seu comentário: `,
       desc: "Премиум-копилот на основе Microsoft Bing и Google Bard",
       toggle: "Переключить",
       view: "Просмотр",
-      voice: "Голос",
+      voice: "речь",
       music: "Музыка",
       dark: "Темный",
       darkMode: "Темный режим",
@@ -2836,7 +2917,12 @@ Seu comentário: `,
       copy: "Копировать",
       code: "Код",
       highlight: "Выделить",
+      article: "статья",
       table: "таблица",
+      youtubeExtract:
+        "Извлечь поисковый запрос из следующей информации. Убедитесь, что вы пишете только ключевые слова запроса.\n\nИнформация: ",
+      youtubePrompt:
+        "Инструкции: Согласно видеороликам на YouTube, напишите исчерпывающий ответ на следующий запрос.\n\nЗапрос: ",
       menu: {
         home: "🏠 Главная",
         readmap: "🌙 Дорожная карта",
@@ -2863,6 +2949,8 @@ Seu comentário: `,
         },
         chatgpt: {
           session: `⌛️ Ваша сессия в ChatGPT истекла. Пожалуйста, 🔒 войдите в систему снова, чтобы продолжить использовать приложение.<br/> <a href="https://chat.openai.com/auth/login">https://chat.openai.com/auth/login</a>`,
+          length:
+            "Ой! 😅 Введенный вами текст слишком длинный для обработки ChatGPT. 🤔 Пожалуйста, сократите свой текст.",
         },
         bard: {
           session: `Ой! 😕 ⌛️ Ваша сессия в Bard истекла. Пожалуйста, 🔒 войдите в систему снова, чтобы продолжить использовать приложение. <br/><a href="https://bard.google.com/">https://bard.google.com/</a>`,
@@ -3076,7 +3164,7 @@ Seu comentário: `,
       desc: "Copiloto Premium impulsado por Microsoft Bing y Google Bard",
       toggle: "Alternar",
       view: "Vista",
-      voice: "Voz",
+      voice: "discurso",
       music: "Música",
       dark: "Oscuro",
       darkMode: "Modo oscuro",
@@ -3088,7 +3176,12 @@ Seu comentário: `,
       copy: "Copiar",
       code: "Código",
       highlight: "Resaltar",
+      article: "artículo",
       table: "tabla",
+      youtubeExtract:
+        "Extrae la consulta de búsqueda de la siguiente información. Asegúrate de escribir solo las palabras clave de la consulta.\n\nInformación: ",
+      youtubePrompt:
+        "Instrucciones: Según los vídeos de YouTube, escribe la respuesta completa para la siguiente solicitud.\n\nSolicitud: ",
       menu: {
         home: "🏠 Inicio",
         readmap: "🌙 Mapa de Ruta",
@@ -3115,6 +3208,8 @@ Tu comentario: `,
         },
         chatgpt: {
           session: `⌛️ Tu sesión en ChatGPT ha expirado. Por favor, 🔒 inicia sesión nuevamente para continuar usando la aplicación.<br/> <a href="https://chat.openai.com/auth/login">https://chat.openai.com/auth/login</a>`,
+          length:
+            "¡Ups! 😅 El texto que has ingresado es demasiado largo para que ChatGPT lo pueda manejar. 🤔 Por favor, acorta tu texto.",
         },
         bard: {
           session: `¡Vaya! 😕 ⌛️ Tu sesión en Bard ha expirado. Por favor, 🔒 inicia sesión nuevamente para continuar usando la aplicación. <br/><a href="https://bard.google.com/">https://bard.google.com/</a>`,
@@ -3326,7 +3421,7 @@ Tu comentario: `,
       desc: "Copilot Premium impulsado por Microsoft Bing y Google Bard",
       toggle: "Alternar",
       view: "Vista",
-      voice: "Voz",
+      voice: "discurso",
       music: "Música",
       dark: "Oscuro",
       darkMode: "Modo oscuro",
@@ -3338,7 +3433,12 @@ Tu comentario: `,
       copy: "Copiar",
       code: "Código",
       highlight: "Resaltar",
+      article: "artículo",
       table: "tabla",
+      youtubeExtract:
+        "Extrae la consulta de búsqueda de la siguiente información. Asegúrate de escribir solo las palabras clave de la consulta.\n\nInfo: ",
+      youtubePrompt:
+        "Instrucciones: De acuerdo con los videos de YouTube, escribe la respuesta completa para la siguiente solicitud.\n\nSolicitud: ",
       menu: {
         home: "🏠 Inicio",
         readmap: "🌙 Mapa de Ruta",
@@ -3365,6 +3465,8 @@ Tu comentario: `,
         },
         chatgpt: {
           session: `⌛️ Tu sesión en ChatGPT ha expirado. Por favor, 🔒 inicia sesión de nuevo para continuar usando la aplicación.<br/> <a href="https://chat.openai.com/auth/login">https://chat.openai.com/auth/login</a>`,
+          length:
+            "¡Ups! 😅 El texto que ingresaste es demasiado largo para que ChatGPT lo pueda manejar. 🤔 Por favor, acorta tu texto.",
         },
         bard: {
           session: `¡Ups! 😕 ⌛️ Tu sesión en Bard ha expirado. Por favor, 🔒 inicia sesión de nuevo para continuar usando la aplicación. <br/><a href="https://bard.google.com/">https://bard.google.com/</a>`,
@@ -3576,7 +3678,7 @@ Tu comentario: `,
       desc: "Copiloto Premium impulsado por Microsoft Bing y Google Bard",
       toggle: "Alternar",
       view: "Ver",
-      voice: "Voz",
+      voice: "discurso",
       music: "Música",
       dark: "Oscuro",
       darkMode: "Modo oscuro",
@@ -3588,7 +3690,12 @@ Tu comentario: `,
       copy: "Copiar",
       code: "Código",
       highlight: "Resaltar",
+      article: "artículo",
       table: "tabla",
+      youtubeExtract:
+        "Extrae la consulta de búsqueda de la siguiente información. Asegúrate de escribir solo las palabras clave de la consulta.\n\nInformación: ",
+      youtubePrompt:
+        "Instrucciones: De acuerdo con los videos de YouTube, escribe la respuesta completa para la siguiente solicitud.\n\nSolicitud: ",
       menu: {
         home: "🏠 Inicio",
         readmap: "🌙 Mapa de Ruta",
@@ -3615,6 +3722,8 @@ Tu comentario: `,
         },
         chatgpt: {
           session: `⌛️ Tu sesión en ChatGPT ha expirado. Por favor, 🔒 inicia sesión nuevamente para continuar utilizando la aplicación.<br/> <a href="https://chat.openai.com/auth/login">https://chat.openai.com/auth/login</a>`,
+          length:
+            "¡Oops! 😅 El texto que has ingresado es demasiado largo para que ChatGPT lo pueda manejar. 🤔 Por favor, acorta tu texto.",
         },
         bard: {
           session: `¡Ups! 😕 ⌛️ Tu sesión en Bard ha expirado. Por favor, 🔒 inicia sesión nuevamente para continuar utilizando la aplicación. <br/><a href="https://bard.google.com/">https://bard.google.com/</a>`,
@@ -3826,7 +3935,7 @@ Tu comentario: `,
       desc: "Premium Copilot drivs av Microsoft Bing och Google Bard",
       toggle: "växla",
       view: "visa",
-      voice: "röst",
+      voice: "tal",
       music: "musik",
       dark: "mörk",
       darkMode: "mörkt läge",
@@ -3838,7 +3947,12 @@ Tu comentario: `,
       copy: "kopiera",
       code: "kod",
       highlight: "markera",
+      article: "artikel",
       table: "tabell",
+      youtubeExtract:
+        "Extrahera sökfrågan från följande information. Se till att bara skriva sökorden.\n\nInfo: ",
+      youtubePrompt:
+        "Instruktioner: Baserat på YouTube-videor, skriv den omfattande svaret på följande förfrågan.\n\nFörfrågan: ",
       menu: {
         home: "🏠 Hem",
         readmap: "🌙 Vägkarta",
@@ -3865,6 +3979,8 @@ Din kommentar: `,
         },
         chatgpt: {
           session: `⌛️ Din session för ChatGPT har gått ut. Var vänlig och 🔒 logga in igen för att fortsätta använda appen.<br/> <a href="https://chat.openai.com/auth/login">https://chat.openai.com/auth/login</a>`,
+          length:
+            "Hoppsan! 😅 Den text du har skrivit in är för lång för att ChatGPT ska kunna hantera den. 🤔 Var vänlig och förkorta din text.",
         },
         bard: {
           session: `Oj då! 😕 ⌛️ Din session för Bard har gått ut. Var vänlig och 🔒 logga in igen för att fortsätta använda appen. <br/><a href="https://bard.google.com/">https://bard.google.com/</a>`,
@@ -4076,7 +4192,7 @@ Din kommentar: `,
       desc: "Premium Copilot drevet av Microsoft Bing og Google Bard",
       toggle: "bytt",
       view: "visning",
-      voice: "stemme",
+      voice: "tale",
       music: "musikk",
       dark: "mørk",
       darkMode: "mørk modus",
@@ -4088,7 +4204,12 @@ Din kommentar: `,
       copy: "kopier",
       code: "kode",
       highlight: "fremhev",
+      article: "artikkel",
       table: "tabell",
+      youtubeExtract:
+        "Ekstraher søkeforespørselen fra følgende info. Sørg for å skrive bare søkeordene.\n\nInfo: ",
+      youtubePrompt:
+        "Instruksjoner: I henhold til YouTube-videoene, skriv den omfattende svaret for følgende forespørsel.\n\nForespørsel: ",
       menu: {
         home: "🏠 Hjem",
         readmap: "🌙 Veikart",
@@ -4116,6 +4237,8 @@ Din kommentar: `,
         },
         chatgpt: {
           session: `⌛️ Økten din for ChatGPT har utløpt. Vennligst 🔒 logg inn på nytt for å fortsette å bruke appen.<br/> <a href="https://chat.openai.com/auth/login">https://chat.openai.com/auth/login</a>`,
+          length:
+            "Oops! 😅 Teksten du har skrevet inn er for lang for at ChatGPT kan håndtere den. 🤔 Vennligst forkort teksten din.",
         },
         bard: {
           session: `Oops! 😕 ⌛️ Økten din for Bard har utløpt. Vennligst 🔒 logg inn på nytt for å fortsette å bruke appen. <br/><a href="https://bard.google.com/">https://bard.google.com/</a>`,
@@ -4326,7 +4449,7 @@ Din kommentar: `,
       desc: "由Microsoft Bing和Google Bard提供支持的高级Copilot",
       toggle: "切换",
       view: "查看",
-      voice: "语音",
+      voice: "演讲",
       music: "音乐",
       dark: "暗色",
       darkMode: "暗色模式",
@@ -4338,7 +4461,11 @@ Din kommentar: `,
       copy: "复制",
       code: "代码",
       highlight: "高亮",
+      article: "文章",
       table: "表格",
+      youtubeExtract: "从以下信息中提取搜索查询。确保只写查询词。\n\n信息：",
+      youtubePrompt:
+        "说明：根据YouTube视频，撰写以下请求的综合回答。\n\n请求：",
       menu: {
         home: "🏠 首页",
         readmap: "🌙 路线图",
@@ -4364,6 +4491,8 @@ Din kommentar: `,
         },
         chatgpt: {
           session: `⌛️ 你在ChatGPT上的会话已过期。请🔒重新登录以继续使用该应用程序。<br/> <a href="https://chat.openai.com/auth/login">https://chat.openai.com/auth/login</a>`,
+          length:
+            "哎呀！😅 你输入的文本太长，ChatGPT无法处理。🤔 请缩短你的文本。",
         },
         bard: {
           session: `糟糕！😕 ⌛️ 你在Bard上的会话已过期。请🔒重新登录以继续使用该应用程序。<br/><a href="https://bard.google.com/">https://bard.google.com/</a>`,
@@ -4574,7 +4703,7 @@ Din kommentar: `,
       desc: "Microsoft Bing 및 Google Bard에서 제공하는 프리미엄 코파일럿",
       toggle: "전환",
       view: "보기",
-      voice: "음성",
+      voice: "연설",
       music: "음악",
       dark: "어둡게",
       darkMode: "다크 모드",
@@ -4586,7 +4715,12 @@ Din kommentar: `,
       copy: "복사",
       code: "코드",
       highlight: "강조",
+      article: "기사",
       table: "표",
+      youtubeExtract:
+        "다음 정보에서 검색 쿼리를 추출하세요. 쿼리 단어만 작성하세요.\n\n정보: ",
+      youtubePrompt:
+        "지침: YouTube 동영상을 기반으로 다음 요청에 대한 포괄적인 답변을 작성하세요.\n\n요청: ",
       menu: {
         home: "🏠 홈",
         readmap: "🌙 로드맵",
@@ -4613,6 +4747,8 @@ Din kommentar: `,
         },
         chatgpt: {
           session: `⌛️ ChatGPT의 세션이 만료되었습니다. 계속해서 앱을 사용하려면 🔒 다시 로그인하십시오.<br/> <a href="https://chat.openai.com/auth/login">https://chat.openai.com/auth/login</a>`,
+          length:
+            "이런! 😅 입력한 텍스트가 ChatGPT에서 처리하기에 너무 길어요. 🤔 텍스트를 줄여주세요.",
         },
         bard: {
           session: `앗싸! 😕 ⌛️ Bard의 세션이 만료되었습니다. 계속해서 앱을 사용하려면 🔒 다시 로그인하십시오. <br/><a href="https://bard.google.com/">https://bard.google.com/</a>`,
@@ -4824,7 +4960,7 @@ Din kommentar: `,
       desc: "माइक्रोसॉफ्ट बिंग और गूगल बार्ड द्वारा संचालित प्रीमियम कोपिलॉट",
       toggle: "टॉगल करें",
       view: "देखें",
-      voice: "आवाज़",
+      voice: "भाषण",
       music: "संगीत",
       dark: "डार्क",
       darkMode: "डार्क मोड",
@@ -4836,7 +4972,12 @@ Din kommentar: `,
       copy: "कॉपी करें",
       code: "कोड",
       highlight: "हाइलाइट करें",
+      article: "लेख",
       table: "तालिका",
+      youtubeExtract:
+        "निम्नलिखित जानकारी से खोज क्वेरी निकालें। सुनिश्चित करें कि केवल क्वेरी शब्दों को लिखें।\n\nजानकारी: ",
+      youtubePrompt:
+        "निर्देश: YouTube वीडियो के अनुसार, निम्नलिखित अनुरोध के लिए व्यापक उत्तर लिखें।\n\nअनुरोध: ",
       menu: {
         home: "🏠 होम",
         readmap: "🌙 रोड मैप",
@@ -4863,6 +5004,8 @@ Din kommentar: `,
         },
         chatgpt: {
           session: `⌛️ ChatGPT का सत्र समाप्त हो गया है। कृपया ऐप का उपयोग जारी रखने के लिए 🔒 फिर से लॉग इन करें। <br/><a href="https://chat.openai.com/auth/login">https://chat.openai.com/auth/login</a>`,
+          length:
+            "उफ़! 😅 आपने दर्ज किया हुआ पाठ ChatGPT को संचालित करने के लिए बहुत लंबा है। 🤔 कृपया अपना पाठ संक्षेप में लिखें।",
         },
         bard: {
           session: `उफ़! 😕 ⌛️ बार्ड का सत्र समाप्त हो गया है। कृपया ऐप का उपयोग जारी रखने के लिए 🔒 फिर से लॉग इन करें। <br/><a href="https://bard.google.com/">https://bard.google.com/</a>`,

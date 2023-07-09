@@ -32,14 +32,14 @@ class ChatGPTClient {
     try {
       const resp = await this.fetch("https://chat.openai.com/api/auth/session");
       if (resp.status === 403) {
-        await Browser.storage.sync.set({
+        await Browser.storage.local.set({
           accessTokenChatGPT: "",
         });
         return "";
       }
       const data = await resp.json().catch(() => ({}));
       if (!data.accessToken) {
-        await Browser.storage.sync.set({
+        await Browser.storage.local.set({
           accessTokenChatGPT: "",
         });
         return "";

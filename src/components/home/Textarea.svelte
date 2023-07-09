@@ -33,6 +33,7 @@
 
   let showTemplate = false;
   let showModel = false;
+  let isScrolling = false;
 
   let closeWindow = () => {
     showTemplate = false;
@@ -46,13 +47,69 @@
 
   const sendMessage = async (event: KeyboardEvent) => {
     // If the Shift key or any key other than Enter is pressed, do nothing and return
-    if (event.shiftKey || event.key !== "Enter" || !$queryText.trim()) {
-      return;
-    }
+    if (event.shiftKey || event.key !== "Enter" || !$queryText.trim()) return;
     await sendMessageOnClick();
   };
 
+  const youtubeSecondGeneration = async (tempQueryText: string) => {
+    getResponsePort = Browser.runtime.connect({
+      name: ConnectWith.getResponse,
+    });
+    $generatingMessageId = uuid();
+
+    $messages.push(
+      { id: uuid(), text: tempQueryText, author: "user", new: false },
+      { id: $generatingMessageId, text: "", author: $botModel.id, new: false }
+    );
+    $messages = $messages;
+
+    if ($isVoiceOn) {
+      const yourItem = $messages.at($messages.length - 2);
+      await startSpeech(yourItem);
+    }
+    scrollToBottom();
+
+    // Send a message to background.js
+    getResponsePort.postMessage({
+      type: ConnectWith.getResponse,
+      queryText: tempQueryText,
+      generatingMessageId: $generatingMessageId,
+      botModel: $botModel,
+      messages: $messages,
+    });
+
+    // Listen for messages from background.js
+    getResponsePort.onMessage.addListener(async function (response) {
+      if (response.message && $messages.length > 0) {
+        $messages = $messages.map((m) => {
+          if (m.id === response.message.id) {
+            m.text = response.message.text;
+          }
+          return m;
+        });
+      }
+
+      if (response.message && response.message === "done") {
+        isGeneratingText = false;
+        if ($isScrollOn && !$isVoiceOn) {
+          scrollToBottom();
+        }
+
+        await cleanUpMessages();
+
+        if ($isVoiceOn) {
+          const lastItem = $messages.at($messages.length - 1);
+          await startSpeech(lastItem);
+        }
+        getResponsePort.onMessage.removeListener(this);
+      }
+    });
+
+    await emptyTextarea();
+  };
+
   const sendMessageOnClick = async () => {
+    if (!$queryText.trim()) return;
     isGeneratingText = true;
     $searchQuery = "";
 
@@ -112,10 +169,16 @@
             const lastItem = $messages.at($messages.length - 1);
             await startSpeech(lastItem);
           }
+
+          if ($botModel.id === "youtube") {
+            await youtubeSecondGeneration(tempQueryText);
+          }
+          getResponsePort.onMessage.removeListener(this);
         }
       });
 
       await emptyTextarea();
+      // youtubeSecondGeneration = false;
     } catch (error) {
       isGeneratingText = false;
       $queryText = errSavedText;
@@ -185,6 +248,9 @@
     sendResponse
   ) {
     try {
+      if (Browser.runtime.lastError) {
+        return;
+      }
       // Check if the message contains a command
       if (request?.command === "toggle-sidebar") {
         const result = await Browser.storage.local.get(["messages"]);
@@ -219,7 +285,7 @@
         $incomingSpeechItems = $incomingSpeechItems;
       }
     } catch (error) {
-      // console.log(error, error.message, error.code);
+      console.log(error);
     }
   });
 
@@ -332,10 +398,13 @@
 
   const scrollToBottom = () => {
     const container = document.querySelector("#chat-results");
-
-    if (container) {
+    if (container && !isScrolling) {
+      isScrolling = true;
       // Scroll to the bottom of the container
-      container.scrollTop = container.scrollHeight;
+      setTimeout(() => {
+        container.scrollTop = container.scrollHeight;
+        isScrolling = false;
+      }, 100);
     }
   };
 
@@ -372,6 +441,9 @@
           action={async () => {
             isGeneratingText = false;
             $incomingSpeechItems = [];
+            getResponsePort = Browser.runtime.connect({
+              name: ConnectWith.getResponse,
+            });
             getResponsePort.postMessage({
               type: ConnectWith.stopGenerating,
             });
@@ -382,9 +454,15 @@
         <GenerationActionBtn
           isStop={isGeneratingText}
           action={async () => {
+            getResponsePort = Browser.runtime.connect({
+              name: ConnectWith.getResponse,
+            });
+            getResponsePort.postMessage({
+              type: ConnectWith.resetConversation,
+            });
             $messages[$messages.length - 1].new = true;
             await cleanUpMessages();
-            location.reload();
+            // location.reload();
           }}
         />
       {/if}
@@ -402,7 +480,7 @@
       </button>
 
       {#if showModel}
-        <div class=" absolute bottom-0 left-0 pb-8">
+        <div class=" absolute bottom-0 left-0 pb-10">
           <Model {closeWindow} />
         </div>
       {/if}
@@ -419,7 +497,7 @@
       </button>
 
       {#if showTemplate}
-        <div class=" absolute bottom-0 right-0 z-50 pb-8">
+        <div class=" absolute bottom-0 right-0 z-50 pb-10">
           <Template {closeWindow} />
         </div>
       {/if}
@@ -450,14 +528,14 @@
       </div>
       {#if isGeneratingText}
         <button
-          class="bg-blue-500 dark:bg-blue-600 animate-pulse outline-none text-sm border-0 rounded w-7 h-7 text-white flex justify-center items-center"
+          class="submit-btn animate-pulse outline-none text-sm border-0 rounded w-7 h-7 text-white flex justify-center items-center"
         >
           <i class="fa-solid fa-paper-plane" />
         </button>
       {:else}
         <button
           on:click={sendMessageOnClick}
-          class="bg-blue-500 dark:bg-blue-600 hover:bg-blue-600 hover:dark:bg-blue-500 outline-none text-sm border-0 rounded w-7 h-7 text-white flex justify-center items-center"
+          class="submit-btn dark:bg-blue-600 hover:from-blue-500 hover:to-pink-500 outline-none text-sm border-0 rounded w-7 h-7 text-white flex justify-center items-center"
         >
           <i class="fa-solid fa-paper-plane" />
         </button>
@@ -469,5 +547,9 @@
 <style lang="postcss" scoped>
   .align-center {
     @apply flex items-center space-x-1 py-1 px-2;
+  }
+
+  .submit-btn {
+    @apply bg-gradient-to-b from-blue-600 to-pink-600;
   }
 </style>

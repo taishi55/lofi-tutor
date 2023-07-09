@@ -83,6 +83,7 @@ export type SystemType = {
   copy: string;
   code: string;
   highlight: string;
+  article: string;
   addNew: string;
   save: string;
   delete: string;
@@ -91,6 +92,8 @@ export type SystemType = {
   writePrompt: string;
   askAbout: string;
   table:  string;
+  youtubeExtract: string;
+  youtubePrompt: string;
   menu: {
     home: string;
     readmap: string;
@@ -106,6 +109,7 @@ export type SystemType = {
     };
     chatgpt: {
       session: string;
+      length: string;
     };
     bard: {
       session: string;

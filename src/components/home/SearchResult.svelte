@@ -8,7 +8,7 @@
 
 <div class="wrapper">
   <!-- bookmark results -->
-  <div class="px-4">
+  <div class="px-4 space-y-2">
     {#if $messages.length > 0}
       <SearchInput
         on:input={(e) => {
@@ -36,7 +36,7 @@
     @apply flex flex-col space-y-2 h-full overflow-y-auto text-sm;
   }
   .scroll-container {
-    @apply flex flex-col-reverse scroll-smooth h-full overflow-y-auto pb-6;
+    @apply flex flex-col-reverse scroll-smooth h-full overflow-y-auto pb-8;
   }
   ::-webkit-scrollbar {
     display: none;

@@ -49,6 +49,6 @@
   justify-content: center !important;
 }
 
-::-webkit-scrollbar {
+.sidebar-iframe::-webkit-scrollbar {
   display: none;
 }

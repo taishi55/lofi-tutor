@@ -6,7 +6,6 @@
   import Emotion from "./Emotion.svelte";
   import { isGirlTalking } from "../../../store";
   import LiveIcon from "./LiveIcon.svelte";
-  // import YoutubePlayButton from "./YoutubePlayButton.svelte";
 
   let isHovered = false;
   let isExpanded = false;
@@ -27,7 +26,7 @@
     <div
       on:mouseenter={mouseenter}
       on:mouseleave={mouseleave}
-      class="relative mt-3"
+      class="relative"
       transition:slide={{ duration: 400, easing: cubicInOut }}
     >
       <video
@@ -61,7 +60,7 @@
         <div class="absolute bottom-0 left-0 w-full p-2 z-30">
           <div class="flex justify-between items-center">
             <SoundVolume />
-            <!-- <YoutubePlayButton /> -->
+
             <Emotion />
           </div>
         </div>

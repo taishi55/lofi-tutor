@@ -23,7 +23,7 @@
 }
 
 .common-menu-icon {
-  @apply bg-black/10 dark:bg-slate-500 hover:dark:bg-slate-400 hover:bg-black/20 rounded w-7 h-7 flex justify-center items-center;
+  @apply bg-purple-950/10 dark:bg-slate-500 hover:dark:bg-slate-400 hover:bg-purple-950/20 rounded w-7 h-7 flex justify-center items-center;
 }
 
 .message-bg {
@@ -31,7 +31,7 @@
 }
 
 .code-bg {
-  @apply rounded-md text-sm pb-3 !max-w-sm sm:!max-w-[38rem] !overflow-x-auto transition-all duration-700 ease-in-out bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-white/90;
+  @apply rounded-md text-sm pb-3 !max-w-sm sm:!max-w-[38rem] !overflow-x-auto transition-all duration-700 ease-in-out bg-slate-200 dark:bg-slate-900 text-slate-800 dark:text-white/90;
 }
 
 .code-pre {

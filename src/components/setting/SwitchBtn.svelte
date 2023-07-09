@@ -21,7 +21,7 @@
           class="font-semibold bg-slate-200 dark:bg-slate-600 text-base !px-3 !py-1 rounded-md w-fit"
         >
           {#if stitch}
-            <i class="fa-solid fa-square-check" />
+            <i class="fa-solid fa-square-check text-blue-600" />
           {:else}
             <i class="fa-regular fa-square-minus" />
           {/if}

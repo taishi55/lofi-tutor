@@ -1,5 +1,5 @@
 import Browser from "webextension-polyfill";
-import { currentTabId, isYoutubeVideoId } from ".";
+import { currentTabId } from ".";
 
 /** Dispatch event on click outside of node */
 export function clickOutside(node: HTMLElement | null): any {
@@ -49,7 +49,7 @@ export const getRandomMusic = () => {
     "https://stream.mubert.com/b2b/v2?playlist=6.3&intensity=medium&pat=bXViZXJ0Zm9yc3RyZWFtZXJzLjE4NjgxNzM5LjAzZTgxNTg5NzJmMWMzM2IxM2Y2ZDVlOWQ2ZWI3MTdkYTNkOTM3NTcuMS4z.08deb4725ee7f6ef03af2e32710389590d00a48e6d3380897b448242675b72d9",
     "https://stream.mubert.com/b2b/v2?playlist=6.4.3&intensity=medium&pat=bXViZXJ0Zm9yc3RyZWFtZXJzLjE4NjgxNzM5LjAzZTgxNTg5NzJmMWMzM2IxM2Y2ZDVlOWQ2ZWI3MTdkYTNkOTM3NTcuMS4z.08deb4725ee7f6ef03af2e32710389590d00a48e6d3380897b448242675b72d9",
     "https://stream.mubert.com/b2b/v2?playlist=6.4.0&intensity=medium&pat=bXViZXJ0Zm9yc3RyZWFtZXJzLjE4NjgxNzM5LjAzZTgxNTg5NzJmMWMzM2IxM2Y2ZDVlOWQ2ZWI3MTdkYTNkOTM3NTcuMS4z.08deb4725ee7f6ef03af2e32710389590d00a48e6d3380897b448242675b72d9",
-    "https://stream.mubert.com/b2b/v2?playlist=6.4.3&intensity=medium&pat=bXViZXJ0Zm9yYnVzaW5lc3MuMTkxNjA2ODEuMGJmNTQ4NmZlYjU0MmVlY2FiNjZiYTFlZWM1MDNhYWExZDA1MmYzMi4xLjM.802748dcd7ba181d437963b37b2448a0c125ba720b7a45b3fa364268b7aac3ac"
+    "https://stream.mubert.com/b2b/v2?playlist=6.4.3&intensity=medium&pat=bXViZXJ0Zm9yYnVzaW5lc3MuMTkxNjA2ODEuMGJmNTQ4NmZlYjU0MmVlY2FiNjZiYTFlZWM1MDNhYWExZDA1MmYzMi4xLjM.802748dcd7ba181d437963b37b2448a0c125ba720b7a45b3fa364268b7aac3ac",
   ];
 
   // Generate a random index within the bounds of the array
@@ -75,11 +75,6 @@ export const muteNonActiveTabs = async () => {
   await Browser.runtime.sendMessage(message);
 };
 
-function getYouTubeVideoId(url: string) {
-  var videoId = "";
-  var match = url.match(/(?:[?&]|\b)v=([ &]+)/i);
-  if (match) {
-    videoId = match[1];
-  }
-  return videoId;
-}
+export const getYoutubeIframe = (videoId: string) => {
+  return `<iframe width="100%" style="aspect-ratio: 16 / 9;" src="https://www.youtube.com/embed/${videoId}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
+};

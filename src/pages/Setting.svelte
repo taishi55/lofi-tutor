@@ -136,7 +136,7 @@
     <Selection
       label={customLang[$currentLocale].system.voice}
       type={currentLang}
-      modelName={customLang[$currentLocale].system.voice}
+      modelName={`${customLang[$currentLocale].system.voice} / Language`}
       items={customLang[$currentLocale].langs.map((item) => ({
         name: item.lang,
         value: item.code,

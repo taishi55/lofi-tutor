@@ -3,8 +3,10 @@
   export let toggleExpand = () => {};
 </script>
 
-<div class=" flex justify-center text-xs w-full">
-  <button on:click={toggleExpand} class="w-full flex justify-center pt-2">
+<div
+  class=" flex justify-center text-xs w-full bg-purple-950/10 dark:bg-slate-600 rounded-full"
+>
+  <button on:click={toggleExpand} class="w-full flex justify-center">
     {#if isExpanded}
       <svg
         xmlns="http://www.w3.org/2000/svg"

@@ -47,7 +47,7 @@
 </script>
 
 <SearchInput on:input={(e) => searchQueryTemplates.set(String(e.detail))} />
-<div class="overflow-y-auto h-80">
+<div class="overflow-y-auto h-72">
   <div class="pb-2" />
   {#each $templateItems.filter((item) => item.label
         .toLowerCase()

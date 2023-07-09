@@ -70,10 +70,10 @@
       class="text-base mt-6 mx-auto max-w-sm text-center space-y-2"
     >
       <div>
-        I'm the developer behind the development of this entire extension. I
-        would also like to give thanks the talented freelancers who created the
-        awesome animations featured in the Lofi Tutor character. <br />Connect
-        with me on
+        I am the developer who has worked on the development of this entire
+        extension. Are you interested in building a successful Chrome extension?
+        With my assistance, you have everything you need. <br />Connect with me
+        on
         <a
           href="https://www.linkedin.com/in/taishi-nammoto/"
           target="_blank"
