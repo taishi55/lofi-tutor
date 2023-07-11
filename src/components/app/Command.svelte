@@ -17,6 +17,8 @@
       {/if}
     </div>
     <div>+</div>
+    <div>Shift</div>
+    <div>+</div>
     <div class="pl-1">{key2}</div>
   </div>
 </div>

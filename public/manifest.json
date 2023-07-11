@@ -36,8 +36,8 @@
   "commands": {
     "toggle-sidebar": {
       "suggested_key": {
-        "default": "Alt+X",
-        "mac": "Command+X"
+        "default": "Alt+Shift+X",
+        "mac": "Command+Shift+X"
       },
       "description": "Open or close the sidebar"
     }
