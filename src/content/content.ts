@@ -92,7 +92,7 @@ async function toggleSidebar() {
     } else {
       // open
       sidebar.style.display = "block";
-      reinitialize();
+      // reinitialize();
       setTimeout(() => {
         sidebar.style.right = "0px";
       }, 50);
