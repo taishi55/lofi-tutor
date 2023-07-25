@@ -7,7 +7,7 @@ import { parseSSEResponse } from "../../utils/sse";
 import { AbstractBot, type SendMessageParams } from "../abstract-bot";
 import { chatGPTClient } from "./client";
 import type { ResponseContent } from "./types";
-import { getSearchResults } from "./youtube";
+import { getSearchResults, type VideoResult } from "./youtube";
 
 function removeCitations(text: string) {
   return text.replace(/\u3010\d+\u2020source\u3011/g, "");
@@ -217,6 +217,7 @@ export class YoutubeWebBot extends AbstractBot {
   private videoIds?: string;
   private youtubeExtract = "";
   private youtubePrompt = "";
+  private isSpecificVideo = false;
 
   constructor() {
     super();
@@ -260,6 +261,7 @@ export class YoutubeWebBot extends AbstractBot {
         "conversationContextChatGPT",
         "cachedModelNamesChatGPT",
         "youtubeQueryWords",
+        "videoId",
       ]);
       const resultLang = await Browser.storage.sync.get("langOption");
       let defaultLang = "en-US";
@@ -305,12 +307,20 @@ export class YoutubeWebBot extends AbstractBot {
       ];
       this.isGenerating = false;
       this.videoIds = "";
-      if (result?.youtubeQueryWords) {
+      if (result?.youtubeQueryWords || result?.videoId) {
         this.isGenerating = true;
         await Browser.storage.local.set({
           youtubeQueryWords: "",
+          videoId: "",
         });
-        const results = await getSearchResults(result.youtubeQueryWords);
+        let results: VideoResult[];
+        if (result?.videoId && !result.youtubeQueryWords) {
+          this.isSpecificVideo = true;
+          results = await getSearchResults(result.videoId, true);
+        } else {
+          this.isSpecificVideo = false;
+          results = await getSearchResults(result.youtubeQueryWords);
+        }
         this.queryWords = "";
         messages = [];
         for (let index = 0; index < results.length; index++) {
@@ -401,7 +411,9 @@ export class YoutubeWebBot extends AbstractBot {
             conversationId: data.conversation_id,
             lastMessageId: data.message.id,
           };
-          this.queryWords = text;
+          if (!this.isSpecificVideo) {
+            this.queryWords = text;
+          }
           params.onEvent({
             type: "UPDATE_ANSWER",
             data: {
@@ -417,11 +429,13 @@ export class YoutubeWebBot extends AbstractBot {
         await Browser.storage.local.set({
           conversationContextChatGPT: undefined,
           youtubeQueryWords: "",
+          videoId: "",
         });
       } else {
         await Browser.storage.local.set({
           conversationContextChatGPT: undefined,
           youtubeQueryWords: this.queryWords,
+          videoId: "",
         });
       }
     } catch (error) {

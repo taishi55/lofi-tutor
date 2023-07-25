@@ -16,9 +16,6 @@ Browser.runtime.onMessage.addListener(async function (
   sendResponse
 ) {
   try {
-    if (Browser.runtime.lastError) {
-      return;
-    }
     // Check if the message contains a command
     if (request?.command === "toggle-sidebar") {
       await toggleSidebar();
@@ -85,10 +82,10 @@ async function toggleSidebar() {
     sidebar.style.width = `${sidebarWidth}vw`;
     if (sidebar.style.right === "0px" || sidebar.style.display === "block") {
       // close sidebar
-      sidebar.style.right = `-100%`;
+      sidebar.style.right = `-${sidebarWidth}vw`;
       setTimeout(() => {
         sidebar.style.display = "none";
-      }, 500);
+      }, 450);
     } else {
       // open
       sidebar.style.display = "block";
@@ -126,6 +123,7 @@ function createSidebar() {
   sidebar.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;";
   sidebar.src = Browser.runtime.getURL("./index.html");
   sidebar.classList.add("sidebar-iframe");
+  sidebar.style.right = `-${sidebarWidth}vw`;
   sidebarContainer.appendChild(sidebar);
 
   document.body.appendChild(sidebarContainer);

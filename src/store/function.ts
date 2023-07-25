@@ -78,3 +78,13 @@ export const muteNonActiveTabs = async () => {
 export const getYoutubeIframe = (videoId: string) => {
   return `<iframe width="100%" style="aspect-ratio: 16 / 9;" src="https://www.youtube.com/embed/${videoId}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
 };
+
+export function getYouTubeVideoID(url: string): string | null {
+    const regex = /(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+    const match = url.match(regex);
+    if (match && match[2].length == 11) {
+        return match[2];
+    } else {
+        return null;
+    }
+}

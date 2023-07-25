@@ -28,32 +28,45 @@ const getHTML = async (url: string) => {
   return await response.text();
 };
 
-export const getSearchResults = async (query: string) => {
-  let baseUrl = `https://www.youtube.com/results?search_query=${query}`;
-
-  const html = await getHTML(baseUrl);
+export const getSearchResults = async (
+  query: string,
+  isSpecificVideo = false
+) => {
   let searchResults = [];
   let videoResults = [];
   let startIndex = 0;
   let endIndex = 0;
 
-  const maxResults = 10;
+  if (!isSpecificVideo) {
+    let baseUrl = `https://www.youtube.com/results?search_query=${query}`;
 
-  for (let i = 0; i < maxResults; i++) {
-    startIndex = html.indexOf('{"videoRenderer":', endIndex);
-    if (startIndex === -1) break;
-    endIndex = html.indexOf('},{"videoRenderer"', startIndex);
-    try {
-      searchResults.push(JSON.parse(html.substring(startIndex, endIndex + 1)));
-    } catch (error) {
-      // error
+    const html = await getHTML(baseUrl);
+
+    const maxResults = 10;
+
+    for (let i = 0; i < maxResults; i++) {
+      startIndex = html.indexOf('{"videoRenderer":', endIndex);
+      if (startIndex === -1) break;
+      endIndex = html.indexOf('},{"videoRenderer"', startIndex);
+      try {
+        searchResults.push(
+          JSON.parse(html.substring(startIndex, endIndex + 1))
+        );
+        videoResults = await fetchTranscripts(searchResults.slice(0, 6));
+      } catch (error) {
+        // error
+      }
     }
+  } else {
+    const videoId = query;
+    searchResults = [1];
+    videoResults = await fetchTranscripts(searchResults, videoId);
   }
-  videoResults = await fetchTranscripts(searchResults.slice(0, 6));
+
   return videoResults as VideoResult[];
 };
 
-interface VideoResult {
+export interface VideoResult {
   id: string;
   title: string;
   transcript: string;
@@ -115,7 +128,8 @@ const fetchTranscript = async (
 };
 
 const fetchTranscripts = async (
-  results: ResultEntry[]
+  results: ResultEntry[],
+  videoInputId = ""
 ): Promise<VideoResult[]> => {
   let threshold = 3000;
   let maxLength = 6;
@@ -125,12 +139,21 @@ const fetchTranscripts = async (
     maxLength = 3;
   }
   const videoPromises = results.map(async (result) => {
-    const videoId = result?.videoRenderer?.videoId;
-    const title = result?.videoRenderer?.title?.runs?.at(0)?.text;
-    if (videoId && title) {
-      return fetchTranscript(videoId, title, threshold);
+    if (videoInputId) {
+      const videoId = videoInputId;
+      const title = "";
+      if (videoId) {
+        return fetchTranscript(videoId, title, threshold);
+      }
+      return null;
+    } else {
+      const videoId = result?.videoRenderer?.videoId;
+      const title = result?.videoRenderer?.title?.runs?.at(0)?.text;
+      if (videoId && title) {
+        return fetchTranscript(videoId, title, threshold);
+      }
+      return null;
     }
-    return null;
   });
 
   const videoResults = await Promise.all(videoPromises);

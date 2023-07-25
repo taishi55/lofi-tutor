@@ -25,7 +25,7 @@
       {
         title: customLang[$currentLocale].system.toggle,
         key1: "Alt",
-        key2: "x",
+        key2: "K",
       },
     ];
   };

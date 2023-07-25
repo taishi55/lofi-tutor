@@ -27,13 +27,15 @@
   import { get } from "svelte/store";
   import Browser from "webextension-polyfill";
   import type { ChatMessageModel } from "../../chat/types";
-  import { delayAsync } from "../../store/function";
+  import { delayAsync, getYouTubeVideoID } from "../../store/function";
   import { customLang } from "../../store/lang";
   import { currentLocale } from "../../store/";
 
   let showTemplate = false;
   let showModel = false;
   let isScrolling = false;
+  let youtubeUrl = "";
+  let isYoutubeUrlValid = false;
 
   let closeWindow = () => {
     showTemplate = false;
@@ -49,6 +51,14 @@
     // If the Shift key or any key other than Enter is pressed, do nothing and return
     if (event.shiftKey || event.key !== "Enter" || !$queryText.trim()) return;
     await sendMessageOnClick();
+  };
+
+  const checkValidYoutubeUrl = () => {
+    if (getYouTubeVideoID(youtubeUrl)) {
+      isYoutubeUrlValid = true;
+    } else {
+      isYoutubeUrlValid = false;
+    }
   };
 
   const youtubeSecondGeneration = async (tempQueryText: string) => {
@@ -113,6 +123,15 @@
     isGeneratingText = true;
     $searchQuery = "";
 
+    let videoUrlSpecified = false;
+    if (youtubeUrl && isYoutubeUrlValid && $botModel.id === "youtube") {
+      videoUrlSpecified = true;
+      const videoId = getYouTubeVideoID(youtubeUrl);
+      await Browser.storage.local.set({ videoId });
+      youtubeUrl = "";
+      isYoutubeUrlValid = false;
+    }
+
     getResponsePort = Browser.runtime.connect({
       name: ConnectWith.getResponse,
     });
@@ -126,8 +145,20 @@
       $generatingMessageId = uuid();
 
       $messages.push(
-        { id: uuid(), text: tempQueryText, author: "user", new: false },
-        { id: $generatingMessageId, text: "", author: $botModel.id, new: false }
+        {
+          id: uuid(),
+          text: youtubeUrl
+            ? `${youtubeUrl}\n\n${tempQueryText}`
+            : tempQueryText,
+          author: "user",
+          new: false,
+        },
+        {
+          id: $generatingMessageId,
+          text: "",
+          author: $botModel.id,
+          new: false,
+        }
       );
       $messages = $messages;
 
@@ -170,7 +201,7 @@
             await startSpeech(lastItem);
           }
 
-          if ($botModel.id === "youtube") {
+          if ($botModel.id === "youtube" && !videoUrlSpecified) {
             await youtubeSecondGeneration(tempQueryText);
           }
           getResponsePort.onMessage.removeListener(this);
@@ -239,7 +270,8 @@
       (m, index) => !ids.includes(m.id, index + 1) && m.text.trim()
     );
     $messages = $messages.slice(-100);
-    await Browser.storage.local.set({ messages: $messages });
+    youtubeUrl = "";
+    await Browser.storage.local.set({ messages: $messages, videoId: "" });
   };
 
   Browser.runtime.onMessage.addListener(async function (
@@ -248,9 +280,6 @@
     sendResponse
   ) {
     try {
-      if (Browser.runtime.lastError) {
-        return;
-      }
       // Check if the message contains a command
       if (request?.command === "toggle-sidebar") {
         const result = await Browser.storage.local.get(["messages"]);
@@ -506,6 +535,32 @@
   <div class="  transition-all duration-500 ease-in-out">
     <div class=" flex items-end space-x-2 flex-nowrap">
       <div class="flex-1 relative">
+        {#if $botModel.id === "youtube"}
+          <div class="w-full my-1">
+            <div class="text-xs opacity-70">Video URL (Optional):</div>
+            <div class="relative">
+              {#if isYoutubeUrlValid && youtubeUrl}
+                <i
+                  class="fa-solid fa-circle-check text-green-600 text-base absolute top-1/2 -translate-y-1/2 right-2"
+                />
+              {:else if !isYoutubeUrlValid && youtubeUrl}
+                <i
+                  class="fa-solid fa-circle-xmark text-red-600 text-base absolute top-1/2 -translate-y-1/2 right-2"
+                />
+              {/if}
+              <input
+                type="text"
+                class="input-textarea"
+                bind:value={youtubeUrl}
+                on:change={checkValidYoutubeUrl}
+                on:keyup={checkValidYoutubeUrl}
+                disabled={isGeneratingText}
+                placeholder="https://www.youtube.com/watch?v=6WAEVBUsGIk"
+              />
+            </div>
+          </div>
+          <div class="text-xs opacity-70">Prompt:</div>
+        {/if}
         <textarea
           placeholder={customLang[$currentLocale].system.askAbout}
           use:autosize

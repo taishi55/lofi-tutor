@@ -19,8 +19,7 @@ try {
       };
       if (tab.id && tab.url && isValidPage(tab.url)) {
         await sendMessageToActiveTab(message);
-      }
-      if (!isValidPage(tab.url)) {
+      } else {
         const newTab = await Browser.tabs.create({
           url: "https://chatgpt-phantom.vercel.app",
         });
@@ -40,9 +39,6 @@ try {
   /********** install event **********/
   Browser.runtime.onInstalled.addListener(async (details) => {
     try {
-      if (Browser.runtime.lastError) {
-        return;
-      }
       if (details.reason === "install") {
         await Browser.storage.sync.set({
           voiceSwitch: false,
@@ -73,9 +69,6 @@ try {
     sendResponse
   ) {
     try {
-      if (Browser.runtime.lastError) {
-        return;
-      }
       // get speech text from client
       if (request?.clientRequest && request?.item) {
         await sendMessageToHiddenTab(
@@ -110,14 +103,8 @@ try {
 
   Browser.runtime.onConnect.addListener(function (port: Browser.Runtime.Port) {
     try {
-      if (Browser.runtime.lastError) {
-        return;
-      }
       if (port?.name && port.name === ConnectWith.getResponse) {
         port.onMessage.addListener(async function (message) {
-          if (Browser.runtime.lastError) {
-            return;
-          }
           if (message.type === ConnectWith.getResponse) {
             await getResponse(
               port,
